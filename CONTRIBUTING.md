@@ -38,6 +38,8 @@ See [Resources](#resources) section for more information on Angular CLI.
 
 #### Set up instructions
 
+This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data as explained [here](https://www.youtube.com/v/k1D0_wFlXgo?start=60&end=104&autoplay=1).
+
 [Fork](https://help.github.com/articles/fork-a-repo/) the main [Veinapp repository](https://github.com/adab1ts/veinapp.git) from GitHub and then...
 
 ```shell
@@ -61,6 +63,10 @@ git branch -vv
 
 # Install project dependencies:
 npm install
+
+# Edit Firebase configuration file and update it with your data
+cp src/config/firebase.{ts.sample,ts}
+vi src/config/firebase.ts
 
 # Run tests:
 ng test
@@ -174,6 +180,8 @@ git pull --ff upstream master
 ## Resources
 
 * [The Ultimate Angular CLI Reference Guide](https://www.sitepoint.com/ultimate-angular-cli-reference/)
+* [Contributing to Open Source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
+* [Forking Projects](https://guides.github.com/activities/forking/)
 * [Thoughtbot Git Protocol](https://github.com/thoughtbot/guides/blob/master/protocol/git)
 * [Thoughtbot Open Source Protocol](https://github.com/thoughtbot/guides/blob/master/protocol/open-source)
 * [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message)
