@@ -4,8 +4,16 @@ import {MapzenGeocodeService} from './mapzen-geocode.service';
 
 @NgModule()
 export class ServicesModule {
-  providers: [
-    GeocodeService,
-    MapzenGeocodeService
-    ];
+
+  // TODO - provide in the corresponding module when created,
+  // not the root module
+  static forRoot() {
+    return {
+      ngModule: ServicesModule,
+      providers: [
+        GeocodeService,
+        MapzenGeocodeService
+      ]
+    };
+  };
 }

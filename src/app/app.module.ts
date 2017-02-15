@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { CovalentCoreModule } from '@covalent/core';
+
+import './rxjs-extensions';
+
 import {ServicesModule} from './services/services.module';
 
 import { AppComponent } from './app.component';
@@ -18,7 +22,8 @@ import { firebaseConfig } from '../config/firebase';
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    ServicesModule
+    ServicesModule.forRoot(),
+    CovalentCoreModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
