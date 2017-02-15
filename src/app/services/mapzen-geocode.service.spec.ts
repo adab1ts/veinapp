@@ -1,21 +1,19 @@
 /* tslint:disable:no-unused-variable */
 
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed, inject, fakeAsync} from '@angular/core/testing';
+import {HttpModule, Http, BaseRequestOptions, ResponseOptions, Response} from '@angular/http';
+import {MockBackend} from '@angular/http/testing';
 import {MapzenGeocodeService, MAPZEN_BASE_URL} from './mapzen-geocode.service';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {HttpModule, Http, BaseRequestOptions, ResponseOptions, Response} from '@angular/http';
-import {MockBackend} from '@angular/http/testing';
 
 describe('MapzenGeocodeService', () => {
-
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        {provide: MAPZEN_BASE_URL, useValue: 'https://search.mapzen.com/v1/search'},
+        {provide: MAPZEN_BASE_URL, useValue: 'http://veinapp.test.coop'},
         MapzenGeocodeService,
         {
           provide: Http,
@@ -31,7 +29,7 @@ describe('MapzenGeocodeService', () => {
   });
 
   it('should return an Observable with an array with longitude and latitude',
-    inject([MapzenGeocodeService, MockBackend], (mapzenService, mockBackend) => {
+    fakeAsync(inject([MapzenGeocodeService, MockBackend], (mapzenService, mockBackend) => {
 
       const mockResponse = {
         features: [{geometry: {coordinates: [2.175945, 41.429682]}}]
@@ -43,11 +41,11 @@ describe('MapzenGeocodeService', () => {
         })));
       });
 
-      mapzenService.getGeocoding().subscribe((coords) => {
+      mapzenService.getGeocoding('Mock Street').subscribe((coords) => {
         expect(coords.length).toBe(2);
         expect(coords[0]).toEqual(2.175945);
         expect(coords[1]).toEqual(41.429682);
       });
-    }));
+    })));
 
 });

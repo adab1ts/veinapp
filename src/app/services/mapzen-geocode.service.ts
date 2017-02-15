@@ -43,7 +43,12 @@ export class MapzenGeocodeService implements Geocode {
 
   }
 
-  handleError(error: any) {
+  /**
+   * handle http.get error
+   * @param error
+   * @returns {ErrorObservable<T>}
+   */
+  private handleError(error: any) {
     const errResponse = error.json().geocoding;
     const errMsg = errResponse.errors ? errResponse.errors[0] : 'Mapzen search server error';
     return Observable.throw(errMsg);
