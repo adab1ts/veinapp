@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
-import {GeocodeService} from './geocode.service';
-import {MapzenGeocodeService} from './mapzen-geocode.service';
+
+import {GeocodeService} from './geocode.services/geocode.service';
+import {MapzenGeocodeService} from './geocode.services/mapzen-geocode.service';
 
 @NgModule()
 export class ServicesModule {

@@ -1,16 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Geocode, MAPZEN_API_KEY} from './geocode';
 import {Http, URLSearchParams, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
-export const MAPZEN_BASE_URL = 'https://search.mapzen.com/v1/search';
-export const SEARCH_PARAMS = {
-  'boundary.country': 'ES',
-  'sources': 'oa',
-  'layers': 'address',
-  'size': '1',
-  'api_key': MAPZEN_API_KEY
-};
+import {Geocode} from './geocode';
+import {SEARCH_PARAMS, MAPZEN_BASE_URL} from './mapzen.config';
 
 @Injectable()
 export class MapzenGeocodeService implements Geocode {
