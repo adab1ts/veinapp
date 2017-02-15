@@ -29,6 +29,10 @@ npm install
 cp src/config/firebase.{ts.sample,ts}
 vi src/config/firebase.ts
 
+# Edit Mapzen configuration file and update it with your data
+cp src/config/mapzen.{ts.sample,ts}
+vi src/config/mapzen.ts
+
 # Run the development server:
 ng serve
 ```
