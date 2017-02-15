@@ -1,6 +1,7 @@
-import {Injectable, ComponentFactoryResolver} from '@angular/core';
-import {MapzenGeocodeService} from './mapzen-geocode.service';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+
+import {MapzenGeocodeService} from './mapzen-geocode.service';
 
 @Injectable()
 export class GeocodeService {

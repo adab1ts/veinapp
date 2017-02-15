@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 
 import {TestBed, inject, fakeAsync} from '@angular/core/testing';
-import {GeocodeService} from './geocode.service';
 import {MockBackend} from '@angular/http/testing';
 import {BaseRequestOptions, Response, ResponseOptions, Http} from '@angular/http';
+import {GeocodeService} from './geocode.service';
 import {MapzenGeocodeService} from './mapzen-geocode.service';
 
 describe('GeocodeService', () => {
@@ -29,7 +29,11 @@ describe('GeocodeService', () => {
     fakeAsync(inject([GeocodeService, MockBackend], (geocodeService, mockBackend) => {
 
       const mockResponse = {
-        features: [{geometry: {coordinates: [4.432421, 44.765565]}}]
+        features: [{
+          geometry: {
+            coordinates: [4.432421, 44.765565]
+          }
+        }]
       };
 
       mockBackend.connections.subscribe((connection) => {

@@ -3,10 +3,11 @@
 import {TestBed, inject, fakeAsync} from '@angular/core/testing';
 import {HttpModule, Http, BaseRequestOptions, ResponseOptions, Response} from '@angular/http';
 import {MockBackend} from '@angular/http/testing';
-import {MapzenGeocodeService, MAPZEN_BASE_URL} from './mapzen-geocode.service';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {MapzenGeocodeService} from './mapzen-geocode.service';
+import {MAPZEN_BASE_URL} from './mapzen.config';
 
 describe('MapzenGeocodeService', () => {
   beforeEach(() => {
@@ -32,7 +33,11 @@ describe('MapzenGeocodeService', () => {
     fakeAsync(inject([MapzenGeocodeService, MockBackend], (mapzenService, mockBackend) => {
 
       const mockResponse = {
-        features: [{geometry: {coordinates: [2.175945, 41.429682]}}]
+        features: [{
+          geometry: {
+            coordinates: [2.175945, 41.429682]
+          }
+        }]
       };
 
       mockBackend.connections.subscribe((connection) => {
