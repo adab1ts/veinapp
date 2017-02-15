@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class GeocodeService {
 
-  constructor(private geocodeService: MapzenGeocodeService) { }
+  constructor(private mzGeocodoService: MapzenGeocodeService) { }
 
   /**
    * Returns coords [long, lat]
@@ -13,7 +13,7 @@ export class GeocodeService {
    * @returns {Observable<number[]>}
    */
   getCoords (address: string): Observable<number[]> {
-    return this.geocodeService.getGeocoding(address);
+    return this.mzGeocodoService.getGeocoding(address);
   }
 
   getAddress (lat: number, long: number) {
