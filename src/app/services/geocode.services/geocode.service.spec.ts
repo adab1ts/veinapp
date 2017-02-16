@@ -3,6 +3,7 @@
 import {TestBed, inject, fakeAsync} from '@angular/core/testing';
 import {MockBackend} from '@angular/http/testing';
 import {BaseRequestOptions, Response, ResponseOptions, Http} from '@angular/http';
+
 import {GeocodeService} from './geocode.service';
 import {MapzenGeocodeService} from './mapzen-geocode.service';
 

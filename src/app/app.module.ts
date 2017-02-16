@@ -8,9 +8,7 @@ import { CovalentCoreModule } from '@covalent/core';
 import './rxjs-extensions';
 
 import {ServicesModule} from './services/services.module';
-
 import { AppComponent } from './app.component';
-
 import { firebaseConfig } from '../config/firebase';
 
 @NgModule({
