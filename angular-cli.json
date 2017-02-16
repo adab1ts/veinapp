@@ -24,7 +24,7 @@
         "../node_modules/@covalent/core/common/platform.css"
       ],
       "scripts": [
-        "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
