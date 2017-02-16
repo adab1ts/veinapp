@@ -3,7 +3,7 @@ import {Http, URLSearchParams, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Geocode} from './geocode';
-import {SEARCH_PARAMS, MAPZEN_BASE_URL} from './mapzen.config';
+import {SEARCH_PARAMS, MAPZEN_BASE_URL} from '../../../config/mapzen.config';
 
 @Injectable()
 export class MapzenGeocodeService implements Geocode {
