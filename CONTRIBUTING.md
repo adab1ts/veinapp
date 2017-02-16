@@ -64,9 +64,38 @@ git branch -vv
 # Install project dependencies:
 npm install
 
-# Edit Firebase configuration file and update it with your data
+# Edit Firebase configuration files and update it with your data
 cp src/config/firebase.{ts.sample,ts}
 vi src/config/firebase.ts
+
+cp src/config/firebase.{ts.sample,prod.ts}
+vi src/config/firebase.prod.ts
+
+# To populate firebase with the list of places and their coordinates:
+# 1. Add your places data in JSON format at db/data/places.json following this structure:
+#    [{
+#      "name": "the name",
+#      "address": "the address",
+#      "zip": "00000",
+#      "city": "the city",
+#      "latitude": "00.00000",
+#      "longitude": "00.00000",
+#      "telephone": "999 999 999",
+#      "email": "email@email.com",
+#      "web": "www.the-web.com"
+#     },
+#     ...
+#    ]
+
+# 2. In your console at the application root execute the following script
+#    (inspect the code to see how to populate your production datastore):
+npm run db:populate
+
+# 3. In firebase console go to the rules tab in your project view
+#    and add the following rule in order to index and have better querys:
+#    "coords": {
+#      ".indexOn": ["g"]
+#    }
 
 # Run tests:
 ng test

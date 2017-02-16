@@ -44,3 +44,7 @@ Thumbs.db
 # Config data
 /src/config/*
 !/src/config/*.sample
+
+# DB data
+/db/data/*
+!/db/data/*.sample
