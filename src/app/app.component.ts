@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import { GeocodeService } from './geo/geo.module';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CurrentSearchState } from './state-management/states/current-search-state';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,17 @@ import { GeocodeService } from './geo/geo.module';
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
-  coords: number[] = [];
+  currentSearchData$;
 
-  constructor(private geocodeService: GeocodeService) {
+  constructor(private store: Store<CurrentSearchState>) {
+    this.currentSearchData$ = this.store.select('CurrentSearchReducer');
   }
 
   ngOnInit() {
-    this.geocodeService.getCoords('Carrer de la Jota 55, Barcelona')
-      .subscribe(
-        data => this.coords = data,
-        error => console.error(error)
-      );
+    this.store.dispatch({
+      type: 'CHANGE_SEARCH_FROM_ADDRESS',
+      payload: {address: 'Carrer de la Jota 66, Barcelona'}
+    });
   }
 
 }

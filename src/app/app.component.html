@@ -1,4 +1,5 @@
 <h1>
   {{title}}
 </h1>
-<div>Coords: {{ coords }}
+<div>Coords: {{currentSearchData$ | async | json}}
+</div>
