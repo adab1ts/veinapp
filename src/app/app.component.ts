@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CurrentSearchState } from './state-management/states/current-search-state';
+
+import { RESET_RESULT_STATE } from './state-management/actions/result-action';
+import { CHANGE_SEARCH_FROM_ADDRESS } from './state-management/actions/current-search-action';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +12,32 @@ import { CurrentSearchState } from './state-management/states/current-search-sta
 export class AppComponent implements OnInit {
   title = 'app works!';
   currentSearchData$;
+  resultData$;
 
-  constructor(private store: Store<CurrentSearchState>) {
+  constructor(private store: Store<any>) {
     this.currentSearchData$ = this.store.select('CurrentSearchReducer');
+    this.resultData$ = this.store.select('ResultReducer');
   }
 
   ngOnInit() {
+
+  }
+
+  search(input) {
+    if (!input.value) {
+      return;
+    }
+
     this.store.dispatch({
-      type: 'CHANGE_SEARCH_FROM_ADDRESS',
-      payload: {address: 'Carrer de la Jota 66, Barcelona'}
+      type: RESET_RESULT_STATE,
+      payload: {noResults: false}
     });
+    this.store.dispatch({
+      type: CHANGE_SEARCH_FROM_ADDRESS,
+      payload: {address: input.value}
+    });
+
+    input.value = '';
   }
 
 }

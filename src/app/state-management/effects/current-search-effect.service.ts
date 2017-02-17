@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { GeocodeService } from '../../services/geocode.services/geocode.service';
 import { Observable } from 'rxjs/Observable';
-import { CHANGE_CURRENT_SEARCH_FROM_ADDRESS, CHANGE_SEARCH_FROM_ADDRESS } from '../actions/current-search-action';
+
+import { GeocodeService } from '../../services/geocode.services/geocode.service';
+import {
+  CHANGE_CURRENT_SEARCH_FROM_ADDRESS, CHANGE_SEARCH_FROM_ADDRESS,
+} from '../actions/current-search-action';
+import { WARN_NO_RESULT } from '../actions/result-action';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -14,6 +18,12 @@ export class CurrentSearchEffectService {
       this.geocodeService.getCoords(payload.address)
     )
     .switchMap(result => {
+      if (result['noResults']) {
+        return Observable.of({
+          type: WARN_NO_RESULT,
+          payload: result
+        });
+      }
       return Observable.of({
         type: CHANGE_CURRENT_SEARCH_FROM_ADDRESS,
         payload: result

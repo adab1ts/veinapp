@@ -1,5 +1,8 @@
 <h1>
   {{title}}
 </h1>
+<input type="text" #address>
+<button (click)="search(address)">Search</button>
 <div>Coords: {{currentSearchData$ | async | json}}
 </div>
+<p>Result: {{resultData$ | async | json}}</p>
