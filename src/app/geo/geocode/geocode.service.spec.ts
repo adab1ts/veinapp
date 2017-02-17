@@ -46,8 +46,8 @@ describe('GeocodeService', () => {
 
       geocodeService.getCoords(address).subscribe((searchState) => {
         expect(searchState.address).toEqual(address);
-        expect(searchState.lat).toEqual(4.432421);
-        expect(searchState.long).toEqual(44.765565);
+        expect(searchState.long).toEqual(4.432421);
+        expect(searchState.lat).toEqual(44.765565);
       });
     })));
 });

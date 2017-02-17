@@ -50,8 +50,8 @@ describe('MapzenGeocodeService', () => {
       mapzenService.getGeocoding(address)
         .subscribe((result) => {
           expect(result.address).toEqual(address);
-          expect(result.lat).toEqual(2.175945);
-          expect(result.long).toEqual(41.429682);
+          expect(result.long).toEqual(2.175945);
+          expect(result.lat).toEqual(41.429682);
         });
     })));
 
