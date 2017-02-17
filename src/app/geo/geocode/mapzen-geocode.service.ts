@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-
-import {Geocode} from './geocode';
-import {SEARCH_PARAMS, MAPZEN_BASE_URL} from '../../../config/mapzen.config';
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Geocode } from './geocode';
+import { SEARCH_PARAMS, MAPZEN_BASE_URL } from '../../../config/mapzen.config';
+import { CurrentSearchState } from '../../state-management/states/current-search-state';
 
 @Injectable()
 export class MapzenGeocodeService implements Geocode {
@@ -15,7 +15,7 @@ export class MapzenGeocodeService implements Geocode {
    * @param address
    * @returns {Observable<number[]>}
    */
-  getGeocoding(address: string): Observable<number[]> {
+  getGeocoding(address: string): Observable<CurrentSearchState> {
     const params: URLSearchParams = new URLSearchParams();
     for (const key in SEARCH_PARAMS) {
       if (SEARCH_PARAMS.hasOwnProperty(key)) {
@@ -25,11 +25,16 @@ export class MapzenGeocodeService implements Geocode {
     }
     params.set('text', address);
 
-    return this.http.get(MAPZEN_BASE_URL, {search: params}).map(
-      (response: Response) => {
-        return response.json().features[0].geometry.coordinates;
-      }
-    ).catch(this.handleError);
+    return this.http.get(MAPZEN_BASE_URL, {search: params})
+      .map((response: Response) => {
+        const coords = response.json().features[0].geometry.coordinates;
+        return {
+          address: address,
+          lat: coords[0],
+          long: coords[1]
+        };
+
+      }).catch(this.handleError);
   }
 
   getReverseGeocoding(lat: number, long: number) {
