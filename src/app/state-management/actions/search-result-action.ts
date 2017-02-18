@@ -5,5 +5,5 @@
 // **
 // Reducer actions
 // **
-export const WARN_NO_RESULT = 'WARN_NO_RESULT';
-export const RESET_RESULT_STATE = 'RESET_RESULT_STATE';
+export const WARN_NO_SEARCH_RESULT = 'WARN_NO_SEARCH_RESULT';
+export const RESET_SEARCH_RESULT_STATE = 'RESET_SEARCH_RESULT_STATE';

@@ -14,7 +14,7 @@ import { firebaseConfig } from '../config/firebase';
 import { GeoModule } from './geo/geo.module';
 import { CurrentSearchReducer } from './state-management/reducers/current-search-reducer';
 import { CurrentSearchEffectService } from './state-management/effects/current-search-effect.service';
-import { ResultReducer } from './state-management/reducers/result-reducer';
+import { SearchResultReducer } from './state-management/reducers/search-result-reducer';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { ResultReducer } from './state-management/reducers/result-reducer';
     GeoModule,
     StoreModule.provideStore({CurrentSearchReducer}),
     EffectsModule.run(CurrentSearchEffectService),
+    // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],

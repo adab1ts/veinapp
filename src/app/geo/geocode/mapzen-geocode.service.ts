@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { Geocode } from './geocode';
 import { SEARCH_PARAMS, MAPZEN_BASE_URL } from '../../../config/mapzen.config';
-import { CurrentSearchState } from '../../state-management/states/current-search-state';
-import { ResultsState } from '../../state-management/states/result-state';
 
 @Injectable()
 export class MapzenGeocodeService implements Geocode {
@@ -18,7 +16,7 @@ export class MapzenGeocodeService implements Geocode {
    * @param address
    * @returns {Observable<number[]>}
    */
-  getGeocoding(address: string): Observable<CurrentSearchState | ResultsState> {
+  getGeocoding(address: string): Observable<any> {
     const params: URLSearchParams = new URLSearchParams();
     for (const key in SEARCH_PARAMS) {
       if (SEARCH_PARAMS.hasOwnProperty(key)) {
