@@ -8,7 +8,7 @@ class CurrentSearchActions {
   }
 
   changeFromName() {
-    return Object.assign({}, this.state, this.action.payload || this.state);
+    return Object.assign({}, this.state, this.action.payload);
   }
 }
 

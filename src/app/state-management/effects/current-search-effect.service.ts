@@ -3,8 +3,9 @@ import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
 import { GeocodeService } from '../../services/geocode.services/geocode.service';
-import { CHANGE_CURRENT_SEARCH_FROM_ADDRESS, CHANGE_SEARCH_FROM_ADDRESS } from '../actions/current-search-action';
-import { WARN_NO_SEARCH_RESULT } from '../actions/search-result-action';
+import { CHANGE_SEARCH_FROM_ADDRESS, changeCurrentSearchFromAddress } from '../actions/current-search-action';
+import { warnSearchResult } from '../actions/search-result-action';
+import { SearchingStates } from '../states/search-result-state';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -15,17 +16,13 @@ export class CurrentSearchEffectService {
     .switchMap(payload =>
       this.geocodeService.getCoords(payload.address)
     )
-    .switchMap(result => {
-      if (result['noResults']) {
-        return Observable.of({
-          type: WARN_NO_SEARCH_RESULT,
-          payload: result
-        });
+    .switchMap(response => {
+      if (response['noResults']) {
+        return Observable.of(warnSearchResult(SearchingStates.HasNoresults));
       }
-      return Observable.of({
-        type: CHANGE_CURRENT_SEARCH_FROM_ADDRESS,
-        payload: result
-      });
+      const change$ = Observable.of(changeCurrentSearchFromAddress(response));
+      const hasResults$ = Observable.of(warnSearchResult(SearchingStates.HasResults));
+      return Observable.merge(change$, hasResults$);
     });
 
   constructor(private action$: Actions,
