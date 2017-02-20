@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import { GeocodeService } from './geo/geo.module';
 
