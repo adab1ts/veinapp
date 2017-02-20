@@ -10,7 +10,7 @@ describe('CurrentSearchEffectService', () => {
     });
   });
 
-  // it('should ...', inject([CurrentSearchEffectService], (service: CurrentSearchEffectService) => {
-  //   expect(service).toBeTruthy();
-  // }));
+  xit('should ...', inject([CurrentSearchEffectService], (service: CurrentSearchEffectService) => {
+    expect(service).toBeTruthy();
+  }));
 });

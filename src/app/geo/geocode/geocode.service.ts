@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { MapzenGeocodeService } from './mapzen-geocode.service';
-import { CurrentSearchState } from '../../state-management/states/current-search-state';
 
 @Injectable()
 export class GeocodeService {
@@ -11,12 +10,12 @@ export class GeocodeService {
   }
 
   /**
-   * Returns coords [long, lat]
-   * @param address
-   * @returns {Observable<number[]>}
+   * Returns search Result {address, long, lat} or if no result {boolean}
+   * @param searchResult
+   * @returns {Observable<any | boolean>}
    */
-  getCoords(address: string) {
-    return this.mzGeocodoService.getGeocoding(address);
+  getCoords(searchResult: any) {
+    return this.mzGeocodoService.getGeocoding(searchResult);
   }
 
   getAddress(lat: number, long: number) {

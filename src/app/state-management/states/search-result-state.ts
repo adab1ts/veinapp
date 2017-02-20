@@ -1,7 +1,7 @@
 export enum SearchingStates {
   Waiting,
   HasResults,
-  HasNoresults
+  HasNoResults
 }
 export interface SearchResultState {
   result: SearchingStates;
