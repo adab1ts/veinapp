@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { GeocodeService } from '../../services/geocode.services/geocode.service';
 import { CHANGE_SEARCH_FROM_ADDRESS, changeCurrentSearchFromAddress } from '../actions/current-search-action';
 import { warnSearchResult } from '../actions/search-result-action';
 import { SearchingStates } from '../states/search-result-state';
+import { GeocodeService } from '../../geo/geo.module';
 
 @Injectable()
 export class CurrentSearchEffectService {

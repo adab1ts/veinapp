@@ -25,9 +25,8 @@ import { SearchResultReducer } from './state-management/reducers/search-result-r
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
-    StoreModule.provideStore({CurrentSearchReducer, ResultReducer}),
     GeoModule,
-    StoreModule.provideStore({CurrentSearchReducer}),
+    StoreModule.provideStore({CurrentSearchReducer, SearchResultReducer}),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension()
