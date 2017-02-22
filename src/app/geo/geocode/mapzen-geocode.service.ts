@@ -14,7 +14,7 @@ export class MapzenGeocodeService implements Geocode {
   /**
    * Returns coords [long, lat]
    * @param address
-   * @returns {Observable<number[]>}
+   * @returns {Observable<any>}
    */
   getGeocoding(address: string): Observable<any> {
     const params: URLSearchParams = new URLSearchParams();

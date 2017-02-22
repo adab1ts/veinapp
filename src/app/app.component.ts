@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { changeSearchFromAddress } from './state-management/actions/current-search-action';
 import { SearchingStates } from './state-management/states/search-result-state';
-import { warnSearchResult } from './state-management/actions/search-result-action';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +9,6 @@ import { warnSearchResult } from './state-management/actions/search-result-actio
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
   currentSearchData$;
   resultData;
 
@@ -23,17 +20,5 @@ export class AppComponent {
       );
   }
 
-  search(input) {
-    const address = input.value;
-    if (!address) {
-      return;
-    }
 
-    this.store
-      .dispatch(warnSearchResult(SearchingStates.Waiting));
-    this.store
-      .dispatch(changeSearchFromAddress(address));
-
-    input.value = '';
-  }
 }
