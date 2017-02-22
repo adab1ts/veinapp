@@ -1,7 +1,14 @@
 <td-layout>
   <div td-toolbar-content>
     <app-geo-header></app-geo-header>
+    <div style="display: block; height: 5px;">
+      <md-progress-bar *ngIf="resultData === 'Waiting'"
+                       color="primary"
+                       mode="buffer">
+      </md-progress-bar>
+    </div>
   </div>
+  <h1>{{ title }}</h1>
   <div>Coords: {{ currentSearchData$ | async | json }}
   </div>
   <p>Result: {{ resultData }}</p>
