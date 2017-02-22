@@ -9,6 +9,7 @@ import { SearchingStates } from './state-management/states/search-result-state';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title = 'app works!';
   currentSearchData$;
   resultData;
 
@@ -19,6 +20,5 @@ export class AppComponent {
         this.resultData = SearchingStates[status['result']]
       );
   }
-
 
 }

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 
 @Component({
   selector: 'app-input-search',
@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 })
 export class InputSearchComponent {
   @Output() onSearch = new EventEmitter();
+  @Input() state;
   @ViewChild('searchInput') input;
 
   search() {
