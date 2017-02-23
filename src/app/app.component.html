@@ -12,5 +12,6 @@
   <div>Coords: {{ currentSearchData$ | async | json }}
   </div>
   <p>Result: {{ resultData }}</p>
-
+  <p>User location: {{ coords.lat }} {{coords.long}}</p>
+  <p>User location error: {{ error }}</p>
 </td-layout>
