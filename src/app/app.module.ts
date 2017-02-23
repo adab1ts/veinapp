@@ -24,11 +24,11 @@ import { GeoHeaderModule } from './geo-header/geo-header.module';
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
-    GeoModule,
     StoreModule.provideStore({CurrentSearchReducer, SearchResultReducer}),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    GeoModule,
     GeoHeaderModule
   ],
   providers: [],

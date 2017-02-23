@@ -1,17 +1,15 @@
-<td-layout>
+<md-sidenav-layout fullscreen>
   <div td-toolbar-content>
-    <app-geo-header></app-geo-header>
+      <app-geo-header></app-geo-header>
+  </div>
     <div style="display: block; height: 5px;">
       <md-progress-bar *ngIf="resultData === 'Waiting'"
-                       color="primary"
-                       mode="buffer">
+                       color="accent"
+                       mode="indeterminate">
       </md-progress-bar>
     </div>
-  </div>
   <h1>{{ title }}</h1>
   <div>Coords: {{ currentSearchData$ | async | json }}
   </div>
   <p>Result: {{ resultData }}</p>
-  <p>User location: {{ coords.lat }} {{coords.long}}</p>
-  <p>User location error: {{ error }}</p>
-</td-layout>
+</md-sidenav-layout>
