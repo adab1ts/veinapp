@@ -6,9 +6,15 @@ import { Component, Output, EventEmitter, ViewChild, Input } from '@angular/core
   styleUrls: [ './input-search.component.scss' ]
 })
 export class InputSearchComponent {
-  @Output() onSearch = new EventEmitter();
-  @Input() state;
   @ViewChild('searchInput') input;
+  @Output() onSearch = new EventEmitter();
+  @Input() set address(address: string) {
+    this.input.value = address;
+  };
+  @Input() set focus(focus: boolean) {
+    const inputDirective = this.input._input;
+    if (focus) { inputDirective.focus(); }
+  };
 
   search() {
     const val = this.input.value;

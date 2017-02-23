@@ -1,11 +1,10 @@
 <md-toolbar color="primary">
-    <button md-icon-button (click)="search()">
-      <md-icon>search</md-icon>
-    </button>
-    <td-search-input #searchInput backIcon="arrow_back"
-                     placeholder="Fes una cerca"
-                     [showUnderline]="false"
-                     (search)="search()">
-    </td-search-input>
-  {{state}}
+  <button md-icon-button (click)="search()">
+    <md-icon>search</md-icon>
+  </button>
+  <td-search-input #searchInput backIcon="arrow_back"
+                   placeholder="Fes una cerca"
+                   [showUnderline]="false"
+                   (search)="search()">
+  </td-search-input>
 </md-toolbar>

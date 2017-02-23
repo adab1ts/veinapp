@@ -1,3 +1,16 @@
-<app-input-search [state]="resultData" (onSearch)="search($event)"></app-input-search>
-<!--TODO - geocoding-->
-<!--TODO - branding-->
+<md-toolbar color="primary">
+  <md-toolbar color="primary" flex="40">
+    <app-input-search flex="85"
+                      [focus]="doFocus"
+                      [address]="geoAddress"
+                      (onSearch)="search($event)">
+    </app-input-search>
+    <app-geolocator flex="15"
+                    (onGeolocate)="geolocate()">
+    </app-geolocator>
+  </md-toolbar>
+  <!--TODO radius component-->
+  <div flex="30">radius buttons</div>
+  <!--TODO branding component-->
+  <div flex="30">confavc</div>
+</md-toolbar>

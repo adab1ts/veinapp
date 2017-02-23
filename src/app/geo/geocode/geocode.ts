@@ -1,6 +1,10 @@
+export interface Coords {
+  lat: number;
+  long: number;
+}
+
 export interface Geocode {
   key?: string;
   getGeocoding(address: string): any;
-  getReverseGeocoding(lat: number, long: number): any;
+  getReverseGeocoding(coords): any;
 }
-
