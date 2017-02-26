@@ -1,16 +1,31 @@
 <md-toolbar color="primary">
-  <md-toolbar color="primary" flex="40">
-    <app-input-search flex="85"
-                      [focus]="doFocus"
-                      [address]="geoAddress"
-                      (onSearch)="search($event)">
-    </app-input-search>
-    <app-geolocator flex="15"
-                    (onGeolocate)="geolocate()">
-    </app-geolocator>
-  </md-toolbar>
-  <!--TODO radius component-->
-  <div flex="30">radius buttons</div>
-  <!--TODO branding component-->
-  <div flex="30">confavc</div>
+  <div layout="row" layout-fill
+       layout-wrap layout-align="center center">
+    <div flex="100" layout="row"
+         layout-align="center center"
+         flex-gt-md="40" flex-gt-xs="60">
+      <app-input-search layout="row" flex="80"
+                        layout-align="center center"
+                        [focus]="doFocus"
+                        [address]="geoAddress"
+                        (onSearch)="search($event)">
+      </app-input-search>
+      <app-geolocator flex="20"
+      (onGeolocate)="geolocate()">
+      </app-geolocator>
+    </div>
+
+    <!--TODO radius component-->
+    <div flex="100"
+         flex-gt-md="30" flex-gt-xs="40"
+         style="background-color: #8a8a8a">
+      radius buttons x x x
+    </div>
+    <!--TODO branding component-->
+    <div flex-gt-xs="30"
+         hide show-gt-md
+         style="background-color: #ee3e3d">
+      confavc
+    </div>
+  </div>
 </md-toolbar>

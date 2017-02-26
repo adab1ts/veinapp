@@ -11,9 +11,8 @@ import { GeolocationService, GeocodeService } from '../geo/geo.module';
   styleUrls: [ './geo-header.component.scss' ]
 })
 export class GeoHeaderComponent {
-  @Output() geoAddress = '';
-  @Output() inputActive = true;
-  @Output() doFocus = false;
+  geoAddress = '';
+  doFocus = false;
 
   constructor(private store: Store<any>,
               private geolocationService: GeolocationService,
@@ -29,6 +28,8 @@ export class GeoHeaderComponent {
   }
 
   geolocate() {
+    this.geoAddress = '';
+    this.doFocus = false;
     this.store
       .dispatch(warnSearchResult(SearchingStates.Waiting));
 

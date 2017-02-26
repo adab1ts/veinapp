@@ -1,0 +1,17 @@
+@media (max-width: 960px) {
+  md-toolbar {
+    min-height: 64px;
+    /deep/ md-toolbar-row {
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  md-toolbar {
+    min-height: 87px;
+    /deep/ md-toolbar-row {
+      height: auto;
+    }
+  }
+}
