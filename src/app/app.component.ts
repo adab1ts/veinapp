@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SearchingStates } from './state-management/states/search-result-state';
-import { GeolocationService, GeocodeService } from './geo/geo.module';
 
 @Component({
   selector: 'app-root',

@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+
 import { MapzenGeocodeService } from './mapzen-geocode.service';
 import { MAPZEN_SEARCH_URL } from '../../../config/mapzen.config';
 
@@ -29,27 +30,31 @@ describe('MapzenGeocodeService', () => {
     });
   });
 
+  // mocked data
+  const geoData = {
+    address: 'Mock Street', lat: 41.429682, long: 2.175945
+  };
+  const mockReverseGeocodingResponse = {
+    features: [ { properties: { label: 'Mock Street' } } ]
+  };
+  const mockGeocodingResponse = {
+    features: [ { geometry: { coordinates: [ 2.175945, 41.429682 ] } } ]
+  };
+  const mockEmptyResponse = { features: [] };
+
+
   it('should return an object with address, lat and long attributes',
     (inject([ MapzenGeocodeService, MockBackend ], (mapzenService, mockBackend) => {
 
-      const address = 'Mock Street';
-      const mockResponse = {
-        features: [ {
-          geometry: {
-            coordinates: [ 2.175945, 41.429682 ]
-          }
-        } ]
-      };
-
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body: JSON.stringify(mockGeocodingResponse)
         })));
       });
 
-      mapzenService.getGeocoding(address)
+      mapzenService.getGeocoding(geoData.address)
         .subscribe((result) => {
-          expect(result.address).toEqual(address);
+          expect(result.address).toEqual('Mock Street');
           expect(result.long).toEqual(2.175945);
           expect(result.lat).toEqual(41.429682);
         });
@@ -58,20 +63,15 @@ describe('MapzenGeocodeService', () => {
   it('should return an object with no results when geocoding returns no valid result',
     (inject([ MapzenGeocodeService, MockBackend ], (mapzenService, mockBackend) => {
 
-      const address = 'Mock Street';
-      const mockResponse = {
-        features: []
-      };
-
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body: JSON.stringify(mockEmptyResponse)
         })));
       });
 
-      mapzenService.getGeocoding(address)
+      mapzenService.getGeocoding(geoData.address)
         .subscribe((result) => {
-          expect(result.noResults).toBeTruthy();
+          expect(result).toBeFalsy();
           expect(result.address).toBeUndefined();
           expect(result.long).toBeUndefined();
           expect(result.lat).toBeUndefined();
@@ -82,50 +82,30 @@ describe('MapzenGeocodeService', () => {
   it('should return a object with address attribute',
     (inject([ MapzenGeocodeService, MockBackend ], (mapzenService, mockBackend) => {
 
-      const coords = {
-        lat: 41.429682,
-        long: 2.175945
-      };
-      const mockResponse = {
-        features: [ {
-          properties: {
-            label: 'Mock St'
-          }
-        } ]
-      };
-
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body: JSON.stringify(mockReverseGeocodingResponse)
         })));
       });
 
-      mapzenService.getReverseGeocoding(coords)
+      mapzenService.getReverseGeocoding(geoData)
         .subscribe((result) => {
-          expect(result.address).toEqual('Mock St');
+          expect(result.address).toEqual('Mock Street');
         });
     })));
 
   it('should return an object with no results when reverse geocoding returns no valid result',
     (inject([ MapzenGeocodeService, MockBackend ], (mapzenService, mockBackend) => {
 
-      const coords = {
-        lat: 41.429682,
-        long: 2.175945
-      };
-      const mockResponse = {
-        features: []
-      };
-
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body: JSON.stringify(mockEmptyResponse)
         })));
       });
 
-      mapzenService.getReverseGeocoding(coords)
+      mapzenService.getReverseGeocoding(geoData)
         .subscribe((result) => {
-          expect(result.noResults).toBeTruthy();
+          expect(result).toBeFalsy();
           expect(result.address).toBeUndefined();
         });
     })));

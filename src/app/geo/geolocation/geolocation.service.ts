@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+
 import { WindowRefService } from '../windowRef/window-ref.service';
 
 export const GEOLOCATION_ERRORS = {

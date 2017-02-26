@@ -16,7 +16,7 @@ export class CurrentSearchEffectService {
       this.geocodeService.getCoords(payload.address)
     )
     .switchMap(response => {
-      if (response['noResults']) {
+      if (!response) {
         return Observable
           .of(warnSearchResult(SearchingStates.HasNoResults));
       }

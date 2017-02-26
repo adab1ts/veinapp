@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
+
 import { WindowRefService } from './window-ref.service';
 
 describe('WindowRefService', () => {
@@ -10,7 +11,7 @@ describe('WindowRefService', () => {
     });
   });
 
-  it('should ...', inject([WindowRefService], (service: WindowRefService) => {
+  it('should expect the service exists', inject([WindowRefService], (service: WindowRefService) => {
     expect(service).toBeTruthy();
   }));
 });
