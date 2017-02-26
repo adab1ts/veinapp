@@ -1,5 +1,7 @@
-export const MAPZEN_API_KEY = 'YOUR-MAPZEN-KEY';
-export const MAPZEN_BASE_URL = 'https://search.mapzen.com/v1/search';
+const MAPZEN_API_KEY = 'YOUR-MAPZEN-KEY';
+const MAPZEN_BASE_URL = 'https://search.mapzen.com/v1';
+export const MAPZEN_SEARCH_URL = `${MAPZEN_BASE_URL}/search`;
+export const MAPZEN_REVERSE_URL = `${MAPZEN_BASE_URL}/reverse`;
 export const SEARCH_PARAMS = {
   'boundary.country': 'ES',
   'sources': 'oa',

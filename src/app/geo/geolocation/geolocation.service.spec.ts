@@ -1,10 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
-import { GeolocationService, GEOLOCATION_ERRORS } from './geolocation.service';
-import { WindowRefService } from '../windowRef/window-ref.service';
+import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { Response, ResponseOptions } from '@angular/http';
+
+import { WindowRefService } from '../windowRef/window-ref.service';
+import { GeolocationService, GEOLOCATION_ERRORS } from './geolocation.service';
 
 describe('GeolocationService', () => {
   beforeEach(() => {

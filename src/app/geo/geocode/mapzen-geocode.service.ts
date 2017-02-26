@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import { Geocode, Coords } from './geocode';
 import { SEARCH_PARAMS, MAPZEN_SEARCH_URL, MAPZEN_REVERSE_URL } from '../../../config/mapzen.config';
 
@@ -15,44 +16,45 @@ export class MapzenGeocodeService implements Geocode {
    * @param address
    * @returns {Observable<any>}
    */
-  getGeocoding(address: string): Observable<any> {
-    const params: URLSearchParams = this.setSearchParameters({ 'text': address });
+  getGeocoding(address: string) {
+    const params: URLSearchParams = this.setSearchParameters(
+      SEARCH_PARAMS, { 'text': address });
 
-    return this.http.get(MAPZEN_SEARCH_URL, { search: params })
-      .map((response: Response) => {
-        if (response.json().features.length) {
-          const coords = response.json().features[ 0 ].geometry.coordinates;
-          return {
-            address: address,
-            lat: coords[ 1 ],
-            long: coords[ 0 ]
-          };
-        }
-
+    return this.getCall(MAPZEN_SEARCH_URL, params)
+      .map(result => {
+        if (!result) { return false; }
+        const coords = result[ 'geometry' ][ 'coordinates' ];
         return {
-          noResults: true
+          address: address,
+          lat: coords[ 1 ],
+          long: coords[ 0 ]
         };
-      }).catch(this.handleError);
+      });
   }
 
   getReverseGeocoding(coords: Coords): Observable<any> {
     const params: URLSearchParams = this.setSearchParameters(
+      SEARCH_PARAMS,
       { 'point.lat': coords.lat.toString() },
-      { 'point.lon': coords.long.toString() }
-    );
+      { 'point.lon': coords.long.toString() });
 
-    return this.http.get(MAPZEN_REVERSE_URL, { search: params })
+    return this.getCall(MAPZEN_REVERSE_URL, params)
+      .map(result => {
+        return result ?
+          { address: result[ 'properties' ][ 'label' ] } : false;
+      });
+  }
+
+  /**
+   * call http get Mapzen
+   * @param url
+   * @param params
+   * @returns {Observable<R>}
+   */
+  private getCall(url: string, params: URLSearchParams) {
+    return this.http.get(url, { search: params })
       .map((response: Response) => {
-        if (response.json().features.length) {
-          const address = response.json().features[ 0 ].properties.label;
-          return {
-            address: address
-          };
-        }
-
-        return {
-          noResults: true
-        };
+        return response.json().features[ 0 ];
       }).catch(this.handleError);
   }
 
@@ -72,12 +74,6 @@ export class MapzenGeocodeService implements Geocode {
    */
   private setSearchParameters(...more) {
     const params: URLSearchParams = new URLSearchParams();
-    for (const key in SEARCH_PARAMS) {
-      if (SEARCH_PARAMS.hasOwnProperty(key)) {
-        const val = SEARCH_PARAMS[ key ];
-        params.set(key, val);
-      }
-    }
     more.forEach((item) => {
       Object.keys(item).forEach((key) => {
         params.set(key, item[ key ]);
