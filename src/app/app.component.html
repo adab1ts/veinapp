@@ -1,7 +1,6 @@
-<md-sidenav-layout fullscreen>
-  <div td-toolbar-content>
-      <app-geo-header></app-geo-header>
-  </div>
+<md-sidenav-container fullscreen>
+    <app-geo-header></app-geo-header>
+
     <div style="display: block; height: 5px;">
       <md-progress-bar *ngIf="resultData === 'Waiting'"
                        color="accent"
@@ -12,4 +11,4 @@
   <div>Coords: {{ currentSearchData$ | async | json }}
   </div>
   <p>Result: {{ resultData }}</p>
-</md-sidenav-layout>
+</md-sidenav-container>
