@@ -33,6 +33,24 @@ vi src/config/firebase.ts
 cp src/config/mapzen.{ts.sample,ts}
 vi src/config/mapzen.ts
 
+# To populate firebase with the list of places and their coordenates:
+- Add your places data in JSON format at data/places.json following this structure:
+[{
+    "name":"",
+    "address":"",
+    "zip":"",
+    "city":"",
+    "latitude":"",
+    "longitude":"",
+    "telephone":"",
+    "email":"",
+    "web":""
+  },
+  ...
+]
+- In your console at the application root execute the following script: 
+npm run db:populate
+
 # Run the development server:
 ng serve
 ```
