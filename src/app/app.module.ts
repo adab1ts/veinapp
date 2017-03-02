@@ -24,7 +24,10 @@ import { GeoHeaderModule } from './geo-header/geo-header.module';
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
-    StoreModule.provideStore({CurrentSearchReducer, SearchResultReducer}),
+    StoreModule.provideStore({
+      currentSearch: CurrentSearchReducer,
+      searchResult: SearchResultReducer
+    }),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),

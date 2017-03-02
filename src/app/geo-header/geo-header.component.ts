@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { warnSearchResult } from '../state-management/actions/search-result-action';
 import { SearchingStates } from '../state-management/states/search-result-state';
@@ -24,7 +24,7 @@ export class GeoHeaderComponent {
     this.store
       .dispatch(warnSearchResult(SearchingStates.Waiting));
     this.store
-      .dispatch(changeSearchFromAddress($value));
+      .dispatch(changeSearchFromAddress({address: $value}));
   }
 
   geolocate() {
