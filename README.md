@@ -50,7 +50,11 @@ vi src/config/mapzen.ts
 ]
 - In your console at the application root execute the following script: 
 npm run db:populate
-
+- In firebase console go to the rules tab in your project view and add the following rule in order to index and have better querys:
+"coords": {
+      ".indexOn": ["g"]
+    }
+    
 # Run the development server:
 ng serve
 ```

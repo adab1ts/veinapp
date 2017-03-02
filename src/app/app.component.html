@@ -7,8 +7,17 @@
                        mode="indeterminate">
       </md-progress-bar>
     </div>
-  <h1>{{ title }}</h1>
-  <div>Coords: {{ currentSearchData$ | async | json }}
+
+  <div>{{ currentCenter.address }} ({{ currentCenter.lat }} , {{ currentCenter.long }})
   </div>
-  <p>Result: {{ resultData }}</p>
+  <p>{{ resultData }}</p>
+  <button (click)="changeRadius(0.5)">500 mts</button>
+  <button (click)="changeRadius(1)">1 km</button>
+  <button (click)="changeRadius(2)">2 kms</button>
+  <ul>
+    <h2>Places in {{currentCenter.radius}} kms</h2>
+    <li *ngFor="let place of currentCenter.placesList">
+      {{place.name}} {{place.distance}} km away
+    </li>
+  </ul>
 </md-sidenav-container>
