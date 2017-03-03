@@ -8,3 +8,10 @@ export interface Geocode {
   getGeocoding(address: string): any;
   getReverseGeocoding(coords): any;
 }
+
+export interface GeocodeResult {
+  address: string;
+  lat: number;
+  long: number;
+  radius?: number;
+}

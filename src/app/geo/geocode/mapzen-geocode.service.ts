@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { Geocode, Coords } from './geocode';
+import { Geocode, Coords, GeocodeResult } from './geocode';
 import { SEARCH_PARAMS, MAPZEN_SEARCH_URL, MAPZEN_REVERSE_URL } from '../../../config/mapzen.config';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class MapzenGeocodeService implements Geocode {
    * @param address
    * @returns {Observable<any>}
    */
-  getGeocoding(address: string) {
+  getGeocoding(address: string): Observable<GeocodeResult | boolean> {
     const params: URLSearchParams = this.setSearchParameters(
       SEARCH_PARAMS, { 'text': address });
 

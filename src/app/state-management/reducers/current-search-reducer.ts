@@ -17,7 +17,7 @@ class CurrentSearchActions {
 
   removePlace() {
     return Object.assign({}, this.state, this.state, {
-      placesList: this.state.placesList.filter(place => place.$key !== this.action.payload.key)
+      placesList: this.state.placesList.filter(place => place.$key !== this.action.payload.$key)
     });
   }
 }

@@ -5,9 +5,9 @@ export interface GeosearchParams {
 }
 export interface GeosearchResult {
   $key: string;
-  name: string;
-  location: number[];
-  distance: number;
+  name?: string;
+  location?: number[];
+  distance?: number;
   action: string;
   address?: string;
   email?: string;

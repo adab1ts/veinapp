@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-
 import {
   CHANGE_SEARCH_FROM_ADDRESS,
   DO_GEO_SEARCH,
@@ -43,10 +41,6 @@ export class CurrentSearchEffectService {
   @Effect() updateGeoSearch$ = this.action$
     .ofType(DO_GEO_SEARCH)
     .map(toPayload)
-    .withLatestFrom(this.store, (payload, state) => {
-      payload.radius = state.currentSearch.radius;
-      return payload;
-    })
     .switchMap(payload => this.geosearchingService.getPlaces(payload))
     .switchMap(response => {
       // TODO check if it exists a better rxjs operator option
@@ -59,7 +53,6 @@ export class CurrentSearchEffectService {
     });
 
   constructor(private action$: Actions,
-              private store: Store<any>,
               private geocodeService: GeocodeService,
               private geosearchingService: GeosearchingService) {
   }

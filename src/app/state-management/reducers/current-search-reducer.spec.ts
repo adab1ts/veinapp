@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { INITIAL_CURRENT_SEARCH_STATE } from '../states/current-search-state';
-import { CHANGE_CURRENT_SEARCH_FROM_ADDRESS } from '../actions/current-search-action';
+import { CHANGE_CURRENT_SEARCH } from '../actions/current-search-action';
 import { CurrentSearchReducer } from './current-search-reducer';
 
 describe('The Current Search Reducer', () => {
@@ -21,7 +21,7 @@ describe('The Current Search Reducer', () => {
       lat: 41.3874990
     };
     const actual = CurrentSearchReducer(state, {
-      type: CHANGE_CURRENT_SEARCH_FROM_ADDRESS,
+      type: CHANGE_CURRENT_SEARCH,
       payload: state
     });
 

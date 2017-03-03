@@ -1,13 +1,17 @@
-<md-sidenav-container fullscreen>
-    <app-geo-header></app-geo-header>
+<td-layout-nav>
+  <!-- main geo-header => input-search | geocoder | radius btns | branding -->
+  <app-geo-header td-toolbar-content
+                  layout-fill
+                  layout-wrap
+                  layout="row"
+                  layout-align="center center" flex>
 
-    <div style="display: block; height: 5px;">
-      <md-progress-bar *ngIf="resultData === 'Waiting'"
-                       color="accent"
-                       mode="indeterminate">
-      </md-progress-bar>
-    </div>
-
+  </app-geo-header>
+  <md-progress-bar *ngIf="resultData === 'Waiting'"
+                   color="accent"
+                   mode="indeterminate">
+  </md-progress-bar>
+  <!-- places list -->
   <div>{{ currentCenter.address }} ({{ currentCenter.lat }} , {{ currentCenter.long }})
   </div>
   <p>{{ resultData }}</p>
@@ -17,7 +21,11 @@
   <ul>
     <h2>Places in {{currentCenter.radius}} kms</h2>
     <li *ngFor="let place of currentCenter.placesList">
-      {{place.name}} {{place.distance}} km away
+      {{place.name}} {{place.distance | number :'1.2-3'}} km away
     </li>
   </ul>
-</md-sidenav-container>
+
+  <td-layout-footer>
+    ... main footer content
+  </td-layout-footer>
+</td-layout-nav>

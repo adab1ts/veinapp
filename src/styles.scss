@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+md-toolbar-row {
+  > div[td-toolbar-content] {
+    width: 100%;
+  }
+}
+@media (max-width: 960px) {
+  md-toolbar.md-primary {
+    min-height: 64px;
+  }
+}
+@media (max-width: 600px) {
+  md-toolbar.md-primary {
+    min-height: 87px;
+  }
+}
