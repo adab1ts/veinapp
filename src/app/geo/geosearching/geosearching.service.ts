@@ -15,31 +15,61 @@ export class GeosearchingService {
   constructor(private db: AngularFireDatabase) {
   }
 
-  getPlaces({ lat, long, radius }: GeosearchParams): Observable<GeosearchResult> {
-    const criteria = { center: [ lat, long ], radius: radius };
+  getPlaces(params: GeosearchParams): Observable<GeosearchResult> {
 
-    if (typeof this.geoQuery !== 'undefined') {
-      this.geoQuery.updateCriteria(criteria);
-    } else {
-      this.geoQuery = this.gfRef.query(criteria);
+    if (typeof this.geoQuery === 'undefined') {
+      this.geoQuery = this.gfRef.query({ center: params.center, radius: 0.05 });
 
       this.geoQuery.on('key_entered', (key, location, distance) => {
         this.db.object(`/places/${key}`)
           .subscribe(place => {
             this.subject.next(
               Object.assign(place, {
-                location: location, distance: distance, action: GEO_KEY_ENTER
+                location: location, distance:
+                distance, action: GEO_KEY_ENTER
               }));
           });
 
       });
-
       this.geoQuery.on('key_exited', (key) => {
         this.subject.next({ $key: key, action: GEO_KEY_EXIT });
       });
-
     }
+    this.incrementalRadiusSearch(this.geoQuery, params);
+
     return this.subject.asObservable();
+  }
+
+
+  /**
+   * Experimental
+   * incremental change geoQuery => updateCriteria in order to have an order by distance
+   * this configuration has given good results with my configuration
+   * TODO - test in various systems, think about improvement
+   * @param geoQuery
+   * @param params
+   */
+  incrementalRadiusSearch(geoQuery, params) {
+    const newRadius = params.radius;
+    const newCenter = params.center;
+
+    const oldRadius = this.geoQuery.radius();
+    const limitRadius = newRadius || oldRadius;
+    const initRadius = newCenter || (newRadius < oldRadius) ? 0.1 : oldRadius;
+
+    const newCriteria = newCenter ?
+      { center: newCenter, radius: initRadius } : { radius: initRadius };
+    geoQuery.updateCriteria(newCriteria);
+
+    let timeout;
+
+    for (let init = initRadius; init < limitRadius;
+         init = parseFloat((init + 0.05).toPrecision(3))) {
+      timeout = setTimeout(function () {
+        geoQuery.updateCriteria({ radius: init });
+      }, 250 * ((init * 5)));
+    }
+
   }
 
 }

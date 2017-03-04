@@ -1,6 +1,6 @@
 <div flex="100" layout="row"
      layout-align="center center"
-     flex-gt-md="40" flex-gt-xs="60">
+     flex-gt-md="45" flex-gt-xs="60">
   <app-input-search layout="row" flex="80"
                     layout-align="center center"
                     [focus]="doFocus"
@@ -12,11 +12,18 @@
   </app-geolocator>
 </div>
 
-<!--TODO radius component-->
-<div flex="100"
-     flex-gt-md="30" flex-gt-xs="40"
-     style="background-color: #8a8a8a">
-  radius buttons x x x
-</div>
-<app-branding flex-gt-xs="30" hide show-gt-md></app-branding>
+<app-radius-filter flex="60"
+                   flex="nogrow"
+                   layout="row"
+                   flex-gt-md="25"
+                   flex-gt-xs="40"
+                   layout-align="center center"
+                   layout-align-gt-sm="center left"
+                   [distances]="centerDistances"
+                   [currentRadius]="currentRadius"
+                   (onChangeRadius)="changeRadius($event)"
+                   ></app-radius-filter>
+
+<app-branding flex-gt-xs="30"
+              hide show-gt-md></app-branding>
 

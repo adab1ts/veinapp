@@ -34,10 +34,6 @@ export class AppComponent implements AfterViewInit {
       );
   }
 
-  changeRadius(radius) {
-    this.store.dispatch(changeCurrentSearch({ radius: radius }));
-  }
-
   ngAfterViewInit() {
     this.media.broadcast();
   }

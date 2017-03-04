@@ -5,11 +5,18 @@ md-toolbar-row {
 }
 @media (max-width: 960px) {
   md-toolbar.md-primary {
-    min-height: 64px;
+    min-height: 70px;
+    md-toolbar-row {
+      height: 70px;
+    }
   }
 }
 @media (max-width: 600px) {
   md-toolbar.md-primary {
-    min-height: 87px;
+    min-height: 105px;
+    padding-bottom: 5px;
+    md-toolbar-row {
+      height: 105px;
+    }
   }
 }

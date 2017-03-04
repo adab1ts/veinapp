@@ -1,9 +1,9 @@
-import { Component, Output, EventEmitter, ViewChild, Input } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-input-search',
   templateUrl: './input-search.component.html',
-  styleUrls: [ './input-search.component.scss' ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSearchComponent {
   @ViewChild('searchInput') input;

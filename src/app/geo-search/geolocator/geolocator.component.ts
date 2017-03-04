@@ -1,9 +1,9 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-geolocator',
   templateUrl: './geolocator.component.html',
-  styleUrls: [ './geolocator.component.scss' ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeolocatorComponent {
   @Output() onGeolocate = new EventEmitter();
