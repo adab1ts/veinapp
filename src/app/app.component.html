@@ -15,17 +15,13 @@
   <div>{{ currentCenter.address }} ({{ currentCenter.lat }} , {{ currentCenter.long }})
   </div>
   <p>{{ resultData }}</p>
-  <button (click)="changeRadius(0.5)">500 mts</button>
-  <button (click)="changeRadius(1)">1 km</button>
-  <button (click)="changeRadius(2)">2 kms</button>
   <ul>
     <h2>Places in {{currentCenter.radius}} kms</h2>
     <li *ngFor="let place of currentCenter.placesList">
       {{place.name}} {{place.distance | number :'1.2-3'}} km away
     </li>
   </ul>
-
-  <td-layout-footer>
-    ... main footer content
+  <td-layout-footer hide-gt-md>
+    <app-footer></app-footer>
   </td-layout-footer>
 </td-layout-nav>

@@ -15,6 +15,7 @@ import { CurrentSearchReducer } from './state-management/reducers/current-search
 import { CurrentSearchEffectService } from './state-management/effects/current-search-effect.service';
 import { SearchResultReducer } from './state-management/reducers/search-result-reducer';
 import { GeoHeaderModule } from './geo-header/geo-header.module';
+import { FooterModule } from './footer/footer.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GeoHeaderModule } from './geo-header/geo-header.module';
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     GeoModule,
-    GeoHeaderModule
+    GeoHeaderModule,
+    FooterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
