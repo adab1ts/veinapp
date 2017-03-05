@@ -55,19 +55,19 @@ export class GeosearchingService {
 
     const oldRadius = this.geoQuery.radius();
     const limitRadius = newRadius || oldRadius;
-    const initRadius = newCenter || (newRadius < oldRadius) ? 0.1 : oldRadius;
-
-    const newCriteria = newCenter ?
-      { center: newCenter, radius: initRadius } : { radius: initRadius };
-    geoQuery.updateCriteria(newCriteria);
-
+    const initRadius = newCenter || (newRadius < oldRadius) ? 0.05 : oldRadius;
     let timeout;
 
-    for (let init = initRadius; init < limitRadius;
-         init = parseFloat((init + 0.05).toPrecision(3))) {
+    if (newCenter) {
+      geoQuery.updateCriteria({ center: newCenter, radius: initRadius });
+    } else {
+      geoQuery.updateCriteria({ radius: initRadius });
+    }
+
+    for (let init = initRadius; init < limitRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
       timeout = setTimeout(function () {
         geoQuery.updateCriteria({ radius: init });
-      }, 250 * ((init * 5)));
+      }, 1000 * (init + 0.8));
     }
 
   }

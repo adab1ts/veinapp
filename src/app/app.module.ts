@@ -13,9 +13,9 @@ import { firebaseConfig } from '../config/firebase';
 import { GeoModule } from './geo/geo.module';
 import { CurrentSearchReducer } from './state-management/reducers/current-search-reducer';
 import { CurrentSearchEffectService } from './state-management/effects/current-search-effect.service';
-import { SearchResultReducer } from './state-management/reducers/search-result-reducer';
 import { GeoHeaderModule } from './geo-header/geo-header.module';
 import { FooterModule } from './footer/footer.module';
+import { PlacesModule } from './places/places.module';
 
 @NgModule({
   declarations: [
@@ -26,15 +26,15 @@ import { FooterModule } from './footer/footer.module';
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
     StoreModule.provideStore({
-      currentSearch: CurrentSearchReducer,
-      searchResult: SearchResultReducer
+      currentSearch: CurrentSearchReducer
     }),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     GeoModule,
     GeoHeaderModule,
-    FooterModule
+    FooterModule,
+    PlacesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,4 @@
-export interface Coords {
-  lat: number;
-  long: number;
-}
+import { Coords } from '../coords';
 
 export interface Geocode {
   key?: string;
@@ -10,8 +7,8 @@ export interface Geocode {
 }
 
 export interface GeocodeResult {
-  address: string;
-  lat: number;
-  long: number;
+  hasResults?: boolean;
+  address?: string;
+  center?: Coords;
   radius?: number;
 }

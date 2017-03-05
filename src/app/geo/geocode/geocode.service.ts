@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { MapzenGeocodeService } from './mapzen-geocode.service';
-import { Coords } from './geocode';
+import { Coords } from '../coords';
+import { GeocodeResult } from './geocode';
 
 @Injectable()
 export class GeocodeService {
@@ -15,11 +16,11 @@ export class GeocodeService {
    * @param searchResult
    * @returns {Observable<any | boolean>}
    */
-  getCoords(searchResult: any) {
+  getCoords(searchResult: string): Observable<GeocodeResult> {
     return this.mzGeocodoService.getGeocoding(searchResult);
   }
 
-  getAddress(coords: Coords) {
+  getAddress(coords: Coords): Observable<GeocodeResult> {
      return this.mzGeocodoService.getReverseGeocoding(coords);
   }
 

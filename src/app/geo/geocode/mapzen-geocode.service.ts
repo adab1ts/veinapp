@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { Geocode, Coords, GeocodeResult } from './geocode';
+import { Geocode, GeocodeResult, } from './geocode';
 import { SEARCH_PARAMS, MAPZEN_SEARCH_URL, MAPZEN_REVERSE_URL } from '../../../config/mapzen.config';
+import { Coords } from '../coords';
 
 @Injectable()
 export class MapzenGeocodeService implements Geocode {
@@ -16,23 +17,24 @@ export class MapzenGeocodeService implements Geocode {
    * @param address
    * @returns {Observable<any>}
    */
-  getGeocoding(address: string): Observable<GeocodeResult | boolean> {
+  getGeocoding(address: string): Observable<any> {
     const params: URLSearchParams = this.setSearchParameters(
       SEARCH_PARAMS, { 'text': address });
 
     return this.getCall(MAPZEN_SEARCH_URL, params)
       .map(result => {
-        if (!result) { return false; }
+        if (!result) {
+          return false;
+        }
         const coords = result[ 'geometry' ][ 'coordinates' ];
         return {
           address: address,
-          lat: coords[ 1 ],
-          long: coords[ 0 ]
+          center: [ coords[ 1 ], coords[ 0 ] ]
         };
       });
   }
 
-  getReverseGeocoding(coords: Coords): Observable<any> {
+  getReverseGeocoding(coords: Coords): Observable<GeocodeResult> {
     const params: URLSearchParams = this.setSearchParameters(
       SEARCH_PARAMS,
       { 'point.lat': coords.lat.toString() },

@@ -1,12 +1,13 @@
+import { Coords } from '../coords';
+
 export interface GeosearchParams {
-  lat: number;
-  long: number;
-  radius: number;
+  center?: Coords;
+  radius?: number;
 }
 export interface GeosearchResult {
   $key: string;
   name?: string;
-  location?: number[];
+  location?: Coords;
   distance?: number;
   action: string;
   address?: string;
@@ -16,5 +17,6 @@ export interface GeosearchResult {
   web?: string;
   zip?: string;
 }
+
 export const GEO_KEY_ENTER = 'GEO_KEY_ENTER';
 export const GEO_KEY_EXIT = 'GEO_KEY_EXIT';

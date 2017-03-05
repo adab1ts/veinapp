@@ -1,8 +1,10 @@
+// <main header> //
 md-toolbar-row {
   > div[td-toolbar-content] {
     width: 100%;
   }
 }
+
 @media (max-width: 960px) {
   md-toolbar.md-primary {
     min-height: 70px;
@@ -11,6 +13,7 @@ md-toolbar-row {
     }
   }
 }
+
 @media (max-width: 600px) {
   md-toolbar.md-primary {
     min-height: 105px;
@@ -20,3 +23,11 @@ md-toolbar-row {
     }
   }
 }
+// </main header> //
+
+// <places list items> //
+a[md-list-item] {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+// </places list items> //

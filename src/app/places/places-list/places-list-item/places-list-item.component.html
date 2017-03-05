@@ -1,0 +1,6 @@
+<a md-list-item [@item]="state">
+  <md-icon md-list-avatar>place</md-icon>
+  <h3 md-line>{{place.name}}</h3>
+  <p md-line>{{place.address}}</p>
+  <p md-line>({{place.distance | number:'1.1-1'}} km)</p>
+</a>

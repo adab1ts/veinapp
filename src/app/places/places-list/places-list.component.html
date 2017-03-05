@@ -1,0 +1,23 @@
+<td-layout-manage-list #placesList
+                       [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'push'"
+                       [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '257px' : '100%'">
+  <md-toolbar td-sidenav-content>
+    <md-icon md-list-icon>center_focus_weak</md-icon>
+    <div class="md-caption tc-grey-500">
+      {{currentCenter}}
+    </div>
+    <td-notification-count color="warn" [notifications]="places.length">
+    </td-notification-count>
+  </md-toolbar>
+  <md-nav-list td-sidenav-content
+               (click)="!media.query('gt-sm') && placesList.close()">
+
+    <template let-place let-last="last" ngFor [ngForOf]="places">
+      <app-places-list-item [place]="place"></app-places-list-item>
+      <md-divider *ngIf="!last" md-inset></md-divider>
+    </template>
+    <md-list-item *ngIf="!places.length && !pending">
+      <p md-line>sense resultats...</p>
+    </md-list-item>
+  </md-nav-list>
+</td-layout-manage-list>

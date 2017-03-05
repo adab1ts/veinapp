@@ -26,4 +26,7 @@
 
 <app-branding flex-gt-xs="30"
               hide show-gt-md></app-branding>
-
+<md-progress-bar flex="100" *ngIf="searchPending || geolocationPending"
+                 color="accent"
+                 mode="indeterminate">
+</md-progress-bar>

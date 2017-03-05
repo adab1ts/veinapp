@@ -1,4 +1,5 @@
 <td-layout-nav>
+
   <!-- main geo-header => input-search | geocoder | radius btns | branding -->
   <app-geo-header td-toolbar-content
                   layout-fill
@@ -7,20 +8,11 @@
                   layout-align="center center" flex>
 
   </app-geo-header>
-  <md-progress-bar *ngIf="resultData === 'Waiting'"
-                   color="accent"
-                   mode="indeterminate">
-  </md-progress-bar>
+
   <!-- places list -->
-  <div>{{ currentCenter.address }} ({{ currentCenter.lat }} , {{ currentCenter.long }})
-  </div>
-  <p>{{ resultData }}</p>
-  <ul>
-    <h2>Places in {{currentCenter.radius}} kms</h2>
-    <li *ngFor="let place of currentCenter.placesList">
-      {{place.name}} {{place.distance | number :'1.2-3'}} km away
-    </li>
-  </ul>
+  <app-places-list></app-places-list>
+
+  <!-- footer (mobile) -->
   <td-layout-footer hide-gt-md>
     <app-footer></app-footer>
   </td-layout-footer>
