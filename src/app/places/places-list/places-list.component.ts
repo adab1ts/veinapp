@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CurrentSearchState } from '../../state-management/states/current-search-state';
 import { Subscription } from 'rxjs/Subscription';
-import { GeosearchResult } from '../../geo/geosearching/geosearch';
 import { TdMediaService } from '@covalent/core';
+
+import { GeosearchResult } from '../../geo/geosearching/geosearch';
+import { CurrentSearchState } from '../../state-management/states/current-search-state';
 
 @Component({
   selector: 'app-places-list',

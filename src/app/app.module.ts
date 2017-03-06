@@ -16,6 +16,7 @@ import { CurrentSearchEffectService } from './state-management/effects/current-s
 import { GeoHeaderModule } from './geo-header/geo-header.module';
 import { FooterModule } from './footer/footer.module';
 import { PlacesModule } from './places/places.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PlacesModule } from './places/places.module';
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    SharedModule,
     GeoModule,
     GeoHeaderModule,
     FooterModule,

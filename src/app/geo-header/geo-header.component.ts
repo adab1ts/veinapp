@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 import {
-  changeSearchFromAddress, changeSearchByRadius
+  changeSearchFromAddress,
+  changeSearchByRadius,
+  doGeoSearch
 } from '../state-management/actions/current-search-action';
 import { GeolocationService, GeocodeService } from '../geo/geo.module';
 
@@ -11,20 +14,34 @@ import { GeolocationService, GeocodeService } from '../geo/geo.module';
   templateUrl: './geo-header.component.html',
   styleUrls: [ './geo-header.component.scss' ]
 })
-export class GeoHeaderComponent {
+export class GeoHeaderComponent implements OnInit {
   geoAddress = '';
   doFocus = false;
-  currentRadius = 0;
-  searchPending = false;
-  geolocationPending = false;
+  currentRadius;
+  centerDistances = [0.5, 1, 2, 3];
+  @Output() geolocationPending = new EventEmitter<boolean>();
+  subscription = new Subscription();
 
   constructor(private store: Store<any>,
               private geolocationService: GeolocationService,
               private geocodeService: GeocodeService) {
+  }
+
+  ngOnInit() {
+    // Initial search with default center
+    this.subscription = this.store.select('currentSearch')
+      .take(1)
+      .subscribe((data: any) => {
+        this.store
+          .dispatch(doGeoSearch({
+            radius: data.radius,
+            center: data.center
+          }));
+        this.subscription.unsubscribe();
+      });
 
     this.store.select('currentSearch')
       .subscribe((data: any) => {
-        this.searchPending = data.pending;
         this.currentRadius = data.radius;
       });
   }
@@ -39,10 +56,12 @@ export class GeoHeaderComponent {
     this.store.dispatch(changeSearchByRadius({ radius: radius }));
   }
 
+  // TODO create a state to control the geolocation state
+  // the result or not provided, and the geolocationPending response
   geolocate() {
     this.geoAddress = '';
     this.doFocus = false;
-    this.geolocationPending = true;
+    this.geolocationPending.emit(true);
 
     this.geolocationService.getLocation()
       .flatMap(
@@ -52,10 +71,10 @@ export class GeoHeaderComponent {
         (data) => {
           this.geoAddress = data.address;
           this.doFocus = true;
-          this.geolocationPending = false;
+          this.geolocationPending.emit(false);
         },
         (err) => {
-          this.geolocationPending = false;
+          this.geolocationPending.emit(false);
           console.error(err);
         }
       );

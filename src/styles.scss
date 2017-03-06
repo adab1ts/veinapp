@@ -31,3 +31,8 @@ a[md-list-item] {
   transform: translateX(-20px);
 }
 // </places list items> //
+
+app-activity-indicator {
+  height: 5px;
+  z-index: 1;
+}

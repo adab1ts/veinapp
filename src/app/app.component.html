@@ -5,9 +5,14 @@
                   layout-fill
                   layout-wrap
                   layout="row"
-                  layout-align="center center" flex>
-
+                  layout-align="center center" flex
+                  (geolocationPending)="geolocationPending = $event">
   </app-geo-header>
+
+  <!-- activity indicator on geosearch, radius change or geolocation -->
+  <app-activity-indicator
+    [pending]="searchPending || geolocationPending">
+  </app-activity-indicator>
 
   <!-- places list -->
   <app-places-list></app-places-list>
