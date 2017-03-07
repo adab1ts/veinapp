@@ -36,3 +36,10 @@ app-activity-indicator {
   height: 5px;
   z-index: 1;
 }
+
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+}

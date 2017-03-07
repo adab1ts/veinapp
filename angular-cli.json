@@ -19,6 +19,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/leaflet/dist/leaflet.css",
         "../node_modules/@covalent/core/common/platform.scss",
         "theme.scss",
         "styles.scss"
