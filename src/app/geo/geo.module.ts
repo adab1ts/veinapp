@@ -5,6 +5,7 @@ import { MapzenGeocodeService } from './geocode/mapzen-geocode.service';
 import { WindowRefService } from './windowRef/window-ref.service';
 import { GeolocationService } from './geolocation/geolocation.service';
 import { GeosearchingService } from './geosearching/geosearching.service';
+import { LeafletMapService } from './map/leaflet-map.service';
 
 @NgModule({
   providers: [
@@ -12,7 +13,8 @@ import { GeosearchingService } from './geosearching/geosearching.service';
     MapzenGeocodeService,
     WindowRefService,
     GeolocationService,
-    GeosearchingService
+    GeosearchingService,
+    LeafletMapService
   ],
   declarations: []
 })
@@ -22,5 +24,6 @@ export class GeoModule {
 export {
   GeocodeService,
   GeolocationService,
-  GeosearchingService
+  GeosearchingService,
+  LeafletMapService
 }
