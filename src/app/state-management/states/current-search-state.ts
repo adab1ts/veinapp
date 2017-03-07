@@ -1,4 +1,5 @@
 import { GeosearchResult } from '../../geo/geosearching/geosearch';
+import { INIT_COORDS } from '../../geo/coords';
 
 export interface CurrentSearchState {
   address: string;
@@ -10,8 +11,8 @@ export interface CurrentSearchState {
 
 // TODO - put init center data in a config file ?
 export const INITIAL_CURRENT_SEARCH_STATE: CurrentSearchState = {
-  address: 'Carrer de la Jota 140, Barcelona',
-  center: [41.429682, 2.175945],
+  address: INIT_COORDS.address,
+  center: [INIT_COORDS.lat, INIT_COORDS.long],
   radius: 1,
   placesList: [],
   pending: false

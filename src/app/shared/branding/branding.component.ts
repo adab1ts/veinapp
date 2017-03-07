@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./branding.component.scss']
 })
 export class BrandingComponent {
-  brand = `Cercador d'AAVV | CONFAVC`;
+  brand = `Cercador d'AV | CONFAVC`;
 }

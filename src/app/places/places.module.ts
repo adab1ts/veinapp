@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
-import { PlacesListComponent } from './places-list/places-list.component';
+import { PlacesComponent } from './places.component';
 import { CovalentCoreModule } from '@covalent/core';
-import { PlacesListItemComponent } from './places-list/places-list-item/places-list-item.component';
+import { PlacesListItemComponent } from './places-list-item/places-list-item.component';
+import { GeoModule } from '../geo/geo.module';
 
 @NgModule({
   imports: [
     CovalentCoreModule.forRoot(),
+    GeoModule
   ],
   declarations: [
-    PlacesListComponent,
+    PlacesComponent,
     PlacesListItemComponent
   ],
   exports: [
-    PlacesListComponent
+    PlacesComponent
   ]
 })
 export class PlacesModule { }
