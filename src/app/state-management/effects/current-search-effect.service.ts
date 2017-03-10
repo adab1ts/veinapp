@@ -28,6 +28,7 @@ export class CurrentSearchEffectService {
         return Observable
           .of(noResultsSearch());
       }
+      // route
       const changeSearch$ = Observable
         .of(changeCurrentSearch(response));
       const geoSearch$ = Observable
@@ -40,6 +41,7 @@ export class CurrentSearchEffectService {
     .ofType(CHANGE_SEARCH_BY_RADIUS)
     .map(toPayload)
     .switchMap(response => {
+      // route
       const changeSearch$ = Observable
         .of(changeCurrentSearch(response));
       const geoSearch$ = Observable

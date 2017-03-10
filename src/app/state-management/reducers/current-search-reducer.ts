@@ -6,7 +6,7 @@ import {
   CHANGE_CURRENT_SEARCH,
   DO_GEO_SEARCH,
   CHANGE_SEARCH_BY_RADIUS,
-  CHANGE_SEARCH_FROM_ADDRESS, NO_RESULTS_SEARCH
+  CHANGE_SEARCH_FROM_ADDRESS, NO_RESULTS_SEARCH, SELECTED_PLACE
 } from '../actions/current-search-action';
 
 class CurrentSearchActions {
@@ -49,6 +49,7 @@ export function CurrentSearchReducer(state = INITIAL_CURRENT_SEARCH_STATE,
     case CHANGE_SEARCH_FROM_ADDRESS:
       return actions.pending();
     case CHANGE_CURRENT_SEARCH:
+    case SELECTED_PLACE:
       return actions.change();
     case ENTER_GEO_PLACE:
       return actions.addPlace();

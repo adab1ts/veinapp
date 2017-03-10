@@ -26,10 +26,14 @@ md-toolbar-row {
 // </main header> //
 
 // <places list items> //
-a[md-list-item] {
+a[md-list-item], .place-detail-box {
   opacity: 0;
   transform: translateX(-20px);
 }
+md-card-title > h3 {
+  margin: 0;
+}
+
 // </places list items> //
 
 app-activity-indicator {

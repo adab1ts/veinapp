@@ -17,6 +17,8 @@ import { GeoHeaderModule } from './geo-header/geo-header.module';
 import { FooterModule } from './footer/footer.module';
 import { PlacesModule } from './places/places.module';
 import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterStoreModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -24,11 +26,13 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
     StoreModule.provideStore({
       currentSearch: CurrentSearchReducer
     }),
+    RouterStoreModule.connectRouter(),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
     StoreDevtoolsModule.instrumentOnlyWithExtension(),

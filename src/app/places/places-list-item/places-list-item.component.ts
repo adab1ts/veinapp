@@ -1,7 +1,8 @@
 import {
   Component, Input, ChangeDetectionStrategy,
-  trigger, state, animate, transition, style
+  trigger, state, animate, transition, style,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-places-list-item',
@@ -21,4 +22,9 @@ export class PlacesListItemComponent {
   @Input() place;
   state = 'visible';
 
+  constructor(private router: Router) {}
+
+  goToDetail() {
+    this.router.navigate(['', this.place.$key]);
+  }
 }

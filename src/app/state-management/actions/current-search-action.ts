@@ -1,7 +1,18 @@
 import { Action } from '@ngrx/store';
-
 import { GeosearchResult } from '../../geo/geosearching/geosearch';
 
+
+// export const ActionTypes = {
+//   CHANGE_SEARCH_FROM_ADDRESS: type('[Search] New search from a new address'),
+//   CHANGE_SEARCH_BY_RADIUS: type('[Search] Change the radius of the current search'),
+//   ADD_BOOK_FAIL: type('[Collection] Add Book Fail'),
+//   REMOVE_BOOK: type('[Collection] Remove Book'),
+//   REMOVE_BOOK_SUCCESS: type('[Collection] Remove Book Success'),
+//   REMOVE_BOOK_FAIL: type('[Collection] Remove Book Fail'),
+//   LOAD: type('[Collection] Load'),
+//   LOAD_SUCCESS: type('[Collection] Load Success'),
+//   LOAD_FAIL: type('[Collection] Load Fail'),
+// };
 // **
 // @Effect() actions
 // **
@@ -42,4 +53,9 @@ export const removeGeoPlace = (result: GeosearchResult): Action => ({
 export const NO_RESULTS_SEARCH = 'NO_RESULTS_SEARCH';
 export const noResultsSearch = (): Action => ({
   type: NO_RESULTS_SEARCH
+});
+export const SELECTED_PLACE = 'SELECTED_PLACE';
+export const selectedPlace = (result: any): Action => ({
+  type: SELECTED_PLACE,
+  payload: result
 });

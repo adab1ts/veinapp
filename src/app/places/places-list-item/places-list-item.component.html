@@ -1,4 +1,4 @@
-<a md-list-item [@item]="state">
+<a md-list-item [@item]="state" (click)="goToDetail()">
   <md-icon md-list-avatar>place</md-icon>
   <h3 md-line>{{place.name}}</h3>
   <p md-line>{{place.address}}</p>

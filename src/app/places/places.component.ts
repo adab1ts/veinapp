@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { TdMediaService } from '@covalent/core';
 import { GeosearchResult } from '../geo/geosearching/geosearch';
 import { CurrentSearchState } from '../state-management/states/current-search-state';
+import { selectedPlace } from '../state-management/actions/current-search-action';
 
 @Component({
   selector: 'app-places',
@@ -15,6 +16,7 @@ export class PlacesComponent implements OnInit, OnDestroy, AfterViewInit {
   places: GeosearchResult[] = [];
   pending = false;
   center;
+  selectedPlace = null;
   subscription = new Subscription();
 
   constructor(public media: TdMediaService,
@@ -27,6 +29,7 @@ export class PlacesComponent implements OnInit, OnDestroy, AfterViewInit {
         this.currentCenter = data.address;
         this.places = data.placesList;
         this.center = data.center;
+        this.selectedPlace = data.selectedPlace;
       });
   }
 
@@ -37,4 +40,5 @@ export class PlacesComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.media.broadcast();
   }
+
 }

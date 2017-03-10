@@ -1,11 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-
 import {
-  changeSearchFromAddress,
-  changeSearchByRadius,
-  doGeoSearch
+  changeSearchByRadius, doGeoSearch,
+  changeSearchFromAddress
 } from '../state-management/actions/current-search-action';
 import { GeolocationService, GeocodeService } from '../geo/geo.module';
 
@@ -18,7 +16,7 @@ export class GeoHeaderComponent implements OnInit {
   geoAddress = '';
   doFocus = false;
   currentRadius;
-  centerDistances = [0.5, 1, 2, 3];
+  centerDistances = [ 0.5, 1, 2, 3 ];
   @Output() geolocationPending = new EventEmitter<boolean>();
   subscription = new Subscription();
 

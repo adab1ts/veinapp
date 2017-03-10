@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { TdMediaService } from '@covalent/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,9 +7,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent {
+export class FooterComponent implements AfterViewInit {
 
-  changeMain(view) {
-    // TODO - load main view
+  constructor(public media: TdMediaService) {}
+
+  ngAfterViewInit() {
+    this.media.broadcast();
   }
 }
