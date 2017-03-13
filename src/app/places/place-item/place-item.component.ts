@@ -6,14 +6,15 @@ import {
   state,
   style,
   transition,
-  animate,
-  ChangeDetectionStrategy
+  animate
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { CurrentSearchState } from '../../state-management/states/current-search-state';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { selectedPlace } from '../../state-management/actions/current-search-action';
+import * as fromRoot from '../../state-management/reducers';
+import * as search from '../../state-management/actions/current-search-action';
+import { GeosearchResult } from '../../geo/geosearching/geosearch';
 
 @Component({
   selector: 'app-place-item',
@@ -24,17 +25,16 @@ import { selectedPlace } from '../../state-management/actions/current-search-act
         opacity: 1,
         transform: 'translateX(0)'
       })),
-      transition('* => visible', animate('200ms ease-out'))
+      transition('* => visible', animate('200ms ease-in'))
     ])
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class PlaceItemComponent implements OnInit, OnDestroy {
   state = 'visible';
-  place;
+  place: GeosearchResult;
   private routeParamSubscription: Subscription;
 
-  constructor(private store: Store<CurrentSearchState>,
+  constructor(private store: Store<fromRoot.State>,
               private router: Router,
               private activatedRoute: ActivatedRoute) { }
 
@@ -43,16 +43,21 @@ export class PlaceItemComponent implements OnInit, OnDestroy {
       .take(1)
       .map(param => param[ '$key' ])
       .switchMap((key: string) => {
-        this.store.dispatch(selectedPlace({ selectedPlace: key }));
-        return this.store.select('currentSearch')
-          .map(data => data[ 'placesList' ]
-            .filter((place) => place[ '$key' ] === key)[ 0 ]
-          );
-      }).subscribe((place) => this.place = place);
+        return this.store.select(fromRoot.places)
+          .withLatestFrom(Observable.of(key));
+      })
+      .map((data) => data[ 0 ]
+        .filter((place) => place[ '$key' ] === data[ 1 ])[ 0 ]
+      )
+      .subscribe((place) => {
+        this.store
+          .dispatch(new search.SelectedPlace({ selectedPlace: place }));
+        this.place = place;
+      });
   }
 
   ngOnDestroy() {
-    this.store.dispatch(selectedPlace({ selectedPlace: null }));
+    this.store.dispatch(new search.SelectedPlace({ selectedPlace: null }));
     this.routeParamSubscription.unsubscribe();
   }
 

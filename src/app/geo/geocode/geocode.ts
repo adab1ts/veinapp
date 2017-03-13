@@ -7,8 +7,6 @@ export interface Geocode {
 }
 
 export interface GeocodeResult {
-  hasResults?: boolean;
   address?: string;
   center?: Coords;
-  radius?: number;
 }

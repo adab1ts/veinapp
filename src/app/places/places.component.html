@@ -3,18 +3,20 @@
 
   <!-- places list -->
   <md-toolbar td-sidenav-content>
-    <td-notification-count color="warn" [notifications]="places.length">
+    <td-notification-count color="warn" [notifications]="(places$ | async).length">
     </td-notification-count>
     <span class="md-caption tc-dark-red-B100">resultats</span>
   </md-toolbar>
 
   <md-nav-list td-sidenav-content>
-    <template *ngIf="!selectedPlace" let-place let-last="last" ngFor [ngForOf]="places">
+    <template *ngIf="!(selectedPlace$ | async)" let-place let-last="last"
+              ngFor [ngForOf]="(places$ | async)">
       <app-places-list-item [place]="place"></app-places-list-item>
       <md-divider *ngIf="!last" md-inset></md-divider>
     </template>
 
-    <md-list-item *ngIf="!places.length && !pending && !selectedPlace">
+    <md-list-item
+      *ngIf="!(places$ | async).length && !(pending$ | async) && !(selectedPlace$ | async)">
       <p md-line>sense resultats...</p>
     </md-list-item>
 
@@ -24,14 +26,15 @@
   </md-nav-list>
 
   <!-- places map -->
-  <div td-toolbar-content layout="row" layout-align="start center" flex>
+  <div td-toolbar-content layout="row"
+       layout-align="start center" flex>
     <md-icon md-list-icon class="tc-grey-600">center_focus_weak</md-icon>
     <span class="tc-grey-600">
-      {{currentCenter}}
+      {{address$ | async}}
     </span>
   </div>
-  <app-leaflet-map [center]="center"
-                   [places]="places">
+  <app-leaflet-map [center]="(center$ | async)"
+                   [places]="(places$ | async)">
   </app-leaflet-map>
 
 </td-layout-manage-list>

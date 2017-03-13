@@ -1,6 +1,6 @@
 import {
   Component, Input, ChangeDetectionStrategy,
-  trigger, state, animate, transition, style,
+  trigger, state, animate, transition, style
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,6 @@ export class PlacesListItemComponent {
   constructor(private router: Router) {}
 
   goToDetail() {
-    this.router.navigate(['', this.place.$key]);
+    this.router.navigate(['detail', this.place.$key]);
   }
 }

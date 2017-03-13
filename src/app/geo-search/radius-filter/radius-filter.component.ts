@@ -14,4 +14,8 @@ export class RadiusFilterComponent {
     this.onChangeRadius.emit(radius);
   }
 
+  isCurrentRadius(distance) {
+    return this.currentRadius === distance;
+  }
+
 }

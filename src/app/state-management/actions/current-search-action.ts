@@ -1,61 +1,90 @@
 import { Action } from '@ngrx/store';
+
 import { GeosearchResult } from '../../geo/geosearching/geosearch';
+import { type } from '../../util';
 
+/**
+ * For each action type in an action group, make a simple
+ * enum object for all of this group's action types.
+ *
+ * The 'type' utility function coerces strings into string
+ * literal types and runs a simple check to guarantee all
+ * action types in the application are unique.
+ */
+export const ActionTypes = {
+  CHANGE_SEARCH_FROM_ADDRESS: type('[Search] Geolocate'),
+  CHANGE_SEARCH_BY_RADIUS: type('[Search] Update geosearch by radius'),
+  DO_GEO_SEARCH: type('[Search] Do geosearch'),
+  ENTER_GEO_PLACE: type('[Search] Add geosearch'),
+  EXIT_GEO_PLACE: type('[Search] Remove geosearch'),
+  NO_RESULTS_SEARCH: type('[Search] No results'),
+  CHANGE_CURRENT_CENTER: type('[Search] Change center'),
+  SELECTED_PLACE: type('[Search] Selected place')
+};
 
-// export const ActionTypes = {
-//   CHANGE_SEARCH_FROM_ADDRESS: type('[Search] New search from a new address'),
-//   CHANGE_SEARCH_BY_RADIUS: type('[Search] Change the radius of the current search'),
-//   ADD_BOOK_FAIL: type('[Collection] Add Book Fail'),
-//   REMOVE_BOOK: type('[Collection] Remove Book'),
-//   REMOVE_BOOK_SUCCESS: type('[Collection] Remove Book Success'),
-//   REMOVE_BOOK_FAIL: type('[Collection] Remove Book Fail'),
-//   LOAD: type('[Collection] Load'),
-//   LOAD_SUCCESS: type('[Collection] Load Success'),
-//   LOAD_FAIL: type('[Collection] Load Fail'),
-// };
-// **
-// @Effect() actions
-// **
-export const CHANGE_SEARCH_FROM_ADDRESS = 'CHANGE_SEARCH_FROM_ADDRESS';
-export const changeSearchFromAddress = (search: any): Action => ({
-  type: CHANGE_SEARCH_FROM_ADDRESS,
-  payload: search
-});
-export const CHANGE_SEARCH_BY_RADIUS = 'CHANGE_SEARCH_BY_RADIUS';
-export const changeSearchByRadius = (search: any): Action => ({
-  type: CHANGE_SEARCH_BY_RADIUS,
-  payload: search
-});
-export const DO_GEO_SEARCH = 'DO_GEO_SEARCH';
-export const doGeoSearch = (search: any): Action => ({
-  type: DO_GEO_SEARCH,
-  payload: search
-});
+/**
+ * Every action is comprised of at least a type and an optional
+ * payload. Expressing actions as classes enables powerful
+ * type checking in reducer functions.
+ *
+ * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
+ */
+export class ChangeSearchFromAddress implements Action {
+  type = ActionTypes.CHANGE_SEARCH_FROM_ADDRESS;
 
-// **
-// Reducer actions
-// **
-export const CHANGE_CURRENT_SEARCH = 'CHANGE_CURRENT_SEARCH';
-export const changeCurrentSearch = (result: any): Action => ({
-  type: CHANGE_CURRENT_SEARCH,
-  payload: result
-});
-export const ENTER_GEO_PLACE = 'ENTER_GEO_PLACE';
-export const addGeoPlace = (result: GeosearchResult): Action => ({
-  type: ENTER_GEO_PLACE,
-  payload: result
-});
-export const EXIT_GEO_PLACE = 'EXIT_GEO_PLACE';
-export const removeGeoPlace = (result: GeosearchResult): Action => ({
-  type: EXIT_GEO_PLACE,
-  payload: result
-});
-export const NO_RESULTS_SEARCH = 'NO_RESULTS_SEARCH';
-export const noResultsSearch = (): Action => ({
-  type: NO_RESULTS_SEARCH
-});
-export const SELECTED_PLACE = 'SELECTED_PLACE';
-export const selectedPlace = (result: any): Action => ({
-  type: SELECTED_PLACE,
-  payload: result
-});
+  constructor(public payload: any) { }
+}
+
+export class ChangeSearchByRadius implements Action {
+  type = ActionTypes.CHANGE_SEARCH_BY_RADIUS;
+
+  constructor(public payload: any) { }
+}
+
+export class DoGeoSearch implements Action {
+  type = ActionTypes.DO_GEO_SEARCH;
+
+  constructor(public payload: any) { }
+}
+
+export class ChangeCurrentCenter implements Action {
+  type = ActionTypes.CHANGE_CURRENT_CENTER;
+
+  constructor(public payload: any) { }
+}
+
+export class AddGeoPlace implements Action {
+  type = ActionTypes.ENTER_GEO_PLACE;
+
+  constructor(public payload: GeosearchResult) { }
+}
+
+export class RemoveGeoPlace implements Action {
+  type = ActionTypes.EXIT_GEO_PLACE;
+
+  constructor(public payload: GeosearchResult) { }
+}
+
+export class NoResultsSearch implements Action {
+  type = ActionTypes.NO_RESULTS_SEARCH;
+}
+
+export class SelectedPlace implements Action {
+  type = ActionTypes.SELECTED_PLACE;
+
+  constructor(public payload: any) { }
+}
+
+/**
+ * Export a type alias of all actions in this action group
+ * so that reducers can easily compose action types
+ */
+export type Actions
+  = ChangeSearchFromAddress
+  | ChangeSearchByRadius
+  | DoGeoSearch
+  | ChangeCurrentCenter
+  | AddGeoPlace
+  | RemoveGeoPlace
+  | NoResultsSearch
+  | SelectedPlace;

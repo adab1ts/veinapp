@@ -14,7 +14,6 @@ export class RadiusFilterBtnComponent {
     return this.currentRadius ? 'accent' : 'primary';
   }
   change(radius) {
-    this.currentRadius = true;
     this.onChange.emit(radius);
   }
 

@@ -4,6 +4,7 @@ import { AngularFireModule } from 'angularfire2';
 import { CovalentCoreModule } from '@covalent/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import './rxjs-extensions';
@@ -11,14 +12,13 @@ import './rxjs-extensions';
 import { AppComponent } from './app.component';
 import { firebaseConfig } from '../config/firebase';
 import { GeoModule } from './geo/geo.module';
-import { CurrentSearchReducer } from './state-management/reducers/current-search-reducer';
 import { CurrentSearchEffectService } from './state-management/effects/current-search-effect.service';
 import { GeoHeaderModule } from './geo-header/geo-header.module';
 import { FooterModule } from './footer/footer.module';
 import { PlacesModule } from './places/places.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { reducer } from './state-management/reducers/index';
 
 @NgModule({
   declarations: [
@@ -29,9 +29,7 @@ import { RouterStoreModule } from '@ngrx/router-store';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CovalentCoreModule.forRoot(),
-    StoreModule.provideStore({
-      currentSearch: CurrentSearchReducer
-    }),
+    StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod

@@ -1,16 +1,11 @@
 import { Action } from '@ngrx/store';
+
+import * as search from '../actions/current-search-action';
 import { CurrentSearchState, INITIAL_CURRENT_SEARCH_STATE } from '../states/current-search-state';
-import {
-  ENTER_GEO_PLACE,
-  EXIT_GEO_PLACE,
-  CHANGE_CURRENT_SEARCH,
-  DO_GEO_SEARCH,
-  CHANGE_SEARCH_BY_RADIUS,
-  CHANGE_SEARCH_FROM_ADDRESS, NO_RESULTS_SEARCH, SELECTED_PLACE
-} from '../actions/current-search-action';
+
 
 class CurrentSearchActions {
-  constructor(private state: CurrentSearchState, private action: Action) {}
+  constructor(private state, private action: Action) {}
 
   pending() {
     return Object.assign({}, this.state, { pending: true });
@@ -39,23 +34,23 @@ class CurrentSearchActions {
   }
 }
 
-export function CurrentSearchReducer(state = INITIAL_CURRENT_SEARCH_STATE,
-                                     action: Action): CurrentSearchState {
+export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
+                                     action: search.Actions): CurrentSearchState {
   const actions = new CurrentSearchActions(state, action);
 
   switch (action.type) {
-    case DO_GEO_SEARCH:
-    case CHANGE_SEARCH_BY_RADIUS:
-    case CHANGE_SEARCH_FROM_ADDRESS:
+    case search.ActionTypes.DO_GEO_SEARCH:
+    case search.ActionTypes.CHANGE_SEARCH_BY_RADIUS:
+    case search.ActionTypes.CHANGE_SEARCH_FROM_ADDRESS:
       return actions.pending();
-    case CHANGE_CURRENT_SEARCH:
-    case SELECTED_PLACE:
+    case search.ActionTypes.CHANGE_CURRENT_CENTER:
+    case search.ActionTypes.SELECTED_PLACE:
       return actions.change();
-    case ENTER_GEO_PLACE:
+    case search.ActionTypes.ENTER_GEO_PLACE:
       return actions.addPlace();
-    case EXIT_GEO_PLACE:
+    case search.ActionTypes.EXIT_GEO_PLACE:
       return actions.removePlace();
-    case NO_RESULTS_SEARCH:
+    case search.ActionTypes.NO_RESULTS_SEARCH:
       // TODO - now prevents changing the state (except pending)
       // must trigger a UI warning (maybe with a geocodosearch state)
       return actions.noResult();
@@ -63,3 +58,18 @@ export function CurrentSearchReducer(state = INITIAL_CURRENT_SEARCH_STATE,
       return state;
   }
 }
+
+/**
+ * Because the data structure is defined within the reducer it is optimal to
+ * locate our selector functions at this level. If store is to be thought of
+ * as a database, and reducers the tables, selectors can be considered the
+ * queries into said database. Remember to keep your selectors small and
+ * focused so they can be combined and composed to fit each particular
+ * use-case.
+ */
+export const getRadius = (state: CurrentSearchState) => state.radius;
+export const getCenter = (state: CurrentSearchState) => state.center;
+export const getAddress = (state: CurrentSearchState) => state.address;
+export const getPlacesList = (state: CurrentSearchState) => state.placesList;
+export const getPending = (state: CurrentSearchState) => state.pending;
+export const getSelectedPlace = (state: CurrentSearchState) => state.selectedPlace;

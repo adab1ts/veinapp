@@ -20,7 +20,7 @@
                    layout-align="center center"
                    layout-align-gt-sm="center left"
                    [distances]="centerDistances"
-                   [currentRadius]="currentRadius"
+                   [currentRadius]="currentRadius$ | async"
                    (onChangeRadius)="changeRadius($event)"
                    ></app-radius-filter>
 

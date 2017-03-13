@@ -4,11 +4,12 @@ import { PlacesComponent } from './places/places.component';
 import { PlaceItemComponent } from './places/place-item/place-item.component';
 
 const appRoutes: Routes = [
-  {path: '', component: PlacesComponent, children: [
-    { path: ':$key', component: PlaceItemComponent }
+  {
+    path: '', component: PlacesComponent, children: [
+    { path: 'detail/:$key', component: PlaceItemComponent }
   ]
   },
-  {path: '**', redirectTo: '/', pathMatch: 'full'}
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

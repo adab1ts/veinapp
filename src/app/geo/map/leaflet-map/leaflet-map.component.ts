@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Map, LatLng, control, Marker, LayerGroup } from 'leaflet';
+
 import { INIT_COORDS } from '../../coords';
 import { LeafletConfig } from './leaflet-config';
 
