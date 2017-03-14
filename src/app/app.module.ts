@@ -28,7 +28,7 @@ import { reducer } from './state-management/reducers/index';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    CovalentCoreModule.forRoot(),
+    CovalentCoreModule,
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(CurrentSearchEffectService),

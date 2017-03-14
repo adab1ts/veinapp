@@ -6,7 +6,7 @@ md-toolbar-row {
 }
 
 @media (max-width: 960px) {
-  md-toolbar.md-primary {
+  md-toolbar.mat-primary {
     min-height: 70px;
     md-toolbar-row {
       height: 70px;
@@ -15,7 +15,7 @@ md-toolbar-row {
 }
 
 @media (max-width: 600px) {
-  md-toolbar.md-primary {
+  md-toolbar.mat-primary {
     min-height: 105px;
     padding-bottom: 5px;
     md-toolbar-row {
