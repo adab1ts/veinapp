@@ -6,23 +6,34 @@ md-toolbar-row {
 }
 
 @media (max-width: 960px) {
-  md-toolbar.mat-primary {
-    min-height: 70px;
-    md-toolbar-row {
-      height: 70px;
+  md-toolbar {
+    &.mat-primary {
+      min-height: 70px;
+      md-toolbar-row {
+        height: 70px;
+      }
+    }
+    button.td-menu-button {
+      display: none;
     }
   }
 }
 
 @media (max-width: 600px) {
-  md-toolbar.mat-primary {
-    min-height: 105px;
-    padding-bottom: 5px;
-    md-toolbar-row {
-      height: 105px;
+  md-toolbar {
+    .small {
+      font-size: 16px;
+    }
+    &.mat-primary {
+      min-height: 105px;
+      padding-bottom: 5px;
+      md-toolbar-row {
+        height: 105px;
+      }
     }
   }
 }
+
 // </main header> //
 
 // <places list items> //
@@ -30,6 +41,7 @@ a[md-list-item], .place-detail-box {
   opacity: 0;
   transform: translateX(-20px);
 }
+
 md-card-title > h3 {
   margin: 0;
 }

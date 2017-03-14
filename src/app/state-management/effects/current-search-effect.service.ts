@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 
+import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
 import { GeocodeService, GeosearchingService } from '../../geo/geo.module';
 import { GEO_KEY_ENTER, GEO_KEY_EXIT } from '../../geo/geosearching/geosearch';
@@ -20,7 +23,7 @@ export class CurrentSearchEffectService {
         return Observable
           .of(new search.NoResultsSearch());
       }
-      // route
+      this.store.dispatch(go('/'));
       const changeSearch$ = Observable
         .of(new search.ChangeCurrentCenter(response));
       const geoSearch$ = Observable
@@ -33,6 +36,7 @@ export class CurrentSearchEffectService {
     .ofType(search.ActionTypes.CHANGE_SEARCH_BY_RADIUS)
     .map(toPayload)
     .switchMap(response => {
+      this.store.dispatch(go('/'));
       const changeSearch$ = Observable
         .of(new search.ChangeCurrentCenter(response));
       const geoSearch$ = Observable
@@ -58,6 +62,7 @@ export class CurrentSearchEffectService {
     });
 
   constructor(private actions$: Actions,
+              private store: Store<fromRoot.State>,
               private geocodeService: GeocodeService,
               private geosearchingService: GeosearchingService) {
   }

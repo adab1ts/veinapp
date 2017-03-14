@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
 import { TdMediaService } from '@covalent/core';
 
 import * as fromRoot from '../state-management/reducers';
@@ -16,7 +15,7 @@ export class PlacesComponent implements OnInit, AfterViewInit {
   pending$;
   address$;
   selectedPlace$;
-  subscription = new Subscription();
+  layoutOpen$;
 
   constructor(public media: TdMediaService,
               private store: Store<fromRoot.State>) {}
@@ -27,6 +26,7 @@ export class PlacesComponent implements OnInit, AfterViewInit {
     this.selectedPlace$ = this.store.select(fromRoot.selected);
     this.center$ = this.store.select(fromRoot.center);
     this.places$ = this.store.select(fromRoot.places);
+    this.layoutOpen$ = this.store.select(fromRoot.getShowSidenav);
   }
 
   ngAfterViewInit() {

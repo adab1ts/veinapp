@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { TdMediaService } from '@covalent/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,11 +6,11 @@ import { TdMediaService } from '@covalent/core';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent implements AfterViewInit {
+export class FooterComponent {
+  @Input() layoutOpen;
+  @Output() openSideNav = new EventEmitter();
 
-  constructor(public media: TdMediaService) {}
-
-  ngAfterViewInit() {
-    this.media.broadcast();
+  openSide(view) {
+    this.openSideNav.emit(view);
   }
 }

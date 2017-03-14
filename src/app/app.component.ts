@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-
 import * as fromRoot from './state-management/reducers';
 import { DoGeoSearch } from './state-management/actions/current-search-action';
+import { CloseSidenavAction, OpenSidenavAction } from './state-management/actions/layout-action';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,8 @@ import { DoGeoSearch } from './state-management/actions/current-search-action';
   styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit {
-  searchPending = false;
+  searchPending$;
+  layoutOpen$;
   geolocationPending = false;
   subscription: Subscription = new Subscription;
 
@@ -23,16 +24,21 @@ export class AppComponent implements OnInit {
       .withLatestFrom(this.store.select(fromRoot.center))
       .take(1)
       .subscribe(data => {
-        this.store
-          .dispatch(new DoGeoSearch({
+        this.store.dispatch(new DoGeoSearch({
             radius: data[ 0 ],
             center: data[ 1 ]
           }));
         this.subscription.unsubscribe();
       });
 
-    this.store.select(fromRoot.pending)
-      .subscribe((data: boolean) => this.searchPending = data);
+    this.searchPending$ = this.store.select(fromRoot.pending);
+    this.layoutOpen$ = this.store.select(fromRoot.getShowSidenav);
+
+  }
+
+  onOpenSideNav(view) {
+    this.store
+      .dispatch(view ? new OpenSidenavAction() : new CloseSidenavAction());
   }
 
 }

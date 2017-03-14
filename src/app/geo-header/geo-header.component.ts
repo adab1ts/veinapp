@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-import { ActivatedRoute } from '@angular/router';
 
 import * as fromRoot from '../state-management/reducers';
 import * as search from '../state-management/actions/current-search-action';
@@ -23,8 +22,7 @@ export class GeoHeaderComponent implements OnInit {
 
   constructor(private store: Store<fromRoot.State>,
               private geolocationService: GeolocationService,
-              private geocodeService: GeocodeService,
-              private route: ActivatedRoute) {
+              private geocodeService: GeocodeService) {
   }
 
   ngOnInit() {
@@ -38,7 +36,8 @@ export class GeoHeaderComponent implements OnInit {
   }
 
   changeRadius(radius) {
-    this.store.dispatch(new search.ChangeSearchByRadius({ radius: radius }));
+    this.store
+      .dispatch(new search.ChangeSearchByRadius({ radius: radius }));
   }
 
   // TODO create a state to control the geolocation state

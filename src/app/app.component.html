@@ -11,7 +11,7 @@
 
   <!-- activity indicator on geosearch, radius change or geolocation -->
   <app-activity-indicator
-    [pending]="searchPending || geolocationPending">
+    [pending]="(searchPending$ | async) || geolocationPending">
   </app-activity-indicator>
 
   <!-- routing => places list || places map -->
@@ -19,6 +19,8 @@
 
   <!-- footer (mobile) -->
   <td-layout-footer hide-gt-md>
-    <app-footer></app-footer>
+    <app-footer [layoutOpen]="layoutOpen$ | async"
+                (openSideNav)="onOpenSideNav($event)">
+    </app-footer>
   </td-layout-footer>
 </td-layout-nav>

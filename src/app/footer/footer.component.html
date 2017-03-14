@@ -1,12 +1,14 @@
 <div flex="100" layout="row">
-  <button layout="row" flex="50"
+  <button [disabled]="layoutOpen" layout="row" flex="50"
           layout-align="center center"
-          md-button class="text-upper">
+          md-button class="text-upper"
+          (click)="openSide(true)">
     <md-icon>list</md-icon>
   </button>
-  <button layout="row" flex="50"
+  <button [disabled]="!layoutOpen" layout="row" flex="50"
           layout-align="center center"
-          md-button class="text-upper">
+          md-button class="text-upper"
+          (click)="openSide(false)">
     <md-icon>place</md-icon>
   </button>
 </div>

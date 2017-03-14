@@ -48,3 +48,7 @@ Thumbs.db
 # DB data
 /db/data/*
 !/db/data/*.sample
+
+# Javascript files
+/src/**/*.js
+/scripts/*.js

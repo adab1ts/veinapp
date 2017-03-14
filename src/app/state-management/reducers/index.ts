@@ -1,11 +1,14 @@
-import * as fromSearch from './current-search-reducer';
-import * as fromRouter from '@ngrx/router-store';
 import { ActionReducer, combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from '../../../environments/environment';
-import { CurrentSearchState } from '../states/current-search-state';
 import { createSelector } from 'reselect';
+
+import { CurrentSearchState } from '../states/current-search-state';
+import { LayoutState } from '../states/layout-state';
+import * as fromSearch from './current-search-reducer';
+import * as fromLayout from './layout-reducer';
+import * as fromRouter from '@ngrx/router-store';
 
 /**
  * We treat each reducer like a table in a database. This means
@@ -13,6 +16,7 @@ import { createSelector } from 'reselect';
  */
 export interface State {
   search: CurrentSearchState;
+  layout: LayoutState;
   router: fromRouter.RouterState;
 }
 
@@ -25,6 +29,7 @@ export interface State {
  */
 const reducers = {
   search: fromSearch.reducer,
+  layout: fromLayout.reducer,
   router: fromRouter.routerReducer
 };
 
@@ -57,9 +62,13 @@ export const getCurrentSearchState = (state: State) => state.search;
  * The created selectors can also be composed together to select different
  * pieces of state.
  */
+// Search
 export const radius = createSelector(getCurrentSearchState, fromSearch.getRadius);
 export const center = createSelector(getCurrentSearchState, fromSearch.getCenter);
 export const address = createSelector(getCurrentSearchState, fromSearch.getAddress);
 export const places = createSelector(getCurrentSearchState, fromSearch.getPlacesList);
 export const pending = createSelector(getCurrentSearchState, fromSearch.getPending);
 export const selected = createSelector(getCurrentSearchState, fromSearch.getSelectedPlace);
+// Layout
+export const getLayoutState = (state: State) => state.layout;
+export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
