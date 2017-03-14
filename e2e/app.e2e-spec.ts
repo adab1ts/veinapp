@@ -1,6 +1,6 @@
 import { VeinappPage } from './app.po';
 
-describe('veinapp App', function() {
+describe('veinapp App', () => {
   let page: VeinappPage;
 
   beforeEach(() => {
