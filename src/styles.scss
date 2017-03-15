@@ -13,6 +13,7 @@
     }
   }
 }
+
 @media (max-width: 600px) {
   md-toolbar {
     // text for toolbar list
@@ -37,6 +38,7 @@ a[md-list-item], .place-detail-box {
   opacity: 0;
   transform: translateX(-20px);
 }
+
 md-card-title > h3 {
   margin: 0;
 }
@@ -45,6 +47,13 @@ md-card-title > h3 {
 app-activity-indicator {
   height: 5px;
   z-index: 1;
+}
+
+// TODO - remove rule
+// should be fixed in Covalent Beta3
+// https://github.com/Teradata/covalent/issues/412
+.td-search-input {
+  height: 71px !important;
 }
 
 // <radius buttons not active< //
