@@ -1,3 +1,4 @@
+@import 'theme';
 // <main toolbar header> //
 @media (max-width: 960px) {
   md-toolbar {
@@ -44,4 +45,9 @@ md-card-title > h3 {
 app-activity-indicator {
   height: 5px;
   z-index: 1;
+}
+
+// <radius buttons not active< //
+.mat-primary.button-radius {
+  background-color: mat-color($primary, 400);
 }
