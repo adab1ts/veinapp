@@ -8,14 +8,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { MapzenGeocodeService } from './mapzen-geocode.service';
-import { MAPZEN_SEARCH_URL } from '../../../config/mapzen.config';
 
 describe('MapzenGeocodeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       providers: [
-        { provide: MAPZEN_SEARCH_URL, useValue: 'http://veinapp.test.coop' },
         MapzenGeocodeService,
         {
           provide: Http,

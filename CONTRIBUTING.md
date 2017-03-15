@@ -40,6 +40,8 @@ See [Resources](#resources) section for more information on Angular CLI.
 
 This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data as explained [here](https://www.youtube.com/v/k1D0_wFlXgo?start=60&end=104&autoplay=1).
 
+This application also relies on [Mapzen](https://mapzen.com/) as its geocoding service provider. Create a [Mapzen developer account](https://mapzen.com/developers/sign_up) and grab your API key as explained [here](https://mapzen.com/documentation/overview/).
+
 [Fork](https://help.github.com/articles/fork-a-repo/) the main [Veinapp repository](https://github.com/adab1ts/veinapp.git) from GitHub and then...
 
 ```shell
@@ -63,6 +65,13 @@ git branch -vv
 
 # Install project dependencies:
 npm install
+
+# Edit Mapzen configuration files and update it with your data
+cp src/config/mapzen.{ts.sample,ts}
+vi src/config/mapzen.ts
+
+cp src/config/mapzen.{ts.sample,prod.ts}
+vi src/config/mapzen.prod.ts
 
 # Edit Firebase configuration files and update it with your data
 cp src/config/firebase.{ts.sample,ts}

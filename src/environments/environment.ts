@@ -3,8 +3,10 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 import { firebaseConfig } from '../config/firebase';
+import { mapzenConfig } from '../config/mapzen';
 
 export const environment = {
   production: false,
-  firebase: firebaseConfig
+  firebase: firebaseConfig,
+  mapzen: mapzenConfig
 };
