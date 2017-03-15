@@ -1,16 +1,10 @@
-// <main header> //
-md-toolbar-row {
-  > div[td-toolbar-content] {
-    width: 100%;
-  }
-}
-
+// <main toolbar header> //
 @media (max-width: 960px) {
   md-toolbar {
     &.mat-primary {
-      min-height: 70px;
+      min-height: 75px;
       md-toolbar-row {
-        height: 70px;
+        height: 75px;
       }
     }
     button.td-menu-button {
@@ -18,36 +12,35 @@ md-toolbar-row {
     }
   }
 }
-
 @media (max-width: 600px) {
   md-toolbar {
+    // text for toolbar list
+    // just visible on mobile screeners
     .small {
       font-size: 16px;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
     }
     &.mat-primary {
-      min-height: 105px;
-      padding-bottom: 5px;
+      min-height: 115px;
       md-toolbar-row {
-        height: 105px;
+        height: 115px;
       }
     }
   }
 }
-
-// </main header> //
 
 // <places list items> //
 a[md-list-item], .place-detail-box {
   opacity: 0;
   transform: translateX(-20px);
 }
-
 md-card-title > h3 {
   margin: 0;
 }
 
-// </places list items> //
-
+// <app-activity-indicator> //
 app-activity-indicator {
   height: 5px;
   z-index: 1;

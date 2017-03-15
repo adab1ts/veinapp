@@ -8,8 +8,7 @@ import { GeolocationService, GeocodeService } from '../geo/geo.module';
 
 @Component({
   selector: 'app-geo-header',
-  templateUrl: './geo-header.component.html',
-  styleUrls: [ './geo-header.component.scss' ]
+  templateUrl: './geo-header.component.html'
 })
 export class GeoHeaderComponent implements OnInit {
   geoAddress = '';
