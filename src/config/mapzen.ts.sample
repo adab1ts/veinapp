@@ -1,7 +1,7 @@
 // Fill the fields and rename the file
 
 const mapzenConfig = {
-  apiKey: 'YOUR-API-KEY',
+  apiKey: 'MAPZEN-API-KEY',
   apiURL: 'https://search.mapzen.com/v1'
 };
 

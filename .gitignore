@@ -41,6 +41,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Config files
+.firebaserc
+
 # Config data
 /src/config/*
 !/src/config/*.sample
@@ -48,7 +51,7 @@ Thumbs.db
 # DB data
 /db/data/*
 !/db/data/*.sample
-/db/**/*.js
 
 # Javascript files
+/db/**/*.js
 /src/**/*.js

@@ -1,11 +1,11 @@
 // Fill the fields and rename the file
 
 const firebaseConfig = {
-    apiKey: 'YOUR-API-KEY',
-    authDomain: 'YOUR-APP.firebaseapp.com',
-    databaseURL: 'https://YOUR-APP.firebaseio.com',
-    storageBucket: 'YOUR-APP.appspot.com',
-    messagingSenderId: 'YOUR-MESSAGING-SENDER-ID'
+    apiKey: 'FIREBASE-APP-API-KEY',
+    authDomain: 'FIREBASE-APP.firebaseapp.com',
+    databaseURL: 'https://FIREBASE-APP.firebaseio.com',
+    storageBucket: 'FIREBASE-APP.appspot.com',
+    messagingSenderId: 'FIREBASE-APP-MESSAGING-SENDER-ID'
 };
 
 export { firebaseConfig }
