@@ -18,7 +18,11 @@ export class LeafletMapComponent implements OnInit {
   currentPlaceKey;
   placesLayer = new LayerGroup([]);
   @Output() setSelectedPlace = new EventEmitter();
-
+  @Input() set mapVisible(hidden) {
+    if (!hidden) {
+      this.resetMap();
+    }
+  };
   @Input() set center(coords) {
     if (typeof this.map !== 'undefined') {
       this.map.panTo(coords);
@@ -82,9 +86,8 @@ export class LeafletMapComponent implements OnInit {
           LeafletConfig.BASE_MAPS.OpenStreetMap
         ],
       });
-      // TODO (study better solution)
-      // this weird thing corrects center position of the map on load
-      setTimeout(() => this.map.invalidateSize(false), 0);
+
+     this.resetMap();
 
       control.zoom(LeafletConfig.CONTROL_ZOOM_POSITION).addTo(this.map);
       this.centerMarker = new Marker([ lat, long ], {
@@ -94,6 +97,12 @@ export class LeafletMapComponent implements OnInit {
       }).addTo(this.map);
     }
 
+  }
+
+  // TODO (study better solution)
+  // this weird thing corrects center position of the map on load
+  private resetMap () {
+    setTimeout(() => this.map.invalidateSize(false), 100);
   }
 
 }

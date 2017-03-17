@@ -47,6 +47,7 @@
   </div>
   <app-leaflet-map [center]="(center$ | async)"
                    [places]="(places$ | async)"
+                   [mapVisible]="(layoutOpen$ | async)"
                    [selectedPlaceKey]="(selectedPlace$ | async)?.$key"
                    (setSelectedPlace)="onChangeSelectedPlace($event)">
   </app-leaflet-map>
