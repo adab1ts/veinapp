@@ -22,7 +22,8 @@
   <md-nav-list td-sidenav-content>
     <template *ngIf="!(selectedPlace$ | async)" let-place let-last="last"
               ngFor [ngForOf]="(places$ | async)">
-      <app-places-list-item [place]="place"></app-places-list-item>
+      <app-places-list-item (showDetail)="onChangeSelectedPlace($event)"
+                            [place]="place"></app-places-list-item>
       <md-divider *ngIf="!last" md-inset></md-divider>
     </template>
 
@@ -45,7 +46,9 @@
     </span>
   </div>
   <app-leaflet-map [center]="(center$ | async)"
-                   [places]="(places$ | async)">
+                   [places]="(places$ | async)"
+                   [selectedPlaceKey]="(selectedPlace$ | async)?.$key"
+                   (setSelectedPlace)="onChangeSelectedPlace($event)">
   </app-leaflet-map>
 
 </td-layout-manage-list>

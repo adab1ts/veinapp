@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TdMediaService } from '@covalent/core';
+import { go } from '@ngrx/router-store';
 
 import * as fromRoot from '../state-management/reducers';
 
@@ -9,7 +10,6 @@ import * as fromRoot from '../state-management/reducers';
   templateUrl: './places.component.html'
 })
 export class PlacesComponent implements OnInit, AfterViewInit {
-
   center$;
   places$;
   pending$;
@@ -31,6 +31,10 @@ export class PlacesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.media.broadcast();
+  }
+
+  onChangeSelectedPlace(placeKey) {
+    this.store.dispatch(go(`/detail/${placeKey}`));
   }
 
 }

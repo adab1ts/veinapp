@@ -1,8 +1,7 @@
 import {
   Component, Input, ChangeDetectionStrategy,
-  trigger, state, animate, transition, style
+  trigger, state, animate, transition, style, Output, EventEmitter
 } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-places-list-item',
@@ -20,11 +19,10 @@ import { Router } from '@angular/router';
 })
 export class PlacesListItemComponent {
   @Input() place;
+  @Output() showDetail = new EventEmitter();
   state = 'visible';
 
-  constructor(private router: Router) {}
-
   goToDetail() {
-    this.router.navigate(['detail', this.place.$key]);
+    this.showDetail.emit(this.place.$key);
   }
 }

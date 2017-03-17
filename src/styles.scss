@@ -1,5 +1,11 @@
 @import 'theme';
-// <main toolbar header> //
+// <main header> //
+md-toolbar-row {
+  > div[td-toolbar-content] {
+    width: 100%;
+  }
+}
+
 @media (max-width: 960px) {
   md-toolbar {
     &.mat-primary {
@@ -38,7 +44,6 @@ a[md-list-item], .place-detail-box {
   opacity: 0;
   transform: translateX(-20px);
 }
-
 md-card-title > h3 {
   margin: 0;
 }
@@ -47,6 +52,19 @@ md-card-title > h3 {
 app-activity-indicator {
   height: 5px;
   z-index: 1;
+}
+
+// <branding> //
+.branding {
+  text-align: right;
+}
+
+.mat-primary.button-radius {
+  background-color: mat-color($primary, 400);
+}
+
+app-footer button[disabled] {
+  background-color: mat-color($accent);
 }
 
 // TODO - remove rule

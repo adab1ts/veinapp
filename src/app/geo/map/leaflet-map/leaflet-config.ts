@@ -4,27 +4,29 @@ import ZoomOptions = L.Control.ZoomOptions;
 export class LeafletConfig {
   static INIT_ZOOM = 14;
   static CONTROL_ZOOM_POSITION: ZoomOptions = { position: 'topright' };
-  private static MARKERS_PATH = '../assets/leaflet-icons/';
-  static CENTER_MARKER = new Icon({
-    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-icon.png`,
-    shadowUrl: `${LeafletConfig.MARKERS_PATH}//marker-shadow.png`,
-    iconSize: [ 24, 41 ],
-    shadowSize: [ 41, 41 ],
-    iconAnchor: [ 0, 41 ]
+  private static MARKERS_PATH = '/assets/leaflet-icons';
+  private static PlaceIcon = Icon.extend({
+    options: {
+      iconSize: [ 25, 25 ],
+      iconAnchor: [ 0, 12 ]
+    }
   });
-  static PLACE_MARKER = new Icon({
-    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-icon-green.png`,
-    shadowUrl: `${LeafletConfig.MARKERS_PATH}//marker-shadow.png`,
-    iconSize: [ 24, 41 ],
-    shadowSize: [ 41, 41 ],
-    iconAnchor: [ 0, 41 ]
+  static CENTER_MARKER = new LeafletConfig.PlaceIcon({
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/centre-25x25.png`
+  });
+  static PLACE_MARKER = new LeafletConfig.PlaceIcon({
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/casa-25x25.png`
+  });
+  static SELECTED_MARKER = new LeafletConfig.PlaceIcon({
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/pointer-35x35.png`,
+    iconSize: [ 35, 35 ],
+    iconAnchor: [ 0, 17 ]
   });
   static BASE_MAPS = {
-    OpenStreetMap: tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution: `&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, 
-                      Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">
+    OpenStreetMap: tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, 
+                      Tiles courtesy of <a href="https://hot.openstreetmap.org/" target="_blank">
                       Humanitarian OpenStreetMap Team</a>`
     })
   };
-  static PLACES_LAYER_LEGEND = 'Llocs propers';
 }

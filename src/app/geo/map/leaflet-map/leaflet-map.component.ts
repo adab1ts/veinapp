@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { Map, LatLng, control, Marker, LayerGroup } from 'leaflet';
 
 import { INIT_COORDS } from '../../coords';
 import { LeafletConfig } from './leaflet-config';
+import { GeoMarker } from './geo-marker';
 
 @Component({
   selector: 'app-leaflet-map',
@@ -14,7 +15,9 @@ export class LeafletMapComponent implements OnInit {
   map;
   centerMarker;
   placesMarkers = [];
+  currentPlaceKey;
   placesLayer = new LayerGroup([]);
+  @Output() setSelectedPlace = new EventEmitter();
 
   @Input() set center(coords) {
     if (typeof this.map !== 'undefined') {
@@ -23,14 +26,32 @@ export class LeafletMapComponent implements OnInit {
     }
   };
 
+  @Input() set selectedPlaceKey(key) {
+
+    const oldMarker = this
+      .findMarkerByKey(this.placesMarkers, this.currentPlaceKey);
+    if (oldMarker) {
+      oldMarker.setIcon(LeafletConfig.PLACE_MARKER);
+    }
+    if (key) {
+      const newMarker = this.findMarkerByKey(this.placesMarkers, key);
+      newMarker.setIcon(LeafletConfig.SELECTED_MARKER);
+      this.map.panTo(newMarker.getLatLng());
+    }
+    this.currentPlaceKey = key;
+  };
+
   @Input() set places(places) {
     if (typeof this.map !== 'undefined') {
       this.placesLayer.clearLayers();
       this.placesMarkers = places.reduce((acc, place) => {
-        const marker = this.findMarker(this.placesMarkers, place.location) ||
-          new Marker(place.location, {
-            icon: LeafletConfig.PLACE_MARKER
-          });
+        const marker = this.findMarkerByCoords(this.placesMarkers, place.location) ||
+          new GeoMarker(place.location, place.$key, {
+              title: place.name,
+              alt: place.name,
+              icon: LeafletConfig.PLACE_MARKER
+            });
+        marker.on('click', (e) => this.setSelectedPlace.emit(e.target.$key));
         acc.push(marker);
         return acc;
       }, []);
@@ -39,13 +60,17 @@ export class LeafletMapComponent implements OnInit {
     }
   };
 
-  private findMarker(arr, val) {
+  private findMarkerByCoords(arr, val) {
     return arr.find((item) => item.getLatLng() === val);
+  }
+  private findMarkerByKey(arr, val) {
+    return arr.find((item) => item.$key === val);
   }
 
   ngOnInit() {
     const lat = INIT_COORDS.lat;
     const long = INIT_COORDS.long;
+    const address = INIT_COORDS.address;
 
     if (typeof this.map === 'undefined') {
       this.map = new Map('map', {
@@ -62,9 +87,9 @@ export class LeafletMapComponent implements OnInit {
       setTimeout(() => this.map.invalidateSize(false), 0);
 
       control.zoom(LeafletConfig.CONTROL_ZOOM_POSITION).addTo(this.map);
-      const layerControl = control.layers().addTo(this.map);
-      layerControl.addOverlay(this.placesLayer, 'Llocs propers');
       this.centerMarker = new Marker([ lat, long ], {
+        title: address,
+        alt: address,
         icon: LeafletConfig.CENTER_MARKER
       }).addTo(this.map);
     }
