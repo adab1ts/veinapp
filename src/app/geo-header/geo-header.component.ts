@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../state-management/reducers';
 import * as search from '../state-management/actions/current-search-action';
@@ -17,7 +16,6 @@ export class GeoHeaderComponent implements OnInit {
 
   centerDistances = [ 0.5, 1, 2, 3 ];
   @Output() geolocationPending = new EventEmitter<boolean>();
-  subscription = new Subscription();
 
   constructor(private store: Store<fromRoot.State>,
               private geolocationService: GeolocationService,
@@ -47,7 +45,7 @@ export class GeoHeaderComponent implements OnInit {
     this.geolocationPending.emit(true);
 
     this.geolocationService.getLocation()
-      .flatMap(
+      .switchMap(
         (coords) => this.geocodeService.getAddress(coords)
       )
       .subscribe(

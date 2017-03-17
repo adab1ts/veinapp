@@ -11,7 +11,7 @@ export class RadiusFilterBtnComponent {
   @Output() onChange = new EventEmitter<number>();
 
   setColor() {
-    return this.currentRadius ? 'accent' : 'primary';
+    return this.currentRadius ? 'primary' : 'accent';
   }
   change(radius) {
     this.onChange.emit(radius);

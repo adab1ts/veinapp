@@ -1,21 +1,16 @@
 @import 'theme';
-// <main header> //
-md-toolbar-row {
-  > div[td-toolbar-content] {
-    width: 100%;
-  }
-}
 
+// <main header> //
 @media (max-width: 960px) {
   md-toolbar {
-    &.mat-primary {
-      min-height: 75px;
-      md-toolbar-row {
-        height: 75px;
-      }
-    }
     button.td-menu-button {
       display: none;
+    }
+    &.mat-primary {
+      min-height: 64px;
+      md-toolbar-row {
+        height: 64px;
+      }
     }
   }
 }
@@ -31,11 +26,14 @@ md-toolbar-row {
       box-sizing: border-box;
     }
     &.mat-primary {
-      min-height: 115px;
+      min-height: 120px;
       md-toolbar-row {
-        height: 115px;
+        height: 120px;
       }
     }
+  }
+  app-radius-filter {
+    margin-bottom: 5px;
   }
 }
 
@@ -59,14 +57,6 @@ app-activity-indicator {
   text-align: right;
 }
 
-.mat-primary.button-radius {
-  background-color: mat-color($primary, 400);
-}
-
-app-footer button[disabled] {
-  background-color: mat-color($accent);
-}
-
 // TODO - remove rule
 // should be fixed in Covalent Beta3
 // https://github.com/Teradata/covalent/issues/412
@@ -74,7 +64,12 @@ app-footer button[disabled] {
   height: 71px !important;
 }
 
-// <radius buttons not active< //
+// <radius buttons not active> //
 .mat-primary.button-radius {
   background-color: mat-color($primary, 400);
+}
+
+// <app-footer mobile> //
+app-footer button[disabled] {
+  background-color: mat-color($accent);
 }
