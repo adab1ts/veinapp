@@ -4,6 +4,7 @@ import { TdMediaService } from '@covalent/core';
 import { go } from '@ngrx/router-store';
 
 import * as fromRoot from '../state-management/reducers';
+import { OpenSidenavAction } from '../state-management/actions/layout-action';
 
 @Component({
   selector: 'app-places',
@@ -34,6 +35,7 @@ export class PlacesComponent implements OnInit, AfterViewInit {
   }
 
   onChangeSelectedPlace(placeKey) {
+    this.store.dispatch(new OpenSidenavAction());
     this.store.dispatch(go(`/detail/${placeKey}`));
   }
 
