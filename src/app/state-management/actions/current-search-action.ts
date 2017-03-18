@@ -17,6 +17,7 @@ export const ActionTypes = {
   DO_GEO_SEARCH: type('[Search] Do geosearch'),
   ENTER_GEO_PLACE: type('[Search] Add geosearch'),
   EXIT_GEO_PLACE: type('[Search] Remove geosearch'),
+  CHANGE_PENDING: type('[Search] Pending action has ended'),
   NO_RESULTS_SEARCH: type('[Search] No results'),
   CHANGE_CURRENT_CENTER: type('[Search] Change center'),
   SELECTED_PLACE: type('[Search] Selected place')
@@ -65,6 +66,10 @@ export class RemoveGeoPlace implements Action {
   constructor(public payload: GeosearchResult) { }
 }
 
+export class ChangePending implements Action {
+  type = ActionTypes.CHANGE_PENDING;
+}
+
 export class NoResultsSearch implements Action {
   type = ActionTypes.NO_RESULTS_SEARCH;
 }
@@ -86,5 +91,6 @@ export type Actions
   | ChangeCurrentCenter
   | AddGeoPlace
   | RemoveGeoPlace
+  | ChangePending
   | NoResultsSearch
   | SelectedPlace;

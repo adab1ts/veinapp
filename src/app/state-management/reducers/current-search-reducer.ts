@@ -12,10 +12,10 @@ class CurrentSearchActions {
   }
 
   change() {
-    return Object.assign({}, this.state, this.action.payload, { pending: false });
+    return Object.assign({}, this.state, this.action.payload);
   }
 
-  noResult() {
+  changePending() {
     return Object.assign({}, this.state, { pending: false });
   }
 
@@ -53,7 +53,8 @@ export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
     case search.ActionTypes.NO_RESULTS_SEARCH:
       // TODO - now prevents changing the state (except pending)
       // must trigger a UI warning (maybe with a geocodosearch state)
-      return actions.noResult();
+    case search.ActionTypes.CHANGE_PENDING:
+      return actions.changePending();
     default:
       return state;
   }

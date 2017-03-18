@@ -7,7 +7,7 @@ import { go } from '@ngrx/router-store';
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
 import { GeocodeService, GeosearchingService } from '../../geo/geo.module';
-import { GEO_KEY_ENTER, GEO_KEY_EXIT } from '../../geo/geosearching/geosearch';
+import { GEO_KEY_ENTER, GEO_KEY_EXIT, GEO_SEARCH_END } from '../../geo/geosearching/geosearch';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -58,6 +58,9 @@ export class CurrentSearchEffectService {
       }
       if (response.action === GEO_KEY_EXIT) {
         return Observable.of(new search.RemoveGeoPlace(response));
+      }
+      if (response.action === GEO_SEARCH_END) {
+        return Observable.of(new search.ChangePending());
       }
     });
 

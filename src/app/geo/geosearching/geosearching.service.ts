@@ -4,14 +4,14 @@ import { AngularFireDatabase } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-import { GeosearchResult, GeosearchParams, GEO_KEY_ENTER, GEO_KEY_EXIT } from './geosearch';
+import { GeosearchResult, GeosearchParams, GEO_KEY_ENTER, GEO_KEY_EXIT, GEO_SEARCH_END } from './geosearch';
 
 @Injectable()
 export class GeosearchingService {
 
   gfRef = new Geofire(this.db.list('/coords').$ref);
   geoQuery;
-  subject = new Subject<GeosearchResult>();
+  subject = new Subject<any>();
   initialRadius = 1;
 
   constructor(private db: AngularFireDatabase) {
@@ -37,7 +37,7 @@ export class GeosearchingService {
         this.subject.next({ $key: key, action: GEO_KEY_EXIT });
       });
     }
-    this.incrementalRadiusSearch(this.geoQuery, params);
+    this.incrementalRadiusSearch(params);
 
     return this.subject.asObservable();
   }
@@ -51,7 +51,9 @@ export class GeosearchingService {
    * @param geoQuery
    * @param params
    */
-  incrementalRadiusSearch(geoQuery, params) {
+  private incrementalRadiusSearch(params) {
+    const geoQuery = this.geoQuery;
+    const subject = this.subject;
     const oldRadius = geoQuery.radius();
     const newRadius = params.radius || oldRadius || this.initialRadius;
     const newCenter = params.center;
@@ -61,8 +63,11 @@ export class GeosearchingService {
     geoQuery.updateCriteria({ center: newCenter, radius: initRadius });
 
     for (let init = initRadius; init <= newRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
-      timeout = setTimeout(function () {
+      timeout = setTimeout(() => {
         geoQuery.updateCriteria({ radius: init });
+        if (init === newRadius) {
+          subject.next({ action: GEO_SEARCH_END });
+        }
       }, 1000 * (init + 0.8));
     }
 

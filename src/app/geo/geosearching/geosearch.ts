@@ -20,3 +20,4 @@ export interface GeosearchResult {
 
 export const GEO_KEY_ENTER = 'GEO_KEY_ENTER';
 export const GEO_KEY_EXIT = 'GEO_KEY_EXIT';
+export const GEO_SEARCH_END = 'GEO_SEARCH_END';
