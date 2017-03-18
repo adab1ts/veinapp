@@ -52,17 +52,15 @@ export class GeosearchingService {
    * @param params
    */
   incrementalRadiusSearch(geoQuery, params) {
-    const newRadius = params.radius || this.initialRadius;
+    const oldRadius = geoQuery.radius();
+    const newRadius = params.radius || oldRadius || this.initialRadius;
     const newCenter = params.center;
-
-    const oldRadius = this.geoQuery.radius();
-    const limitRadius = newRadius || oldRadius;
     const initRadius = newCenter || (newRadius < oldRadius) ? 0.05 : oldRadius;
     let timeout;
 
     geoQuery.updateCriteria({ center: newCenter, radius: initRadius });
 
-    for (let init = initRadius; init < limitRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
+    for (let init = initRadius; init <= newRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
       timeout = setTimeout(function () {
         geoQuery.updateCriteria({ radius: init });
       }, 1000 * (init + 0.8));
