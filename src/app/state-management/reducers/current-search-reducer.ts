@@ -2,8 +2,6 @@ import { Action } from '@ngrx/store';
 
 import * as search from '../actions/current-search-action';
 import { CurrentSearchState, INITIAL_CURRENT_SEARCH_STATE } from '../states/current-search-state';
-import { GEO_KEY_ENTER, GEO_KEY_EXIT } from '../../geo/geosearching/geosearch';
-
 
 class CurrentSearchActions {
   constructor(private state, private action: Action) {}
@@ -19,7 +17,7 @@ class CurrentSearchActions {
   updatePlaces() {
     let places = [...this.state.placesList];
     this.action.payload.forEach((item) => {
-      if (item.action === GEO_KEY_EXIT) {
+      if (item.action) {
         places = places.filter(place => {
           return place.$key !== item.$key;
         });
@@ -32,20 +30,6 @@ class CurrentSearchActions {
       placesList: places
     });
   }
-
-  // addPlace() {
-  //   return Object.assign({}, this.state, {
-  //     pending: false,
-  //     placesList: this.state.placesList.concat(this.action.payload)
-  //   });
-  // }
-  //
-  // removePlace() {
-  //   return Object.assign({}, this.state, {
-  //     pending: false,
-  //     placesList: this.state.placesList.filter(place => place.$key !== this.action.payload.$key)
-  //   });
-  // }
 }
 
 export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,

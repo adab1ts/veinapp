@@ -6,7 +6,7 @@ import { go } from '@ngrx/router-store';
 
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
-import { GeocodeService, GeosearchingService } from '../../geo/geo.module';
+import { GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -18,30 +18,14 @@ export class CurrentSearchEffectService {
       this.geocodeService.getCoords(payload.address)
     )
     .switchMap(response => {
-      if (!response) {
-        return Observable
-          .of(new search.NoResultsSearch());
-      }
-      this.store.dispatch(go('/'));
-      const changeSearch$ = Observable
-        .of(new search.ChangeCurrentParams(response));
-      const geoSearch$ = Observable
-        .of(new search.DoGeosearch(response));
-
-      return Observable.merge(changeSearch$, geoSearch$);
+      return this.getNewPlaces(response);
     });
 
   @Effect() changeCurrentSearchByRadius$ = this.actions$
     .ofType(search.ActionTypes.CHANGE_SEARCH_BY_RADIUS)
     .map(toPayload)
     .switchMap(response => {
-      this.store.dispatch(go('/'));
-      const changeSearch$ = Observable
-        .of(new search.ChangeCurrentParams(response));
-      const geoSearch$ = Observable
-        .of(new search.DoGeosearch(response));
-
-      return Observable.merge(changeSearch$, geoSearch$);
+      return this.getNewPlaces(response);
     });
 
   @Effect() updateGeoSearch$ = this.actions$
@@ -50,14 +34,32 @@ export class CurrentSearchEffectService {
     .switchMap(payload => {
       return this.geosearchingService.getPlaces(payload);
     })
+    .switchMap(payload => {
+      return this.firebaseQueringService.getData(payload);
+    })
     .switchMap(response => {
-        return Observable.of(new search.UpdateGeosearchResults(response));
+      return Observable.of(new search.UpdateGeosearchResults(response));
     });
 
   constructor(private actions$: Actions,
               private store: Store<fromRoot.State>,
               private geocodeService: GeocodeService,
-              private geosearchingService: GeosearchingService) {
+              private geosearchingService: GeosearchingService,
+              private firebaseQueringService: FirebaseQueryingService) {
+  }
+
+  private getNewPlaces(data) {
+    if (!data) {
+      return Observable
+        .of(new search.NoResultsSearch());
+    }
+    this.store.dispatch(go('/'));
+    const changeSearch$ = Observable
+      .of(new search.ChangeCurrentParams(data));
+    const geoSearch$ = Observable
+      .of(new search.DoGeosearch(data));
+
+    return Observable.merge(changeSearch$, geoSearch$);
   }
 
 }

@@ -6,6 +6,7 @@ import { WindowRefService } from './windowRef/window-ref.service';
 import { GeolocationService } from './geolocation/geolocation.service';
 import { GeosearchingService } from './geosearching/geosearching.service';
 import { LeafletMapComponent } from './map/leaflet-map/leaflet-map.component';
+import { FirebaseQueryingService } from './firebase-querying/firebase-querying.service';
 
 @NgModule({
   providers: [
@@ -13,7 +14,8 @@ import { LeafletMapComponent } from './map/leaflet-map/leaflet-map.component';
     MapzenGeocodeService,
     WindowRefService,
     GeolocationService,
-    GeosearchingService
+    GeosearchingService,
+    FirebaseQueryingService
   ],
   declarations: [
     LeafletMapComponent
@@ -28,5 +30,6 @@ export class GeoModule {
 export {
   GeocodeService,
   GeolocationService,
-  GeosearchingService
+  GeosearchingService,
+  FirebaseQueryingService
 }
