@@ -69,7 +69,7 @@ export class RemoveGeoPlace implements Action {
 export class UpdateGeosearchResults implements Action {
   type = ActionTypes.UPDATE_GEOSEARCH_RESULTS;
 
-  constructor(public payload: GeosearchResult[]) { }
+  constructor(public payload: any[]) { }
 }
 
 export class NoResultsSearch implements Action {
