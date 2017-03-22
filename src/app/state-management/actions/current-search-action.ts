@@ -17,9 +17,9 @@ export const ActionTypes = {
   DO_GEO_SEARCH: type('[Search] Do geosearch'),
   ENTER_GEO_PLACE: type('[Search] Add geosearch'),
   EXIT_GEO_PLACE: type('[Search] Remove geosearch'),
-  CHANGE_PENDING: type('[Search] Pending action has ended'),
+  UPDATE_GEOSEARCH_RESULTS: type('[Search] Update places list'),
   NO_RESULTS_SEARCH: type('[Search] No results'),
-  CHANGE_CURRENT_CENTER: type('[Search] Change center'),
+  CHANGE_CURRENT_PARAMS: type('[Search] Change center or radius params'),
   SELECTED_PLACE: type('[Search] Selected place')
 };
 
@@ -42,14 +42,14 @@ export class ChangeSearchByRadius implements Action {
   constructor(public payload: any) { }
 }
 
-export class DoGeoSearch implements Action {
+export class DoGeosearch implements Action {
   type = ActionTypes.DO_GEO_SEARCH;
 
   constructor(public payload: any) { }
 }
 
-export class ChangeCurrentCenter implements Action {
-  type = ActionTypes.CHANGE_CURRENT_CENTER;
+export class ChangeCurrentParams implements Action {
+  type = ActionTypes.CHANGE_CURRENT_PARAMS;
 
   constructor(public payload: any) { }
 }
@@ -66,8 +66,10 @@ export class RemoveGeoPlace implements Action {
   constructor(public payload: GeosearchResult) { }
 }
 
-export class ChangePending implements Action {
-  type = ActionTypes.CHANGE_PENDING;
+export class UpdateGeosearchResults implements Action {
+  type = ActionTypes.UPDATE_GEOSEARCH_RESULTS;
+
+  constructor(public payload: GeosearchResult[]) { }
 }
 
 export class NoResultsSearch implements Action {
@@ -87,10 +89,10 @@ export class SelectedPlace implements Action {
 export type Actions
   = ChangeSearchFromAddress
   | ChangeSearchByRadius
-  | DoGeoSearch
-  | ChangeCurrentCenter
+  | DoGeosearch
+  | ChangeCurrentParams
   | AddGeoPlace
   | RemoveGeoPlace
-  | ChangePending
+  | UpdateGeosearchResults
   | NoResultsSearch
   | SelectedPlace;

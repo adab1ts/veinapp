@@ -7,7 +7,6 @@ import { go } from '@ngrx/router-store';
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
 import { GeocodeService, GeosearchingService } from '../../geo/geo.module';
-import { GEO_KEY_ENTER, GEO_KEY_EXIT, GEO_SEARCH_END } from '../../geo/geosearching/geosearch';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -25,9 +24,9 @@ export class CurrentSearchEffectService {
       }
       this.store.dispatch(go('/'));
       const changeSearch$ = Observable
-        .of(new search.ChangeCurrentCenter(response));
+        .of(new search.ChangeCurrentParams(response));
       const geoSearch$ = Observable
-        .of(new search.DoGeoSearch(response));
+        .of(new search.DoGeosearch(response));
 
       return Observable.merge(changeSearch$, geoSearch$);
     });
@@ -38,9 +37,9 @@ export class CurrentSearchEffectService {
     .switchMap(response => {
       this.store.dispatch(go('/'));
       const changeSearch$ = Observable
-        .of(new search.ChangeCurrentCenter(response));
+        .of(new search.ChangeCurrentParams(response));
       const geoSearch$ = Observable
-        .of(new search.DoGeoSearch(response));
+        .of(new search.DoGeosearch(response));
 
       return Observable.merge(changeSearch$, geoSearch$);
     });
@@ -52,16 +51,7 @@ export class CurrentSearchEffectService {
       return this.geosearchingService.getPlaces(payload);
     })
     .switchMap(response => {
-      // TODO check if it exists a better rxjs operator option
-      if (response.action === GEO_KEY_ENTER) {
-        return Observable.of(new search.AddGeoPlace(response));
-      }
-      if (response.action === GEO_KEY_EXIT) {
-        return Observable.of(new search.RemoveGeoPlace(response));
-      }
-      if (response.action === GEO_SEARCH_END) {
-        return Observable.of(new search.ChangePending());
-      }
+        return Observable.of(new search.UpdateGeosearchResults(response));
     });
 
   constructor(private actions$: Actions,
