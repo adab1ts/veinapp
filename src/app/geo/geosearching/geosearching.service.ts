@@ -3,41 +3,56 @@ import * as Geofire from 'geofire';
 import { AngularFireDatabase } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-
-import { GeosearchResult, GeosearchParams, GEO_KEY_ENTER, GEO_KEY_EXIT, GEO_SEARCH_END } from './geosearch';
+import { GeosearchResult, GeosearchParams, GEO_KEY_ENTER, GEO_KEY_EXIT } from './geosearch';
 
 @Injectable()
 export class GeosearchingService {
 
   gfRef = new Geofire(this.db.list('/coords').$ref);
   geoQuery;
+  data = [];
   subject = new Subject<any>();
   initialRadius = 1;
 
   constructor(private db: AngularFireDatabase) {
   }
 
-  getPlaces(params: GeosearchParams): Observable<GeosearchResult> {
+  getPlaces(params: GeosearchParams): Observable<GeosearchResult[]> {
 
     if (typeof this.geoQuery === 'undefined') {
-      this.geoQuery = this.gfRef.query({ center: params.center, radius: 0.05 });
+      this.geoQuery = this.gfRef.query(
+        { center: params.center, radius: params.radius || this.initialRadius }
+      );
 
       this.geoQuery.on('key_entered', (key, location, distance) => {
-        this.db.object(`/places/${key}`)
-          .subscribe(place => {
-            this.subject.next(
-              Object.assign(place, {
-                location: location, distance: distance,
-                action: GEO_KEY_ENTER
-              }));
-          });
+        console.log('KEY_ENTER:', key, location, distance);
+        this.data.push({
+          $key: key,
+          location: location,
+          distance: distance
+        });
+        // this.db.object(`/places/${key}`)
+        //   .subscribe(place => {
+        //     data.push(
+        //       Object.assign(place, {
+        //         location: location, distance: distance,
+        //         action: GEO_KEY_ENTER
+        //       }));
+        //   });
 
       });
-      this.geoQuery.on('key_exited', (key) => {
-        this.subject.next({ $key: key, action: GEO_KEY_EXIT });
+      this.geoQuery.on('key_exited', (key, location, distance) => {
+        console.log('KEY_EXIT:', key, location, distance);
+        this.data.push({ $key: key, action: GEO_KEY_EXIT });
       });
+      this.geoQuery.on('ready', () => {
+        console.log('READY:');
+        this.subject.next(this.data);
+      });
+    } else {
+      this.data = [];
+      this.updateGeoQuery(params);
     }
-    this.incrementalRadiusSearch(params);
 
     return this.subject.asObservable();
   }
@@ -51,25 +66,20 @@ export class GeosearchingService {
    * @param geoQuery
    * @param params
    */
-  private incrementalRadiusSearch(params) {
-    const geoQuery = this.geoQuery;
-    const subject = this.subject;
-    const oldRadius = geoQuery.radius();
-    const newRadius = params.radius || oldRadius || this.initialRadius;
-    const newCenter = params.center;
-    const initRadius = newCenter || (newRadius < oldRadius) ? 0.05 : oldRadius;
-    let timeout;
+  private updateGeoQuery(params) {
+    const radius = params.radius || this.geoQuery.radius() || this.initialRadius;
+    const center = params.center || this.geoQuery.center();
 
-    geoQuery.updateCriteria({ center: newCenter, radius: initRadius });
-
-    for (let init = initRadius; init <= newRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
-      timeout = setTimeout(() => {
-        geoQuery.updateCriteria({ radius: init });
-        if (init === newRadius) {
-          subject.next({ action: GEO_SEARCH_END });
-        }
-      }, 1000 * (init + 0.8));
-    }
+    this.geoQuery.updateCriteria({ center: center, radius: radius });
+    //
+    // for (let init = initRadius; init <= newRadius; init = parseFloat((init + 0.05).toPrecision(3))) {
+    //   timeout = setTimeout(() => {
+    //     geoQuery.updateCriteria({ radius: init });
+    //     if (init === newRadius) {
+    //       subject.next({ action: GEO_SEARCH_END });
+    //     }
+    //   }, 1000 * (init + 0.8));
+    // }
 
   }
 

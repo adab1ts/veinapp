@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import * as search from '../actions/current-search-action';
 import { CurrentSearchState, INITIAL_CURRENT_SEARCH_STATE } from '../states/current-search-state';
+import { GEO_KEY_ENTER, GEO_KEY_EXIT } from '../../geo/geosearching/geosearch';
 
 
 class CurrentSearchActions {
@@ -15,23 +16,36 @@ class CurrentSearchActions {
     return Object.assign({}, this.state, this.action.payload);
   }
 
-  changePending() {
-    return Object.assign({}, this.state, { pending: false });
-  }
-
-  addPlace() {
+  updatePlaces() {
+    let places = [...this.state.placesList];
+    this.action.payload.forEach((item) => {
+      if (item.action === GEO_KEY_EXIT) {
+        places = places.filter(place => {
+          return place.$key !== item.$key;
+        });
+      } else {
+        places.push(item);
+      }
+    });
     return Object.assign({}, this.state, {
       pending: false,
-      placesList: this.state.placesList.concat(this.action.payload)
+      placesList: places
     });
   }
 
-  removePlace() {
-    return Object.assign({}, this.state, {
-      pending: false,
-      placesList: this.state.placesList.filter(place => place.$key !== this.action.payload.$key)
-    });
-  }
+  // addPlace() {
+  //   return Object.assign({}, this.state, {
+  //     pending: false,
+  //     placesList: this.state.placesList.concat(this.action.payload)
+  //   });
+  // }
+  //
+  // removePlace() {
+  //   return Object.assign({}, this.state, {
+  //     pending: false,
+  //     placesList: this.state.placesList.filter(place => place.$key !== this.action.payload.$key)
+  //   });
+  // }
 }
 
 export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
@@ -43,18 +57,14 @@ export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
     case search.ActionTypes.CHANGE_SEARCH_BY_RADIUS:
     case search.ActionTypes.CHANGE_SEARCH_FROM_ADDRESS:
       return actions.pending();
-    case search.ActionTypes.CHANGE_CURRENT_CENTER:
+    case search.ActionTypes.CHANGE_CURRENT_PARAMS:
     case search.ActionTypes.SELECTED_PLACE:
       return actions.change();
-    case search.ActionTypes.ENTER_GEO_PLACE:
-      return actions.addPlace();
-    case search.ActionTypes.EXIT_GEO_PLACE:
-      return actions.removePlace();
     case search.ActionTypes.NO_RESULTS_SEARCH:
       // TODO - now prevents changing the state (except pending)
       // must trigger a UI warning (maybe with a geocodosearch state)
-    case search.ActionTypes.CHANGE_PENDING:
-      return actions.changePending();
+    case search.ActionTypes.UPDATE_GEOSEARCH_RESULTS:
+      return actions.updatePlaces();
     default:
       return state;
   }

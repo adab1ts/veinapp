@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import * as fromRoot from './state-management/reducers';
-import { DoGeoSearch } from './state-management/actions/current-search-action';
+import { DoGeosearch } from './state-management/actions/current-search-action';
 import { CloseSidenavAction, OpenSidenavAction } from './state-management/actions/layout-action';
 
 @Component({
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
       .withLatestFrom(this.store.select(fromRoot.center))
       .take(1)
       .subscribe(data => {
-        this.store.dispatch(new DoGeoSearch({
+        this.store.dispatch(new DoGeosearch({
             radius: data[ 0 ],
             center: data[ 1 ]
           }));
