@@ -12,9 +12,8 @@
   "author": "Adab1ts <info@adabits.org> (https://www.adabits.org)",
   "contributors": [
     "Klaudia Alvarez <klaudia@adabits.org> (https://github.com/laklau)",
-    "Carlos Matheu <info@plastikaweb.org> (https://github.com/plastikaweb)",
-    "Sergio Gimeno (https://github.com/sgimeno)",
-    "Carles Muiños <carles@adabits.org> (https://github.com/zuzust)"
+    "Carles Muiños <carles@adabits.org> (https://github.com/zuzust)",
+    "Carlos Matheu <info@plastikaweb.org> (https://github.com/plastikaweb)"
   ],
   "private": true,
   "scripts": {

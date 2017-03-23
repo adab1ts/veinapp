@@ -5,14 +5,10 @@ node_js:
 dist: trusty
 sudo: required
 
-cache:
-  yarn: true
-  directories:
-    - node_modules
-
 branches:
   only:
     - master
+    - staging
 
 addons:
   apt:
@@ -20,18 +16,31 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-      - google-chrome-beta
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+before_install:
+  - npm install -g firebase-tools@3.5.0
+  - npm install -g @angular/cli@1.0.0-rc.2
+
+install:
+  - npm install
 
 before_script:
-  - yarn global add firebase-tools@3.5.0
-  - yarn global add @angular/cli@1.0.0-rc.2
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
-script: ./ci/build.sh
+script:
+  - ./ci/setup.sh
+  - ./ci/test.sh
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then ./ci/build.sh; fi'
 
-after_success: ./ci/deploy.sh
+after_success:
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then ./ci/deploy.sh; fi'
 
 notifications:
   email: false
