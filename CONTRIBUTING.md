@@ -168,12 +168,12 @@ Before you submit your PR consider the following guidelines:
 
 ```shell
 # Create a new branch:
-git checkout -b my-branch master
+git checkout -b my-branch staging
 
 # Make your changes and try to make the tests pass.
 # All the tests are executed on our Continuous Integration infrastructure
 # and a PR could only be merged once the tests pass:
-ng test
+ng test --single-run
 ng e2e
 
 # If you can't or need help then commit what you have with `--no-verify`:
@@ -187,11 +187,15 @@ git add . && git cz
 # Push your changes to your fork:
 git push -u origin my-branch
 
-# In GitHub, send a PR to `veinapp:master`.
+# In GitHub, send a PR to `veinapp:staging`.
 # Follow our feedback and iterate on the solution until we accept it.
 
 # Rebase and squash your branch:
-git rebase -i master
+git rebase -i staging
+
+# Add upstream/staging updates to your branch:
+git fetch upstream
+git rebase upstream/staging
 
 # Push to your fork (this will update your PR):
 git push -f
@@ -202,17 +206,19 @@ git push -f
 After your PR is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
 ```shell
+# Update your staging with the latest upstream version:
+git checkout staging -f
+git pull --ff upstream staging
+
+# Update your master with the latest upstream version:
+git checkout master -f
+git pull --ff upstream master
+
 # Delete the remote branch on GitHub:
 git push origin --delete my-branch
 
-# Check out the master branch:
-git checkout master -f
-
 # Delete the local branch:
 git branch -D my-branch
-
-# Update your master with the latest upstream version:
-git pull --ff upstream master
 ```
 
 ## Resources

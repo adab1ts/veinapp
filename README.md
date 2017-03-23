@@ -1,5 +1,6 @@
 # Veinapp
 
+[![Build Status](https://travis-ci.org/adab1ts/veinapp.svg?branch=master)](https://travis-ci.org/adab1ts/veinapp)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 
@@ -84,12 +85,12 @@ LinkedIn: [adab1ts](https://www.linkedin.com/company/adab1ts)
 
 ## Contributors
 
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification.
 Contributions of any kind are welcome!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/5324001?v=3" width="100px;"/><br /><sub>Carlos Matheu</sub>](https://github.com/adab1ts/veinapp/commits?author=plastikaweb) | <img src="https://avatars.githubusercontent.com/u/6210292?v=3" width="100px;"/><br /><sub>Klaudia Alvarez</sub> | [<img src="https://avatars.githubusercontent.com/u/946661?v=3" width="100px;"/><br /><sub>Sergio Gimeno</sub>](https://github.com/adab1ts/veinapp/commits?author=sgimeno) | [<img src="https://avatars.githubusercontent.com/u/351530?v=3" width="100px;"/><br /><sub>Carles Muiños</sub>](https://github.com/adab1ts/veinapp/commits?author=zuzust) |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+<img alt="laklau" src="https://avatars.githubusercontent.com/u/6210292?v=3&s=117" width="117"> |[<img alt="zuzust" src="https://avatars.githubusercontent.com/u/351530?v=3&s=117" width="117">](https://github.com/adab1ts/veinapp/commits?author=zuzust) |[<img alt="plastikaweb" src="https://avatars.githubusercontent.com/u/5324001?v=3&s=117" width="117">](https://github.com/adab1ts/veinapp/commits?author=plastikaweb) |
+:---: |:---: |:---: |
+[Klaudia Alvarez](https://github.com/laklau) |[Carles Muiños](https://github.com/zuzust) |[Carlos Matheu](https://github.com/plastikaweb) |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
