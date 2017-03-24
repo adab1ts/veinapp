@@ -1,4 +1,7 @@
-import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, trigger, state, style, transition, animate,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +10,7 @@ import { go } from '@ngrx/router-store';
 
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../../state-management/actions/current-search-action';
-import { GeosearchResult } from '../../geo/geosearching/geosearch';
+import { GeosearchResult } from '../../geo/geodata';
 
 @Component({
   selector: 'app-place-item',
@@ -21,7 +24,8 @@ import { GeosearchResult } from '../../geo/geosearching/geosearch';
       })),
       transition('* => visible', animate('200ms ease-in'))
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class PlaceItemComponent implements OnInit, OnDestroy {
   state = 'visible';

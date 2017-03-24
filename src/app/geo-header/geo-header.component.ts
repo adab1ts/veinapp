@@ -14,7 +14,7 @@ export class GeoHeaderComponent implements OnInit {
   doFocus = false;
   currentRadius$;
 
-  centerDistances = [ 0.5, 1, 2, 3, 5, 10 ];
+  centerDistances = [ 0.5, 1, 2, 3, 5 ];
   @Output() geolocationPending = new EventEmitter<boolean>();
 
   constructor(private store: Store<fromRoot.State>,

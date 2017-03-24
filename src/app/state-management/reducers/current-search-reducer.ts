@@ -6,18 +6,23 @@ import { CurrentSearchState, INITIAL_CURRENT_SEARCH_STATE } from '../states/curr
 class CurrentSearchActions {
   constructor(private state, private action: Action) {}
 
-  pending() {
-    return Object.assign({}, this.state, { pending: true });
+  pending(isPending: boolean) {
+    return Object.assign({}, this.state, { pending: isPending });
   }
 
-  change() {
+  changeGeocodeData() {
+    const newGeocodeData = Object.assign({}, this.state.geocodeData, this.action.payload);
+    return Object.assign({}, this.state, { geocodeData: newGeocodeData, pending: false });
+  }
+
+  changeSelectedPlace() {
     return Object.assign({}, this.state, this.action.payload);
   }
 
   updatePlaces() {
-    let places = [...this.state.placesList];
+    let places = [ ...this.state.placesList ];
     this.action.payload.forEach((item) => {
-      if (item.action) {
+      if (item.remove) {
         places = places.filter(place => {
           return place.$key !== item.$key;
         });
@@ -33,20 +38,22 @@ class CurrentSearchActions {
 }
 
 export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
-                                     action: search.Actions): CurrentSearchState {
+                        action: search.Actions): CurrentSearchState {
   const actions = new CurrentSearchActions(state, action);
 
   switch (action.type) {
     case search.ActionTypes.DO_GEO_SEARCH:
     case search.ActionTypes.CHANGE_SEARCH_BY_RADIUS:
     case search.ActionTypes.CHANGE_SEARCH_FROM_ADDRESS:
-      return actions.pending();
+      return actions.pending(true);
     case search.ActionTypes.CHANGE_CURRENT_PARAMS:
+      return actions.changeGeocodeData();
     case search.ActionTypes.SELECTED_PLACE:
-      return actions.change();
+      return actions.changeSelectedPlace();
     case search.ActionTypes.NO_RESULTS_SEARCH:
-      // TODO - now prevents changing the state (except pending)
-      // must trigger a UI warning (maybe with a geocodosearch state)
+      return actions.pending(false);
+    // TODO - now prevents changing the state (except pending)
+    // must trigger a UI warning (maybe with a geocodosearch state)
     case search.ActionTypes.UPDATE_GEOSEARCH_RESULTS:
       return actions.updatePlaces();
     default:
@@ -62,9 +69,9 @@ export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
  * focused so they can be combined and composed to fit each particular
  * use-case.
  */
-export const getRadius = (state: CurrentSearchState) => state.radius;
-export const getCenter = (state: CurrentSearchState) => state.center;
-export const getAddress = (state: CurrentSearchState) => state.address;
+export const getRadius = (state: CurrentSearchState) => state.geocodeData.radius;
+export const getCenter = (state: CurrentSearchState) => state.geocodeData.center;
+export const getAddress = (state: CurrentSearchState) => state.geocodeData.address;
 export const getPlacesList = (state: CurrentSearchState) => state.placesList;
 export const getPending = (state: CurrentSearchState) => state.pending;
 export const getSelectedPlace = (state: CurrentSearchState) => state.selectedPlace;

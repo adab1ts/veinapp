@@ -29,8 +29,10 @@ describe('MapzenGeocodeService', () => {
   });
 
   // mocked data
+
+  const centerData = [ 41.429682, 2.175945 ];
   const geoData = {
-    address: 'Mock Street', lat: 41.429682, long: 2.175945
+    address: 'Mock Street', center: centerData
   };
   const mockReverseGeocodingResponse = {
     features: [ { properties: { label: 'Mock Street' } } ]
@@ -53,8 +55,8 @@ describe('MapzenGeocodeService', () => {
       mapzenService.getGeocoding(geoData.address)
         .subscribe((result) => {
           expect(result.address).toEqual('Mock Street');
-          expect(result.center[1]).toEqual(2.175945);
-          expect(result.center[0]).toEqual(41.429682);
+          expect(result.center[ 1 ]).toEqual(2.175945);
+          expect(result.center[ 0 ]).toEqual(41.429682);
         });
     })));
 
@@ -70,9 +72,6 @@ describe('MapzenGeocodeService', () => {
       mapzenService.getGeocoding(geoData.address)
         .subscribe((result) => {
           expect(result).toBeFalsy();
-          expect(result.address).toBeUndefined();
-          expect(result.long).toBeUndefined();
-          expect(result.lat).toBeUndefined();
         });
     })));
 
@@ -86,7 +85,7 @@ describe('MapzenGeocodeService', () => {
         })));
       });
 
-      mapzenService.getReverseGeocoding(geoData)
+      mapzenService.getReverseGeocoding(centerData)
         .subscribe((result) => {
           expect(result.address).toEqual('Mock Street');
         });
@@ -101,7 +100,7 @@ describe('MapzenGeocodeService', () => {
         })));
       });
 
-      mapzenService.getReverseGeocoding(geoData)
+      mapzenService.getReverseGeocoding(centerData)
         .subscribe((result) => {
           expect(result).toBeFalsy();
           expect(result.address).toBeUndefined();

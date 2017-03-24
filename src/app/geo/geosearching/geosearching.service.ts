@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import * as Geofire from 'geofire';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { GeosearchResult, GeosearchParams, GEO_KEY_EXIT } from './geosearch';
 import { AngularFireDatabase } from 'angularfire2';
+
+import { GeocodeData, GeosearchResult } from '../geodata';
 
 @Injectable()
 export class GeosearchingService {
@@ -17,7 +18,12 @@ export class GeosearchingService {
   constructor(private db: AngularFireDatabase) {
   }
 
-  getPlaces(params: GeosearchParams): Observable<GeosearchResult[]> {
+  /**
+   * get new geo places given center and/or radius params {GeosearchParams}
+   * @param params
+   * @returns {Observable<GeosearchResult[]>}
+   */
+  getPlaces(params: GeocodeData): Observable<GeosearchResult[]> {
 
     this.data = [];
 
@@ -35,11 +41,11 @@ export class GeosearchingService {
       });
 
       this.geoQuery.on('key_exited', (key) => {
-        this.data.push({ $key: key, action: GEO_KEY_EXIT });
+        this.data.push({ $key: key, remove: true });
       });
 
       this.geoQuery.on('ready', () => {
-        this.subject.next(this.data);
+        this.subject.next(this.orderBy(this.data));
       });
 
     } else {
@@ -50,13 +56,23 @@ export class GeosearchingService {
   }
 
   /**
-   * change geoQuery data criteria
-   * @param params
+   * update geoQuery data criteria
+   * @param params {GeosearchParams}
    */
-  private updateGeoQuery(params: GeosearchParams) {
+  private updateGeoQuery(params: GeocodeData) {
     const radius = params.radius || this.geoQuery.radius() || this.initialRadius;
     const center = params.center || this.geoQuery.center();
     this.geoQuery.updateCriteria({ center: center, radius: radius });
+  }
+
+  /**
+   * Order array of places by given value (default ['distance'])
+   * @param data {GeosearchResult[]}
+   * @param prop {string}
+   * @returns {GeosearchResult[]}
+   */
+  private orderBy(data, prop = 'distance') {
+    return data.sort((a, b) => a[prop] - b[prop]);
   }
 
 }

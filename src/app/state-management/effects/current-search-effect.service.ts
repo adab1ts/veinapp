@@ -7,6 +7,7 @@ import { go } from '@ngrx/router-store';
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
 import { GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
+import { GeocodeData, GeosearchResult } from '../../geo/geodata';
 
 @Injectable()
 export class CurrentSearchEffectService {
@@ -14,31 +15,34 @@ export class CurrentSearchEffectService {
   @Effect() changeCurrentSearchFromGeocode$ = this.actions$
     .ofType(search.ActionTypes.CHANGE_SEARCH_FROM_ADDRESS)
     .map(toPayload)
-    .switchMap(payload =>
+    .switchMap((payload): Observable<GeocodeData> =>
       this.geocodeService.getCoords(payload.address)
     )
-    .switchMap(response => {
+    .switchMap((response: GeocodeData): Observable<GeocodeData> => {
       return this.getNewPlaces(response);
     });
 
   @Effect() changeCurrentSearchByRadius$ = this.actions$
     .ofType(search.ActionTypes.CHANGE_SEARCH_BY_RADIUS)
     .map(toPayload)
-    .switchMap(response => {
+    .switchMap((response: GeocodeData): Observable<GeocodeData> => {
       return this.getNewPlaces(response);
     });
 
   @Effect() updateGeoSearch$ = this.actions$
     .ofType(search.ActionTypes.DO_GEO_SEARCH)
     .map(toPayload)
-    .switchMap(payload => {
+    .switchMap((payload: GeocodeData): Observable<GeosearchResult[]> => {
       return this.geosearchingService.getPlaces(payload);
     })
-    .switchMap(payload => {
-      return this.firebaseQueringService.getData(payload);
+    .switchMap((places: GeosearchResult[]): Observable<any> => {
+      return this.firebaseQueringService.getData(places);
     })
-    .switchMap(response => {
-      return Observable.of(new search.UpdateGeosearchResults(response));
+    .switchMap((places: GeosearchResult[]): Observable<any> => {
+      if (!places.length) {
+        return Observable.of(new search.NoResultsSearch());
+      }
+      return Observable.of(new search.UpdateGeosearchResults(places));
     });
 
   constructor(private actions$: Actions,
@@ -48,7 +52,7 @@ export class CurrentSearchEffectService {
               private firebaseQueringService: FirebaseQueryingService) {
   }
 
-  private getNewPlaces(data) {
+  private getNewPlaces(data: GeocodeData): Observable<any> {
     if (!data) {
       return Observable
         .of(new search.NoResultsSearch());

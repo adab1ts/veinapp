@@ -1,19 +1,14 @@
-import { GeosearchResult } from '../../geo/geosearching/geosearch';
-import { INIT_COORDS } from '../../geo/coords';
+import { GeocodeData, INIT_GEOCODE_DATA, GeosearchResult } from '../../geo/geodata';
 
 export interface CurrentSearchState {
-  address: string;
-  center: number[];
-  radius: number;
+  geocodeData: GeocodeData;
   placesList: GeosearchResult[];
   pending: boolean;
   selectedPlace?: GeosearchResult;
 }
 
 export const INITIAL_CURRENT_SEARCH_STATE: CurrentSearchState = {
-  address: INIT_COORDS.address,
-  center: [INIT_COORDS.lat, INIT_COORDS.long],
-  radius: 1,
+  geocodeData: INIT_GEOCODE_DATA,
   placesList: [],
   pending: false,
   selectedPlace: null

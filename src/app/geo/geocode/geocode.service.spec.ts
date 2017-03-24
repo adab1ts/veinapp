@@ -2,6 +2,7 @@
 import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, Response, ResponseOptions, Http } from '@angular/http';
+
 import { GeocodeService } from './geocode.service';
 import { MapzenGeocodeService } from './mapzen-geocode.service';
 
@@ -52,10 +53,7 @@ describe('GeocodeService', () => {
   it('should return a object with address attribute',
     fakeAsync(inject([ GeocodeService, MockBackend ], (geocodeService, mockBackend) => {
 
-      const coords = {
-        lat: 41.429682,
-        long: 2.175945
-      };
+      const coords = [41.429682, 2.175945];
       const mockResponse = {
         features: [ {
           properties: {
