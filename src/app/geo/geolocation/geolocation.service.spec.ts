@@ -33,8 +33,8 @@ describe('GeolocationService', () => {
       });
 
       geolocationService.getLocation().subscribe((searchState) => {
-        expect(searchState.long).toEqual(4.432421);
-        expect(searchState.lat).toEqual(44.765565);
+        expect(searchState[1]).toEqual(4.432421);
+        expect(searchState[0]).toEqual(44.765565);
       });
     })));
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { Map, LatLng, control, Marker, LayerGroup } from 'leaflet';
 
-import { INIT_COORDS } from '../../coords';
+import { INIT_GEOCODE_DATA } from '../../geodata';
 import { LeafletConfig } from './leaflet-config';
 import { GeoMarker } from './geo-marker';
 
@@ -23,15 +23,14 @@ export class LeafletMapComponent implements OnInit {
       this.resetMap();
     }
   };
-  @Input() set center(coords) {
+  @Input() set center(center) {
     if (typeof this.map !== 'undefined') {
-      this.map.panTo(coords);
-      this.centerMarker.setLatLng(coords);
+      this.map.panTo(center);
+      this.centerMarker.setLatLng(center);
     }
   };
 
   @Input() set selectedPlaceKey(key) {
-
     const oldMarker = this
       .findMarkerByKey(this.placesMarkers, this.currentPlaceKey);
     if (oldMarker) {
@@ -72,14 +71,13 @@ export class LeafletMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    const lat = INIT_COORDS.lat;
-    const long = INIT_COORDS.long;
-    const address = INIT_COORDS.address;
+    const center = new LatLng(INIT_GEOCODE_DATA.center[0], INIT_GEOCODE_DATA.center[1]);
+    const address = INIT_GEOCODE_DATA.address;
 
     if (typeof this.map === 'undefined') {
       this.map = new Map('map', {
         zoomControl: false,
-        center: new LatLng(lat, long),
+        center: center,
         zoom: LeafletConfig.INIT_ZOOM,
         layers: [
           this.placesLayer,
@@ -90,7 +88,7 @@ export class LeafletMapComponent implements OnInit {
      this.resetMap();
 
       control.zoom(LeafletConfig.CONTROL_ZOOM_POSITION).addTo(this.map);
-      this.centerMarker = new Marker([ lat, long ], {
+      this.centerMarker = new Marker(center, {
         title: address,
         alt: address,
         icon: LeafletConfig.CENTER_MARKER

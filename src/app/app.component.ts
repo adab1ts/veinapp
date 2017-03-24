@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+
 import * as fromRoot from './state-management/reducers';
 import { DoGeosearch } from './state-management/actions/current-search-action';
 import { CloseSidenavAction, OpenSidenavAction } from './state-management/actions/layout-action';

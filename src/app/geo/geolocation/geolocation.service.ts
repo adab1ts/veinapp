@@ -25,10 +25,10 @@ export class GeolocationService {
       && typeof navigator.geolocation !== 'undefined') {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          SUBJECT.next({
-            lat: position.coords.latitude,
-            long: position.coords.longitude
-          });
+          SUBJECT.next([
+            position.coords.latitude,
+            position.coords.longitude
+          ]);
         },
         (error) => {
           switch (error.code) {

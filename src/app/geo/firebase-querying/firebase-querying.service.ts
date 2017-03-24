@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 
-import { GeosearchResult } from '../geosearching/geosearch';
+import { GeosearchResult } from '../geodata';
 
 @Injectable()
 export class FirebaseQueryingService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getData(data): Observable<GeosearchResult[]> {
+  getData(data: GeosearchResult[]): Observable<GeosearchResult[]> {
+    if (!data.length) {
+      return Observable.of(data);
+    }
     return Observable.of(data).map((items) =>
       items.map(item => {
         // exit places
-        if (item.action) {
+        if (item.remove) {
           return Observable.of(item);
         }
         // new places

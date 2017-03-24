@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
+
 import { CurrentSearchEffectService } from './current-search-effect.service';
 
 describe('CurrentSearchEffectService', () => {

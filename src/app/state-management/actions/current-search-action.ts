@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { GeosearchResult } from '../../geo/geosearching/geosearch';
 import { type } from '../../util';
+import { GeosearchResult } from '../../geo/geodata';
 
 /**
  * For each action type in an action group, make a simple

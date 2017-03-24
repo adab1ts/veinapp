@@ -28,7 +28,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    CovalentCoreModule,
+    CovalentCoreModule.forRoot(),
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(CurrentSearchEffectService),
