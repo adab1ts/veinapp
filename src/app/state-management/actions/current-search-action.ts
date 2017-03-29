@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../util';
-import { GeosearchResult } from '../../geo/geodata';
+import { GeosearchResult, GeocodeData } from '../../geo/geodata';
 
 /**
  * For each action type in an action group, make a simple
@@ -15,11 +15,9 @@ export const ActionTypes = {
   CHANGE_SEARCH_FROM_ADDRESS: type('[Search] Geolocate'),
   CHANGE_SEARCH_BY_RADIUS: type('[Search] Update geosearch by radius'),
   DO_GEO_SEARCH: type('[Search] Do geosearch'),
-  ENTER_GEO_PLACE: type('[Search] Add geosearch'),
-  EXIT_GEO_PLACE: type('[Search] Remove geosearch'),
+  CHANGE_CURRENT_PARAMS: type('[Search] Change center or radius params'),
   UPDATE_GEOSEARCH_RESULTS: type('[Search] Update places list'),
   NO_RESULTS_SEARCH: type('[Search] No results'),
-  CHANGE_CURRENT_PARAMS: type('[Search] Change center or radius params'),
   SELECTED_PLACE: type('[Search] Selected place')
 };
 
@@ -45,31 +43,19 @@ export class ChangeSearchByRadius implements Action {
 export class DoGeosearch implements Action {
   type = ActionTypes.DO_GEO_SEARCH;
 
-  constructor(public payload: any) { }
+  constructor(public payload: GeocodeData) { }
 }
 
 export class ChangeCurrentParams implements Action {
   type = ActionTypes.CHANGE_CURRENT_PARAMS;
 
-  constructor(public payload: any) { }
-}
-
-export class AddGeoPlace implements Action {
-  type = ActionTypes.ENTER_GEO_PLACE;
-
-  constructor(public payload: GeosearchResult) { }
-}
-
-export class RemoveGeoPlace implements Action {
-  type = ActionTypes.EXIT_GEO_PLACE;
-
-  constructor(public payload: GeosearchResult) { }
+  constructor(public payload: GeocodeData) { }
 }
 
 export class UpdateGeosearchResults implements Action {
   type = ActionTypes.UPDATE_GEOSEARCH_RESULTS;
 
-  constructor(public payload: any[]) { }
+  constructor(public payload: GeosearchResult[]) { }
 }
 
 export class NoResultsSearch implements Action {
@@ -79,7 +65,7 @@ export class NoResultsSearch implements Action {
 export class SelectedPlace implements Action {
   type = ActionTypes.SELECTED_PLACE;
 
-  constructor(public payload: any) { }
+  constructor(public payload: GeosearchResult) { }
 }
 
 /**
@@ -91,8 +77,6 @@ export type Actions
   | ChangeSearchByRadius
   | DoGeosearch
   | ChangeCurrentParams
-  | AddGeoPlace
-  | RemoveGeoPlace
   | UpdateGeosearchResults
   | NoResultsSearch
   | SelectedPlace;

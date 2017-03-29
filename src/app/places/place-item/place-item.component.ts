@@ -50,13 +50,13 @@ export class PlaceItemComponent implements OnInit, OnDestroy {
           this.goBack();
         }
         this.store
-          .dispatch(new search.SelectedPlace({ selectedPlace: place }));
+          .dispatch(new search.SelectedPlace(place));
         this.place = place;
       });
   }
 
   ngOnDestroy() {
-    this.store.dispatch(new search.SelectedPlace({ selectedPlace: null }));
+    this.store.dispatch(new search.SelectedPlace(null));
     this.routeParamSubscription.unsubscribe();
   }
 

@@ -16,7 +16,7 @@ class CurrentSearchActions {
   }
 
   changeSelectedPlace() {
-    return Object.assign({}, this.state, this.action.payload);
+    return Object.assign({}, this.state, { selectedPlace: this.action.payload });
   }
 
   updatePlaces() {
