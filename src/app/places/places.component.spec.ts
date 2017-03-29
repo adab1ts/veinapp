@@ -1,7 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CovalentCoreModule } from '@covalent/core';
+import { APP_BASE_HREF } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
 
 import { PlacesComponent } from './places.component';
+import { PlacesListItemComponent } from './places-list-item/places-list-item.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { PlaceItemComponent } from './place-item/place-item.component';
+import { LeafletMapComponent } from '../geo/map/leaflet-map/leaflet-map.component';
 
 describe('PlacesListComponent', () => {
   let component: PlacesComponent;
@@ -9,7 +16,19 @@ describe('PlacesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlacesComponent ]
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' }
+      ],
+      imports: [
+        CovalentCoreModule.forRoot(),
+        AppRoutingModule,
+        StoreModule.provideStore({}) ],
+      declarations: [
+        PlacesComponent,
+        PlacesListItemComponent,
+        PlaceItemComponent,
+        LeafletMapComponent
+      ]
     })
     .compileComponents();
   }));

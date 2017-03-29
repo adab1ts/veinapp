@@ -1,9 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { PlacesListItemComponent } from './places-list-item.component';
+import { CovalentCoreModule } from '@covalent/core';
 
 describe('PlacesListItemComponent', () => {
   let component: PlacesListItemComponent;
@@ -11,6 +10,7 @@ describe('PlacesListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [CovalentCoreModule.forRoot()],
       declarations: [ PlacesListItemComponent ]
     })
     .compileComponents();

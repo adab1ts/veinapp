@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CovalentCoreModule } from '@covalent/core';
 
 import { InputSearchComponent } from './input-search.component';
 
@@ -11,9 +10,10 @@ describe('InputSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ CovalentCoreModule.forRoot() ],
       declarations: [ InputSearchComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('InputSearchComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create input search component', () => {
     expect(component).toBeTruthy();
   });
 });

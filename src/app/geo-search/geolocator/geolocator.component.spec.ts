@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CovalentCoreModule } from '@covalent/core';
 
 import { GeolocatorComponent } from './geolocator.component';
 
@@ -11,9 +10,10 @@ describe('GeolocatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ CovalentCoreModule.forRoot() ],
       declarations: [ GeolocatorComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('GeolocatorComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create geolocator component', () => {
     expect(component).toBeTruthy();
   });
 });

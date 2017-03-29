@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CovalentCoreModule } from '@covalent/core';
 
 import { FooterComponent } from './footer.component';
+import { BrandingComponent } from '../shared/branding/branding.component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -11,9 +11,10 @@ describe('FooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      imports: [ CovalentCoreModule.forRoot() ],
+      declarations: [ FooterComponent, BrandingComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

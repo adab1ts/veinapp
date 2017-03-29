@@ -22,7 +22,7 @@ describe('BrandingComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the branding component', () => {
     expect(component).toBeTruthy();
   });
 });

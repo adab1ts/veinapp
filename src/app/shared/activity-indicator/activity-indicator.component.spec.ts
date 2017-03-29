@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CovalentCoreModule } from '@covalent/core';
 
 import { ActivityIndicatorComponent } from './activity-indicator.component';
 
@@ -11,6 +10,7 @@ describe('ActivityIndicatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [CovalentCoreModule.forRoot()],
       declarations: [ ActivityIndicatorComponent ]
     })
     .compileComponents();
@@ -22,7 +22,7 @@ describe('ActivityIndicatorComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create the activity indicator component', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CovalentCoreModule } from '@covalent/core';
 
 import { RadiusFilterBtnComponent } from './radius-filter-btn.component';
 
@@ -11,6 +10,7 @@ describe('RadiusFilterBtnComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [CovalentCoreModule.forRoot()],
       declarations: [ RadiusFilterBtnComponent ]
     })
     .compileComponents();
@@ -22,7 +22,7 @@ describe('RadiusFilterBtnComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create radius filter btn component', () => {
     expect(component).toBeTruthy();
   });
 });
