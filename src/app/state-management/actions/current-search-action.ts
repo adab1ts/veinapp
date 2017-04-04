@@ -12,7 +12,7 @@ import { GeosearchResult, GeocodeData } from '../../geo/geodata';
  * action types in the application are unique.
  */
 export const ActionTypes = {
-  CHANGE_SEARCH_FROM_ADDRESS: type('[Search] Geolocate'),
+  CHANGE_SEARCH_FROM_ADDRESS: type('[Search] Geocode by address'),
   CHANGE_SEARCH_BY_RADIUS: type('[Search] Update geosearch by radius'),
   DO_GEO_SEARCH: type('[Search] Do geosearch'),
   CHANGE_CURRENT_PARAMS: type('[Search] Change center or radius params'),

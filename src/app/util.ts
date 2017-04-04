@@ -18,3 +18,11 @@ export function type<T>(label: T | ''): T {
 
   return <T>label;
 }
+
+/**
+ * escape string to be able to match against a regex expression
+ * @param str {string}
+ */
+export const regExpEscape = (str) => {
+  return str.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1');
+};
