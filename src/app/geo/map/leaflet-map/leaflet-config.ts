@@ -23,9 +23,9 @@ export class LeafletConfig {
     iconAnchor: [ 0, 17 ]
   });
   static BASE_MAPS = {
-    OpenStreetMap: tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    OpenStreetMap: tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, 
-                      Tiles courtesy of <a href="https://hot.openstreetmap.org/" target="_blank">
+                      Tiles courtesy of <a href="https://www.hotosm.org/" target="_blank">
                       Humanitarian OpenStreetMap Team</a>`
     })
   };
