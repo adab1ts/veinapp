@@ -1,9 +1,0 @@
-<div>
-  <app-radius-filter-btn
-    *ngFor="let distance of distances"
-    [currentRadius]="isCurrentRadius(distance)"
-    [distance]="distance" (onChange)="changeRadius($event)">
-  </app-radius-filter-btn>
-  <small>kms</small>
-</div>
-

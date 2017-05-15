@@ -1,8 +1,42 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-radius-filter',
-  templateUrl: './radius-filter.component.html',
+  template: `
+    <div class="va-radius-filter">
+      <app-radius-filter-btn
+        *ngFor="let distance of distances"
+        [currentRadius]="isCurrentRadius(distance)"
+        [distance]="distance"
+        (onChange)="changeRadius($event)">
+      </app-radius-filter-btn>
+      <small>Kms</small>
+    </div>
+  `,
+  styles: [`
+    .va-radius-filter {
+      width: 12em;
+      text-align: center;
+      margin: 0 auto 1em;
+    }
+
+    @media (min-width: 600px) {
+      .va-radius-filter {
+        margin: 0 auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .va-radius-filter {
+        margin: 0 2em;
+      }
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadiusFilterComponent {

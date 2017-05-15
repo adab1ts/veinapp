@@ -1,8 +1,26 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-radius-filter-btn',
-  templateUrl: './radius-filter-btn.component.html',
+  template: `
+    <button md-mini-fab
+      [color]="this.currentRadius ? 'primary' : 'accent'" 
+      [ngClass]="{ 'va-radius-selected': this.currentRadius }"
+      (click)="change(distance)"
+    >
+      {{ distance }}
+    </button>
+  `,
+  styles: [`
+    button[md-mini-fab] {
+      margin-right: .2em;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadiusFilterBtnComponent {
@@ -10,11 +28,7 @@ export class RadiusFilterBtnComponent {
   @Input() currentRadius = false;
   @Output() onChange = new EventEmitter<number>();
 
-  setColor() {
-    return this.currentRadius ? 'primary' : 'accent';
-  }
   change(radius) {
     this.onChange.emit(radius);
   }
-
 }
