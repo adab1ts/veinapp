@@ -49,6 +49,11 @@ app-activity-indicator {
   z-index: 1;
 }
 
+// <geolocator button> //
+app-geolocator button[md-icon-button] {
+  background-color: mat-color($primary, 900);
+}
+
 // TODO - remove rule
 // should be fixed in Covalent Beta3
 // https://github.com/Teradata/covalent/issues/412

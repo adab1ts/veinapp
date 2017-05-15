@@ -1,9 +1,17 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-geolocator',
-  templateUrl: './geolocator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `
+    <button md-icon-button (click)="geolocate()">
+      <md-icon>location_searching</md-icon>
+    </button>
+  `,
+  styles: [`
+    button[md-icon-button] {
+      margin: 0;
+    }
+  `]
 })
 export class GeolocatorComponent {
   @Output() onGeolocate = new EventEmitter();
