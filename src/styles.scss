@@ -54,10 +54,10 @@ app-geolocator button[md-icon-button] {
   background-color: mat-color($primary, 900);
 }
 
-// TODO - remove rule
-// should be fixed in Covalent Beta3
+// <geosearch input> //
+// TODO - remove rule, should be fixed in Covalent Beta3
 // https://github.com/Teradata/covalent/issues/412
-.td-search-input {
+app-input-search .td-search-input {
   height: 71px !important;
 }
 

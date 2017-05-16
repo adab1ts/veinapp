@@ -1,13 +1,38 @@
-import { Component, Output, EventEmitter, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  ViewChild,
+  Input,
+  ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-input-search',
-  templateUrl: './input-search.component.html',
+  template: `
+    <td-search-input flex
+      #searchInput
+      placeholder="Introdueix la teva adreça"
+      [showUnderline]="true"
+      (search)="search()">
+    </td-search-input>
+
+    <button flex="none" md-icon-button (click)="search()">
+      <md-icon>search</md-icon>
+    </button>
+  `,
+  styles: [`
+    td-search-input {
+      padding: 0 .5em;
+    }
+
+    button[md-icon-button] {
+      margin: 0;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSearchComponent {
   @ViewChild('searchInput') input;
-  @Output() onSearch = new EventEmitter();
   @Input() set address(address: string) {
     this.input.value = address;
   };
@@ -15,6 +40,7 @@ export class InputSearchComponent {
     const inputDirective = this.input._input;
     if (focus) { inputDirective.focus(); }
   };
+  @Output() onSearch = new EventEmitter();
 
   search() {
     const val = this.input.value;
