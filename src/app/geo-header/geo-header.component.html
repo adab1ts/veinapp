@@ -1,27 +1,19 @@
-<div flex="100" layout="row"
-     layout-align="center center"
-     flex-gt-md="45" flex-gt-xs="60">
-  <app-input-search layout="row" flex="80"
-                    layout-align="center center"
-                    [focus]="doFocus"
-                    [address]="geoAddress"
-                    (onSearch)="search($event)">
+<div flex="100" flex-gt-xs="50" flex-gt-sm="60" flex-gt-md="40"
+  layout="row" layout-align="start center">
+  <app-geolocator flex="none" (onGeolocate)="geolocate()"></app-geolocator>
+
+  <app-input-search flex
+    layout="row" layout-align="start center"
+    [focus]="doFocus"
+    [address]="geoAddress"
+    (onSearch)="search($event)">
   </app-input-search>
-  <app-geolocator flex="20"
-                  (onGeolocate)="geolocate()">
-  </app-geolocator>
 </div>
 
-<app-radius-filter flex="nogrow"
-                   layout="row"
-                   flex-gt-md="25"
-                   flex-gt-xs="40"
-                   layout-align="center center"
-                   layout-align-gt-sm="center left"
-                   [distances]="centerDistances"
-                   [currentRadius]="currentRadius$ | async"
-                   (onChangeRadius)="changeRadius($event)"
-                   ></app-radius-filter>
+<app-radius-filter flex="100" flex-gt-xs="50" flex-gt-sm="40" flex-gt-md="30"
+  [distances]="[1, 2, 3, 5]"
+  [currentRadius]="currentRadius$ | async"
+  (onChangeRadius)="changeRadius($event)">
+</app-radius-filter>
 
-<app-branding flex-gt-xs="30"
-              hide show-gt-md></app-branding>
+<app-branding flex hide show-gt-md></app-branding>

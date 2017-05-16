@@ -7,14 +7,24 @@ import { GeolocationService, GeocodeService } from '../geo/geo.module';
 
 @Component({
   selector: 'app-geo-header',
-  templateUrl: './geo-header.component.html'
+  templateUrl: './geo-header.component.html',
+  styles: [`
+    :host {
+      font-size: 1rem;
+    }
+
+    @media (min-width: 960px) {
+      :host {
+        font-size: 1em;
+      }
+    }
+  `]
 })
 export class GeoHeaderComponent implements OnInit {
   geoAddress = '';
   doFocus = false;
   currentRadius$;
 
-  centerDistances = [ 0.5, 1, 2, 3, 5 ];
   @Output() geolocationPending = new EventEmitter<boolean>();
 
   constructor(private store: Store<fromRoot.State>,

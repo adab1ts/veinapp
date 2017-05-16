@@ -1,12 +1,12 @@
 <td-layout-nav>
 
-  <!-- main geo-header => input-search | geocoder | radius btns | branding -->
+  <!-- main geo-header => geocoder | input-search | radius btns | branding -->
   <app-geo-header td-toolbar-content
-                  layout-fill
-                  layout-wrap
-                  layout="row"
-                  layout-align="center center" flex
-                  (geolocationPending)="geolocationPending = $event">
+    layout="row"
+    layout-fill
+    layout-wrap
+    layout-align="start center"
+    (geolocationPending)="geolocationPending = $event">
   </app-geo-header>
 
   <!-- activity indicator on geosearch, radius change or geolocation -->
@@ -19,8 +19,10 @@
 
   <!-- footer (mobile) -->
   <td-layout-footer hide-gt-md>
-    <app-footer [layoutOpen]="layoutOpen$ | async"
-                (openSideNav)="onOpenSideNav($event)">
+    <app-footer
+      [layoutOpen]="layoutOpen$ | async"
+      (openSideNav)="onOpenSideNav($event)">
     </app-footer>
   </td-layout-footer>
+
 </td-layout-nav>
