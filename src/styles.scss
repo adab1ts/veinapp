@@ -1,36 +1,37 @@
 @import 'theme';
 
-// <main header> //
-@media (max-width: 960px) {
-  md-toolbar {
-    button.td-menu-button {
-      display: none;
-    }
-    &.mat-primary {
-      min-height: 64px;
-      md-toolbar-row {
-        height: 64px;
-      }
+// <toolbars> //
+md-toolbar button.td-menu-button {
+  display: none;
+}
+
+md-toolbar.mat-primary {
+  min-height: 120px;
+
+  md-toolbar-row {
+    height: 100%;
+  }
+}
+
+@media (min-width: 600px) {
+  md-toolbar.mat-primary {
+    min-height: 64px;
+
+    md-toolbar-row {
+      height: 100%;
     }
   }
 }
 
-@media (max-width: 600px) {
-  md-toolbar {
-    // text for toolbar list
-    // just visible on mobile screeners
-    .small {
-      font-size: 16px;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
-      box-sizing: border-box;
-    }
-    &.mat-primary {
-      min-height: 120px;
-      md-toolbar-row {
-        height: 120px;
-      }
-    }
+md-toolbar .small {
+  font-size: 1rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 960px) {
+  md-toolbar .small {
+    font-size: 1em;
   }
 }
 
