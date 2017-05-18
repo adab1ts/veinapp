@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
-import { FooterComponent } from './footer.component';
 import { CovalentCoreModule } from '@covalent/core';
+
+import { FooterComponent } from './footer.component';
 
 @NgModule({
   imports: [
-    CovalentCoreModule.forRoot(),
-    SharedModule
+    CovalentCoreModule.forRoot()
   ],
   exports: [
     FooterComponent
