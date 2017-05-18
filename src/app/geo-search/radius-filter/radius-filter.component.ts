@@ -15,7 +15,7 @@ import {
         [distance]="distance"
         (onChange)="changeRadius($event)">
       </app-radius-filter-btn>
-      <small>Kms</small>
+      <small>kms</small>
     </div>
   `,
   styles: [`

@@ -7,7 +7,7 @@
     <div td-toolbar-content layout="row"
          layout-align="start center" flex="90"
          *ngIf="media.registerQuery('xs') | async">
-      <md-icon md-list-icon class="tc-grey-600">center_focus_weak</md-icon>
+      <md-icon md-list-icon class="tc-grey-600">center_focus_strong</md-icon>
       <span class="tc-grey-600 small">
         {{address$ | async}}
       </span>
@@ -40,7 +40,7 @@
   <!-- places map -->
   <div td-toolbar-content layout="row"
        layout-align="start center" flex>
-    <md-icon md-list-icon class="tc-grey-600">center_focus_weak</md-icon>
+    <md-icon md-list-icon class="tc-grey-600">center_focus_strong</md-icon>
     <span class="tc-grey-600 small">
       {{address$ | async}}
     </span>

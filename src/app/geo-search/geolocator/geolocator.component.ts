@@ -4,7 +4,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   selector: 'app-geolocator',
   template: `
     <button md-icon-button (click)="geolocate()">
-      <md-icon>location_searching</md-icon>
+      <md-icon>gps_fixed</md-icon>
     </button>
   `,
   styles: [`
