@@ -1,34 +1,37 @@
-<md-card tdMediaToggle="gt-xs"
-         class="place-detail-box"
-         [@item]="state">
-  <md-card-header>
-    <div flex-order="-1" class="pad-top-sm pad-left">
-      <button md-icon-button (click)="goBack()">
-        <md-icon>arrow_back</md-icon>
-      </button>
-    </div>
-    <md-card-title><h3>{{place?.name}}</h3></md-card-title>
-  </md-card-header>
-  <md-divider></md-divider>
-  <md-card-content>
-    <md-list>
-      <md-list-item>
-        <h4 md-line>Adreça:</h4>
-        <p md-line class="no-overflow">{{place?.address}} {{place?.zip}} {{place?.city}}</p>
-        <p md-line>({{place?.distance | number:'1.1-1'}} km)</p>
-      </md-list-item>
-      <md-divider></md-divider>
-      <md-list-item>
-        <h4 md-line>Contactar:</h4>
-        <p md-line>{{place?.telephone}}</p>
-        <p md-line>
-          <a href="mailto:{{place?.email}}" target="_blank">{{place?.email}}</a>
-        </p>
-        <p md-line>
-          <a href="{{place?.web}}" target="_blank">{{place?.web}}</a>
-        </p>
-      </md-list-item>
-    </md-list>
+<md-card tdMediaToggle="gt-xs" [@item]="state">
 
+  <md-card-header>
+    <button flex-order="-1" md-icon-button (click)="goBack()">
+      <md-icon>arrow_back</md-icon>
+    </button>
+    <md-card-title>
+      <h3>{{ place?.name }}</h3>
+    </md-card-title>
+  </md-card-header>
+
+  <md-divider></md-divider>
+
+  <md-card-content>
+    <div class="va-card-content-group">
+      <h4>Adreça:</h4>
+      <p>
+        <span class="tc-grey-500">{{ place?.address }} {{ place?.zip }} {{ place?.city }}</span>
+        <span class="tc-grey-500">({{ place?.distance | number:'1.1-1' }} km)</span>
+      </p>
+    </div>
+
+    <div class="va-card-content-group">
+      <h4>Contacte:</h4>
+      <p>
+        <span *ngIf="place?.telephone" class="tc-grey-500">{{ place?.telephone }}</span>
+        <span *ngIf="place?.email" class="tc-grey-500">
+          <a href="mailto:{{ place?.email }}" target="_blank">{{ place?.email | truncate:33 }}</a>
+        </span>
+        <span *ngIf="place?.web" class="tc-grey-500">
+          <a href="http://{{ place?.web }}" target="_blank">{{ place?.web | truncate:33 }}</a>
+        </span>
+      </p>
+    </div>
   </md-card-content>
+
 </md-card>

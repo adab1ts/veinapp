@@ -35,15 +35,6 @@ md-toolbar .small {
   }
 }
 
-// <places list items> //
-a[md-list-item], .place-detail-box {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-md-card-title > h3 {
-  margin: 0;
-}
-
 // <geolocator button> //
 app-geolocator button[md-icon-button] {
   background-color: mat-color($primary, 900);

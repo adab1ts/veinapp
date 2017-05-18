@@ -1,7 +1,8 @@
 import {
-  Component, OnInit, OnDestroy, trigger, state, style, transition, animate,
-  ChangeDetectionStrategy
-} from '@angular/core';
+  Component,
+  OnInit,
+  OnDestroy,
+  trigger, state, style, transition, animate } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -15,7 +16,46 @@ import { GeosearchResult } from '../../geo/geodata';
 @Component({
   selector: 'app-place-item',
   templateUrl: './place-item.component.html',
-  styleUrls: [ './place-item.component.scss' ],
+  styles: [`
+    md-card md-card-header {
+      height: 3em;
+      margin: 0;
+      padding: 0 1em;
+    }
+
+    @media (min-width: 600px) {
+      md-card md-card-header {
+        padding-bottom: 1em;
+      }
+    }
+
+    md-card md-card-header button {
+      margin-top: .25em;
+    }
+  
+    md-card md-card-header md-card-title {
+      margin: 0;
+      padding: 0;
+    }
+
+    md-card md-card-content .va-card-content-group {
+      padding: 1em;
+    }
+
+    md-card md-card-content .va-card-content-group h4 {
+      font-weight: normal;
+      font-size: 16px;
+      margin: 0 0 .25em;
+    }
+
+    md-card md-card-content .va-card-content-group p {
+      margin: 0;
+    }
+
+    md-card md-card-content .va-card-content-group span {
+      display: block;
+    }
+  `],
   animations: [
     trigger('item', [
       state('visible', style({
@@ -24,8 +64,7 @@ import { GeosearchResult } from '../../geo/geodata';
       })),
       transition('* => visible', animate('200ms ease-in'))
     ])
-  ],
-  changeDetection: ChangeDetectionStrategy.Default
+  ]
 })
 export class PlaceItemComponent implements OnInit, OnDestroy {
   state = 'visible';
