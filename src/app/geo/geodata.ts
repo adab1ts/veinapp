@@ -15,7 +15,7 @@ export interface GeocodeData extends Coords {
 
 export const INIT_GEOCODE_DATA: GeocodeData = {
   center: [41.382289, 2.18826],
-  address: 'Carrer del Doctor Aiguader 18, Barcelona',
+  address: 'Carrer del Doctor Aiguader, 18, Barcelona',
   radius: 1
 };
 

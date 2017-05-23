@@ -11,7 +11,7 @@ import {
   template: `
     <td-search-input flex
       #searchInput
-      placeholder="Carrer Número, Ciutat"
+      placeholder="Carrer, Número, Municipi"
       [showUnderline]="true"
       (search)="search()">
     </td-search-input>
