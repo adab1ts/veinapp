@@ -38,7 +38,7 @@ See [Resources](#resources) section for more information on Angular CLI.
 
 #### Set up instructions
 
-This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data as explained [here](https://www.youtube.com/v/k1D0_wFlXgo?start=60&end=104&autoplay=1).
+This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data.
 
 This application also relies on [Mapzen](https://mapzen.com/) as its geocoding service provider. Create a [Mapzen developer account](https://mapzen.com/developers/sign_up) and grab your API key as explained [here](https://mapzen.com/documentation/overview/).
 
@@ -81,7 +81,7 @@ cp src/config/firebase.{ts.sample,prod.ts}
 vi src/config/firebase.prod.ts
 
 # To populate firebase with the list of places and their coordinates:
-# 1. Add your places data in JSON format at db/data/places.json following this structure:
+# 1. Place your JSON/CSV data files at db/data folder following this structure:
 #    [{
 #      "name": "the name",
 #      "address": "the address",
@@ -91,13 +91,15 @@ vi src/config/firebase.prod.ts
 #      "longitude": "00.00000",
 #      "telephone": "999 999 999",
 #      "email": "email@email.com",
-#      "web": "www.the-web.com"
+#      "web": "www.the-web.com",
+#      "group": "the group",
+#      "type": "the type"
 #     },
 #     ...
 #    ]
 
 # 2. In your console at the application root execute the following script
-#    (inspect the code to see how to populate your production datastore):
+#    (check out the examples in the usage information):
 npm run db:populate
 
 # 3. In firebase console go to the rules tab in your project view

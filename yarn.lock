@@ -150,7 +150,7 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.0.tgz#db4c3e1b69030229cb6b908477115b3479e4c4e0"
 
-"@ngrx/router-store@^1.2.5":
+"@ngrx/router-store@1.2.5":
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-1.2.5.tgz#1cff82c5488fab995872c6f0d57a29a7ac91e598"
 
@@ -174,6 +174,10 @@
     loader-utils "^1.0.2"
     magic-string "^0.19.0"
     source-map "^0.5.6"
+
+"@types/babyparse@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/babyparse/-/babyparse-0.0.30.tgz#7171a067980b5758809821ea5edffba58428098d"
 
 "@types/geojson@*":
   version "1.0.0"
@@ -541,6 +545,10 @@ babel-types@^6.18.0, babel-types@^6.23.0:
 babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0:
   version "6.16.1"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.16.1.tgz#30c5a22f481978a9e7f8cdfdf496b11d94b404d3"
+
+babyparse@0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/babyparse/-/babyparse-0.4.6.tgz#8ff29b62d1e600c0654afd63457f97fa2c36e9c1"
 
 backo2@1.0.2:
   version "1.0.2"
@@ -2598,7 +2606,7 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-intl@^1.2.5:
+intl@1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
 
