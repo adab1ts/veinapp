@@ -45,6 +45,7 @@ export function reducer(state = INITIAL_CURRENT_SEARCH_STATE,
     case search.ActionTypes.DO_GEO_SEARCH:
     case search.ActionTypes.CHANGE_SEARCH_BY_RADIUS:
     case search.ActionTypes.CHANGE_SEARCH_FROM_ADDRESS:
+    case search.ActionTypes.GEOSEARCH_FROM_LOCATION:
       return actions.pending(true);
     case search.ActionTypes.CHANGE_CURRENT_PARAMS:
       return actions.changeGeocodeData();

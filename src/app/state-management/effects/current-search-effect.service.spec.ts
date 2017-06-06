@@ -3,11 +3,13 @@ import { TestBed, inject } from '@angular/core/testing';
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/concat';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireDatabase } from 'angularfire2';
 
 import { CurrentSearchEffectService } from './current-search-effect.service';
-import { GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
+import { WindowRefService } from '../../geo/windowRef/window-ref.service';
+import { GeolocationService, GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
 import { ActionTypes } from '../actions/current-search-action';
 import { MapzenGeocodeService } from '../../geo/geocode/mapzen-geocode.service';
 import { regExpEscape } from '../../util';
@@ -24,6 +26,8 @@ describe('CurrentSearch Effect Service', () => {
       imports: [ EffectsTestingModule, StoreModule.provideStore({}) ],
       providers: [
         CurrentSearchEffectService,
+        WindowRefService,
+        GeolocationService,
         GeocodeService,
         FirebaseQueryingService,
         { provide: GeosearchingService, useValue: { getPlaces: null } },

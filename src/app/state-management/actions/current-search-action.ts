@@ -18,7 +18,8 @@ export const ActionTypes = {
   CHANGE_CURRENT_PARAMS: type('[Search] Change center or radius params'),
   UPDATE_GEOSEARCH_RESULTS: type('[Search] Update places list'),
   NO_RESULTS_SEARCH: type('[Search] No results'),
-  SELECTED_PLACE: type('[Search] Selected place')
+  SELECTED_PLACE: type('[Search] Selected place'),
+  GEOSEARCH_FROM_LOCATION: type('[Search] Geosearch from location'),
 };
 
 /**
@@ -68,6 +69,12 @@ export class SelectedPlace implements Action {
   constructor(public payload: GeosearchResult) { }
 }
 
+export class GeosearchFromLocation implements Action {
+  readonly type = ActionTypes.GEOSEARCH_FROM_LOCATION;
+
+  constructor(public payload?: any) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -79,4 +86,5 @@ export type Actions
   | ChangeCurrentParams
   | UpdateGeosearchResults
   | NoResultsSearch
-  | SelectedPlace;
+  | SelectedPlace
+  | GeosearchFromLocation;

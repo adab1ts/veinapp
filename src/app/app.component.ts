@@ -14,11 +14,9 @@ import { CloseSidenavAction, OpenSidenavAction } from './state-management/action
 export class AppComponent implements OnInit {
   searchPending$;
   layoutOpen$;
-  geolocationPending = false;
   subscription: Subscription = new Subscription;
 
-  constructor(private store: Store<fromRoot.State>) {
-  }
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.subscription = this.store.select(fromRoot.radius)

@@ -3,7 +3,6 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  Input,
   ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -33,19 +32,14 @@ import {
 })
 export class InputSearchComponent {
   @ViewChild('searchInput') input;
-  @Input() set address(address: string) {
-    this.input.value = address;
-  };
-  @Input() set focus(focus: boolean) {
-    const inputDirective = this.input._input;
-    if (focus) { inputDirective.focus(); }
-  };
   @Output() onSearch = new EventEmitter();
 
   search() {
     const val = this.input.value;
-    if (!val) { return; }
-    this.onSearch.emit(val);
+
+    if (val) {
+      this.onSearch.emit(val);
+    }
   }
 
 }

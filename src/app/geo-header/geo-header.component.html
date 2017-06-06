@@ -1,11 +1,9 @@
 <div flex="100" flex-gt-xs="50" flex-gt-sm="60" flex-gt-md="40"
   layout="row" layout-align="start center">
-  <app-geolocator flex="none" (onGeolocate)="geolocate()"></app-geolocator>
+  <app-geolocator flex="none" (onGeolocate)="geolocateAndSearch()"></app-geolocator>
 
   <app-input-search flex
     layout="row" layout-align="start center"
-    [focus]="doFocus"
-    [address]="geoAddress"
     (onSearch)="search($event)">
   </app-input-search>
 </div>

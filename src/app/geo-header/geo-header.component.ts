@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../state-management/reducers';
 import * as search from '../state-management/actions/current-search-action';
-import { GeolocationService, GeocodeService } from '../geo/geo.module';
 
 @Component({
   selector: 'app-geo-header',
@@ -21,54 +20,25 @@ import { GeolocationService, GeocodeService } from '../geo/geo.module';
   `]
 })
 export class GeoHeaderComponent implements OnInit {
-  geoAddress = '';
-  doFocus = false;
-  currentRadius$;
+  currentRadius$ = undefined;
 
-  @Output() geolocationPending = new EventEmitter<boolean>();
-
-  constructor(private store: Store<fromRoot.State>,
-              private geolocationService: GeolocationService,
-              private geocodeService: GeocodeService) {
-  }
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.currentRadius$ = this.store.select(fromRoot.radius);
   }
 
   // TODO prevent from doing the search if text has not changed
-  search($value) {
-    this.store
-      .dispatch(new search.ChangeSearchFromAddress({ address: $value }));
+  search(address: string) {
+    this.store.dispatch(new search.ChangeSearchFromAddress({ address }));
   }
 
   changeRadius(radius) {
-    this.store
-      .dispatch(new search.ChangeSearchByRadius({ radius: radius }));
+    this.store.dispatch(new search.ChangeSearchByRadius({ radius }));
   }
 
-  // TODO create a state to control the geolocation state
-  // the result or not provided, and the geolocationPending response
-  geolocate() {
-    this.geoAddress = '';
-    this.doFocus = false;
-    this.geolocationPending.emit(true);
-
-    this.geolocationService.getLocation()
-      .switchMap(
-        (coords) => this.geocodeService.getAddress(coords)
-      )
-      .subscribe(
-        (data) => {
-          this.geoAddress = data.address;
-          this.doFocus = true;
-          this.geolocationPending.emit(false);
-        },
-        (err) => {
-          this.geolocationPending.emit(false);
-          console.error(err);
-        }
-      );
+  geolocateAndSearch() {
+    this.store.dispatch(new search.GeosearchFromLocation());
   }
 
 }

@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-geolocator',
   template: `
-    <button md-icon-button (click)="geolocate()">
+    <button md-icon-button (click)="this.onGeolocate.emit(true)">
       <md-icon>gps_fixed</md-icon>
     </button>
   `,
@@ -15,8 +15,4 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class GeolocatorComponent {
   @Output() onGeolocate = new EventEmitter();
-
-  geolocate() {
-    this.onGeolocate.emit(null);
-  }
 }

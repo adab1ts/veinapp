@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
 import { Geocode } from './geocode';
-import { Coords } from '../geodata';
 
 const Mapzen = {
   searchURL: `${environment.mapzen.apiURL}/search`,
@@ -42,15 +41,15 @@ export class MapzenGeocodeService implements Geocode {
       });
   }
 
-  getReverseGeocoding(coords: Coords): Observable<any> {
+  getReverseGeocoding(coords: number[]): Observable<any> {
     const query = Object.assign({}, Mapzen.searchParams, {
-      'point.lat': coords[ 0 ].toString(),
-      'point.lon': coords[ 1 ].toString()
+      'point.lat': coords[0].toString(),
+      'point.lon': coords[1].toString()
     });
     const params: URLSearchParams = this.setSearchParameters(query);
 
     return this.getCall(Mapzen.reverseURL, params)
-      .map(result => result ? { address: result[ 'properties' ][ 'label' ] } : false);
+      .map(result => result ? { address: result['properties']['label'], center: coords } : false);
   }
 
   /**

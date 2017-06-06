@@ -6,7 +6,7 @@ import { go } from '@ngrx/router-store';
 
 import * as fromRoot from '../../state-management/reducers';
 import * as search from '../actions/current-search-action';
-import { GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
+import { GeolocationService, GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
 import { GeocodeData, GeosearchResult } from '../../geo/geodata';
 
 @Injectable()
@@ -45,8 +45,15 @@ export class CurrentSearchEffectService {
       return Observable.of(new search.UpdateGeosearchResults(places));
     });
 
+  @Effect() geosearchFromLocation$ = this.actions$
+    .ofType(search.ActionTypes.GEOSEARCH_FROM_LOCATION)
+    .switchMap(action => this.geolocationService.getLocation())
+    .switchMap((coords: number[]) => this.geocodeService.getAddress(coords))
+    .switchMap((geosearch: GeocodeData) => this.getNewPlaces(geosearch));
+
   constructor(private actions$: Actions,
               private store: Store<fromRoot.State>,
+              private geolocationService: GeolocationService,
               private geocodeService: GeocodeService,
               private geosearchingService: GeosearchingService,
               private firebaseQueringService: FirebaseQueryingService) {
@@ -63,7 +70,7 @@ export class CurrentSearchEffectService {
     const geoSearch$ = Observable
       .of(new search.DoGeosearch(data));
 
-    return Observable.merge(changeSearch$, geoSearch$);
+    return Observable.concat(changeSearch$, geoSearch$);
   }
 
 }

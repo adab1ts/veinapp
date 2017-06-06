@@ -5,13 +5,12 @@
     layout="row"
     layout-fill
     layout-wrap
-    layout-align="start center"
-    (geolocationPending)="geolocationPending = $event">
+    layout-align="start center">
   </app-geo-header>
 
   <!-- activity indicator on geosearch, radius change or geolocation -->
   <app-activity-indicator
-    [pending]="(searchPending$ | async) || geolocationPending">
+    [pending]="(searchPending$ | async)">
   </app-activity-indicator>
 
   <!-- routing => places list || places map -->
