@@ -25,13 +25,15 @@ export const INIT_GEOCODE_DATA: GeocodeData = {
 export interface GeosearchResult {
   $key: string;
   name?: string;
+  address?: string;
+  zip?: string;
+  city?: string;
   location?: number[];
   distance?: number;
-  remove?: boolean;
-  address?: string;
-  email?: string;
-  city?: string;
   telephone?: string;
+  email?: string;
   web?: string;
-  zip?: string;
+  group?: string;
+  type?: string;
+  remove?: boolean;
 }

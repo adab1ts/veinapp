@@ -32,6 +32,13 @@
         </span>
       </p>
     </div>
+
+    <div *ngIf="place?.type.toLowerCase() === 'associació'" class="va-card-content-group">
+      <h4>Federació:</h4>
+      <p>
+        <span class="tc-grey-500">{{ place?.group }}</span>
+      </p>
+    </div>
   </md-card-content>
 
 </md-card>
