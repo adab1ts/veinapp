@@ -9,8 +9,9 @@ import {
   selector: 'app-radius-filter-btn',
   template: `
     <button md-mini-fab
-      [color]="this.currentRadius ? 'primary' : 'accent'" 
+      [color]="this.currentRadius ? 'primary' : 'accent'"
       [ngClass]="{ 'va-radius-selected': this.currentRadius }"
+      [disabled]="this.currentRadius"
       (click)="change(distance)"
     >
       {{ distance }}

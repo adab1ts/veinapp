@@ -48,11 +48,12 @@ app-input-search .td-search-input {
 }
 
 // <radius buttons> //
-app-radius-filter button[md-mini-fab].va-radius-selected {
+app-radius-filter button[md-mini-fab].va-radius-selected:disabled {
   background-color: mat-color($primary, 400);
+  color: currentColor;
 }
 
 // <app-footer mobile> //
-app-footer button[disabled] {
+app-footer button:disabled {
   background-color: mat-color($accent);
 }
