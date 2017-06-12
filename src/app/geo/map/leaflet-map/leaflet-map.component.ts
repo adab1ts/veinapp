@@ -58,8 +58,9 @@ export class LeafletMapComponent implements OnInit {
         acc.push(marker);
         return acc;
       }, []);
-      this.placesMarkers
-        .forEach((place) => this.placesLayer.addLayer(place));
+      this.placesMarkers.forEach((place) => this.placesLayer.addLayer(place));
+
+      this.map.setZoom(LeafletConfig.INIT_ZOOM);
     }
   };
 
@@ -85,14 +86,10 @@ export class LeafletMapComponent implements OnInit {
         ],
       });
 
-     this.resetMap();
+      this.resetMap();
 
       control.zoom(LeafletConfig.CONTROL_ZOOM_POSITION).addTo(this.map);
-      this.centerMarker = new Marker(center, {
-        title: address,
-        alt: address,
-        icon: LeafletConfig.CENTER_MARKER
-      }).addTo(this.map);
+      this.centerMarker = new Marker(center, { icon: LeafletConfig.CENTER_MARKER }).addTo(this.map);
     }
 
   }
