@@ -1,9 +1,11 @@
 import {
   Component,
+  Input,
   Output,
   EventEmitter,
   ViewChild,
   ChangeDetectionStrategy } from '@angular/core';
+import { TdSearchInputComponent } from '@covalent/core';
 
 @Component({
   selector: 'app-input-search',
@@ -12,10 +14,10 @@ import {
       #searchInput
       placeholder="Carrer, Número, Municipi"
       [showUnderline]="true"
-      (search)="search()">
+      (search)="handleSearch()">
     </td-search-input>
 
-    <button flex="none" md-icon-button (click)="search()">
+    <button flex="none" md-icon-button (click)="handleSearch()">
       <md-icon>search</md-icon>
     </button>
   `,
@@ -31,15 +33,22 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputSearchComponent {
-  @ViewChild('searchInput') input;
+  @ViewChild('searchInput') searchInput: TdSearchInputComponent;
   @Output() onSearch = new EventEmitter();
 
-  search() {
-    const val = this.input.value;
+  // TODO: reset when geosearch completes
+  // @Input() set reset(action) {
+  //   if (action) {
+  //     this.searchInput.clearSearch();
+  //   }
+  // }
 
-    if (val) {
-      this.onSearch.emit(val);
+  handleSearch() {
+    const searchTerm: string = this.searchInput.value;
+
+    if (searchTerm) {
+      this.onSearch.emit(searchTerm);
+      this.searchInput.value = '';
     }
   }
-
 }
