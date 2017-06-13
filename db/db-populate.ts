@@ -1,4 +1,5 @@
 
+import * as yargs from 'yargs';
 import * as GeoFire from 'geofire';
 import { initializeApp, app, database } from 'firebase';
 
@@ -18,11 +19,10 @@ import {
  * Initialize datastore connection
  * @param env Environment of the datastore to populate
  */
-function initDatastore(env: string): database.Database {
+function initDatastore(prod: boolean): database.Database {
   let config = undefined;
-  const flags = ['--prod', '-p'];
 
-  if (flags.includes(env)) {
+  if (prod) {
     config = require('../src/config/firebase.prod');
   } else {
     config = require('../src/config/firebase');
@@ -73,27 +73,72 @@ function loadPlace(place: any, dbPlaces: database.Reference, dbCoords: GeoFire):
 
 
 // 1- Read args
-const files: string[] = process.argv[2].split(',');
-const env: string = process.argv[3];
+const argv = yargs
+  .usage('Usage: $0 -f data_file1 [data_file2] [-p] [-r]')
+  .options({
+    'files': {
+      alias: 'f',
+      type: 'array',
+      requiresArg: true,
+      describe: 'List of data files',
+      demandOption: 'Provide your list of data files to parse.'
+    },
+    'prod': {
+      alias: 'p',
+      type: 'boolean',
+      describe: 'Load your data in production'
+    },
+    'reset': {
+      alias: 'r',
+      type: 'boolean',
+      describe: 'Remove existing data first'
+    }
+  })
+  .example('npm run db:populate -- -f places.json -r')
+  .example('npm run db:populate -- -f places-1.csv places-2.json -p')
+  .fail((msg, err, yargs) => {
+    console.error(yargs.help());
+    console.error(msg);
+    process.exit(0);
+  })
+  .help()
+  .argv;
 
 // 2- Parse data files
 console.log('Parsing data files...');
-const places: ParseResult = new DataParser().parse(files);
+const places: ParseResult = new DataParser().parse(argv.files);
 
 // 3- Establish datastore connection
-const datastore: database.Database = initDatastore(env);
+const datastore: database.Database = initDatastore(argv.prod);
 const dbPlaces: database.Reference = datastore.ref('places');
 const dbCoords: GeoFire = new GeoFire(datastore.ref('coords'));
 
-// 4- Load data to datastore
-console.log('Loading data to Firebase Database...');
-const loadedPlaces: Promise<any>[] = places.data.map(place => loadPlace(formatPlace(place), dbPlaces, dbCoords));
+// 4- Remove data from datastore if requested
+let removed: Promise<any> = undefined;
+if (argv.reset) {
+  console.log('Removing data from Firebase Database...');
+  const removedPlaces: firebase.Promise<any> = dbPlaces.remove();
+  const removedCoords: firebase.Promise<any> = dbCoords.ref().remove();
+  removed = Promise.all([removedCoords, removedPlaces]);
+} else {
+  removed = Promise.resolve(false);
+}
 
-// 5- Finnish datastore connection
-Promise.all(loadedPlaces).then(() => {
-  console.log('All places have been loaded to Firebase Database!');
-  datastore.goOffline();
-}).catch(() => {
-  console.log('Something went wrong when loading places to Firebase Database. Check logs');
-  datastore.goOffline();
-});
+removed
+  .then(() => {
+    // 5- Load data to datastore
+    console.log('Loading data to Firebase Database...');
+    const loadedPlaces: Promise<any>[] = places.data.map(place => loadPlace(formatPlace(place), dbPlaces, dbCoords));
+
+    // 6- Finnish datastore connection
+    Promise.all(loadedPlaces).then(() => {
+      console.log(`All ${loadedPlaces.length} places have been loaded to Firebase Database!`);
+      datastore.goOffline();
+    }).catch(() => {
+      console.log('Something went wrong when loading places to Firebase Database. Check logs');
+      datastore.goOffline();
+    });
+  })
+  .catch(() => {
+    console.log('Something went wrong when removing places from Firebase Database. Check logs');
+  });
