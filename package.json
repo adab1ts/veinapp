@@ -25,7 +25,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "precommit": "run-s lint test:ci e2e",
-    "db:populate": "ts-node ./db/db-populate.ts"
+    "db:populate": "ts-node ./db/db-populate.ts",
+    "db:export": "ts-node ./db/db-export.ts"
   },
   "dependencies": {
     "@angular/common": "2.4.7",

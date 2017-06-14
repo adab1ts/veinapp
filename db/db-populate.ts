@@ -3,6 +3,7 @@ import * as yargs from 'yargs';
 import * as GeoFire from 'geofire';
 import { initializeApp, app, database } from 'firebase';
 
+import { initDatastore } from './db-utils';
 import {
   DataParser,
   ParseResult,
@@ -16,23 +17,39 @@ import {
 
 
 /**
- * Initialize datastore connection
- * @param env Environment of the datastore to populate
+ * Parse script arguments
  */
-function initDatastore(prod: boolean): database.Database {
-  let config = undefined;
-
-  if (prod) {
-    config = require('../src/config/firebase.prod');
-  } else {
-    config = require('../src/config/firebase');
-  }
-
-  const { firebaseConfig } = config;
-  const app: app.App = initializeApp(firebaseConfig);
-  const db: database.Database = app.database();
-
-  return db;
+function parseArgs(): any {
+  return yargs
+    .usage('Usage: $0 -f data_file1 [data_file2] [-p] [-r]')
+    .options({
+      'files': {
+        alias: 'f',
+        type: 'array',
+        requiresArg: true,
+        describe: 'List of data files',
+        demandOption: 'Provide your list of data files to parse.'
+      },
+      'prod': {
+        alias: 'p',
+        type: 'boolean',
+        describe: 'Load your data in production'
+      },
+      'reset': {
+        alias: 'r',
+        type: 'boolean',
+        describe: 'Remove existing data first'
+      }
+    })
+    .example('npm run db:populate -- -f places.json -r')
+    .example('npm run db:populate -- -f places-1.csv places-2.json -p')
+    .fail((msg, err, yargs) => {
+      console.error(yargs.help());
+      console.error(msg);
+      process.exit(0);
+    })
+    .help()
+    .argv;
 }
 
 /**
@@ -73,36 +90,7 @@ function loadPlace(place: any, dbPlaces: database.Reference, dbCoords: GeoFire):
 
 
 // 1- Read args
-const argv = yargs
-  .usage('Usage: $0 -f data_file1 [data_file2] [-p] [-r]')
-  .options({
-    'files': {
-      alias: 'f',
-      type: 'array',
-      requiresArg: true,
-      describe: 'List of data files',
-      demandOption: 'Provide your list of data files to parse.'
-    },
-    'prod': {
-      alias: 'p',
-      type: 'boolean',
-      describe: 'Load your data in production'
-    },
-    'reset': {
-      alias: 'r',
-      type: 'boolean',
-      describe: 'Remove existing data first'
-    }
-  })
-  .example('npm run db:populate -- -f places.json -r')
-  .example('npm run db:populate -- -f places-1.csv places-2.json -p')
-  .fail((msg, err, yargs) => {
-    console.error(yargs.help());
-    console.error(msg);
-    process.exit(0);
-  })
-  .help()
-  .argv;
+const argv = parseArgs();
 
 // 2- Parse data files
 console.log('Parsing data files...');
@@ -132,7 +120,7 @@ removed
 
     // 6- Finnish datastore connection
     Promise.all(loadedPlaces).then(() => {
-      console.log(`All ${loadedPlaces.length} places have been loaded to Firebase Database!`);
+      console.log(`${loadedPlaces.length} places have been loaded to Firebase Database!`);
       datastore.goOffline();
     }).catch(() => {
       console.log('Something went wrong when loading places to Firebase Database. Check logs');
