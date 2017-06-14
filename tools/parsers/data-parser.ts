@@ -25,4 +25,13 @@ export class DataParser implements Parser {
     return result;
   }
 
+  unparse(data: Object[], file: string = 'places.csv') {
+    if (/\.json$/i.test(file)) {
+      new JSONParser().unparse(data, file);
+    }
+    if (/\.csv$/i.test(file)) {
+      new CSVParser().unparse(data, file);
+    }
+  }
+
 }

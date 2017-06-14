@@ -8,7 +8,8 @@ interface ParseResult {
 }
 
 interface Parser {
-  parse(): ParseResult;
+  parse(files?: string[]): ParseResult;
+  unparse(data: Object[], file?: string): void;
 }
 
 export { Parser, ParseResult, DATA_PATH };

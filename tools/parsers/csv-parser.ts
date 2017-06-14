@@ -1,5 +1,6 @@
 
 import * as Baby from 'babyparse';
+import * as fs from 'fs';
 import { Parser, ParseResult, DATA_PATH } from './parser';
 
 // See:
@@ -36,6 +37,20 @@ export class CSVParser implements Parser {
     });
 
     return result;
+  }
+
+  unparse(data: Object[], file: string = 'places.csv') {
+    const filename = `${DATA_PATH}/${file}`;
+    const options = { quotes: true };
+    const csv = Baby.unparse(data, options);
+
+    fs.writeFile(filename, csv, err => {
+      if (err) {
+        throw err;
+      }
+
+      console.log(`Data has been successfully saved to '${filename}'.`);
+    });
   }
 
 }
