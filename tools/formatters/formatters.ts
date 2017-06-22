@@ -103,8 +103,30 @@ const unprotocol: Formatter = (o: any, keys: string[], only: string[] = ['http:/
   return formatted;
 };
 
+/**
+ * Returns an object whose properties have been formatted for geocoding
+ * @param o     Target object
+ * @param keys  Properties to format
+ * @param only  Unused
+ */
+const geoformat: Formatter = (o: any, keys: string[] = ['address'], only: string[] = []) => {
+  const formatted = JSON.parse(JSON.stringify(o));
+
+  keys.forEach(key => {
+    if (typeof o[key] === 'string') {
+      formatted[key] = o[key]
+        .replace(/(Carrer|Calle)\s+(de\s+|d\')?/i, 'Cl ')
+        .replace(/(Cl\s+)?([^,]*),\s*(\d+|s\/n).*/i, '$3 $1$2')
+        .replace(/(s\/n)\s+/i, '');
+    }
+  });
+
+  return formatted;
+};
+
 export {
   capitalize,
+  geoformat,
   lowerCase,
   replace,
   trim,

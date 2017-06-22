@@ -1,10 +1,10 @@
 
-import { format, capitalize, lowerCase, replace, trim, unprotocol } from '../formatters';
+import { format, capitalize, lowerCase, replace, trim, unprotocol, geoformat } from '../formatters';
 
 
 const place = {
   'name': 'aV Amics   de La  RAMBLA ',
-  'address': '  c/ Daoiz I Velarde S/n, BAIXOS ',
+  'address': '  Carrer d\'Aoiz I Velarde, 85, 7-3 ',
   'city': 'l\'Hospitalet DE LLOBregat ',
   'group': 'Fav SABADELL ave',
   'web': 'http://the-web.example.com/',
@@ -42,6 +42,7 @@ const transformations = [
   { fn: replace, keys: ['name', 'address', 'city', 'group'], patterns },
   { fn: lowerCase, keys: ['email', 'web'] },
   { fn: unprotocol, keys: ['email', 'web'] },
+  { fn: geoformat, keys: ['address'] },
 ];
 
 const formatted = format(transformations)(place);
