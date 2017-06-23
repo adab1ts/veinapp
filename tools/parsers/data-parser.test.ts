@@ -12,7 +12,7 @@ console.log('...and unparsing to csv format...');
 parser.unparse(jsonParsed.data, 'places.json-to.csv');
 
 console.log('Parsing csv file...');
-const csvParsed: ParseResult = parser.parse(['places.csv', 'feds.csv']);
+const csvParsed: ParseResult = parser.parse(['places.json-to.csv']);
 console.log(csvParsed.data);
 
 console.log('...and unparsing data to json format...');
