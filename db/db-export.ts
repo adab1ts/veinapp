@@ -4,7 +4,7 @@ import * as GeoFire from 'geofire';
 import { app, database } from 'firebase';
 
 import { initDatastore } from './db-utils';
-import { DataParser, ParseResult } from '../tools';
+import { Parser } from '../tools';
 
 
 /**
@@ -45,12 +45,13 @@ function parseArgs(): any {
 function fetchPlaces(datastore: database.Database): firebase.Promise<any> {
   const dbPlaces: database.Reference = datastore.ref('places');
   const dbCoords: GeoFire = new GeoFire(datastore.ref('coords'));
-  const places = [];
 
   const placesFetched: firebase.Promise<any> = dbPlaces
     .orderByChild('name')
     .once('value')
     .then((snapshot: database.DataSnapshot) => {
+      const places = [];
+
       snapshot.forEach((childSnapshot: database.DataSnapshot) => {
         const placeId = childSnapshot.key;
         const { name, address, zip, city, telephone, email, web, group, type } = childSnapshot.val();
@@ -60,8 +61,10 @@ function fetchPlaces(datastore: database.Database): firebase.Promise<any> {
 
         return false;
       });
+
+      return places;
     })
-    .then(_ => {
+    .then(places => {
       const fetchedCoords = places.map(place => {
         return dbCoords
           .get(place.id)
@@ -69,7 +72,7 @@ function fetchPlaces(datastore: database.Database): firebase.Promise<any> {
             const latitude  = coords[0];
             const longitude = coords[1];
 
-            console.log(`Place: '${place.name}' => Location: [${latitude}, ${longitude}]`)
+            console.log(`[${latitude}, ${longitude}] '${place.address}, ${place.city}' => '${place.name}'`);
             return Object.assign({}, place, { latitude, longitude });
           });
       });
@@ -98,9 +101,9 @@ placesFetched.then(places => {
 
   // 5- Save data to disk
   console.log('Saving data to file...');
-  new DataParser().unparse(places, argv.file);
+  new Parser.DataParser().unparse(places, argv.file);
 }).catch(_ => {
-  console.log('Something went wrong when fetching places from Firebase Database. Check logs');
+  console.error('Something went wrong when fetching places from Firebase Database. Check logs');
   datastore.goOffline();
 });
 

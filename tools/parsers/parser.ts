@@ -1,7 +1,7 @@
 
-import { root } from '../utils';
+import { Utils } from '../../tools';
 
-const DATA_PATH: string = root('db', 'data');
+const DATA_PATH: string = Utils.root('db', 'data');
 
 interface ParseResult {
   data: Array<any>;

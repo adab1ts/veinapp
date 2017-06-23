@@ -1,12 +1,7 @@
 
-export { root } from './utils';
-export { DataParser, ParseResult } from './parsers';
-export {
-  FormatTask,
-  format,
-  capitalize,
-  lowerCase,
-  replace,
-  trim,
-  unprotocol,
-} from './formatters';
+import * as Utils from './utils';
+import * as Formatter from './formatters';
+import * as GeoProvider from './geoproviders';
+import * as Parser from './parsers';
+
+export { Utils, Formatter, GeoProvider, Parser };
