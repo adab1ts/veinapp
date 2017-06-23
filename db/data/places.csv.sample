@@ -1,2 +1,2 @@
-"name","address","zip","city","latitude","longitude","telephone","email","web","group","type"
-"the name","the address","00000","the city","00.00000","00.00000","999 999 999","email@email.com","www.the-web.com","the group","the type"
+"name","address","zip","city","telephone","email","web","group","type","latitude","longitude"
+"the name","the address","00000","the city","999 999 999","email@email.com","www.the-web.com","the group","the type","00.00000","00.00000"

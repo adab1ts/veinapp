@@ -49,13 +49,13 @@ vi src/config/firebase.prod.ts
 #      "address": "the address",
 #      "zip": "00000",
 #      "city": "the city",
-#      "latitude": "00.00000",
-#      "longitude": "00.00000",
 #      "telephone": "999 999 999",
 #      "email": "email@email.com",
 #      "web": "www.the-web.com",
 #      "group": "the group",
-#      "type": "the type"
+#      "type": "the type",
+#      "latitude": "00.00000",
+#      "longitude": "00.00000"
 #     },
 #     ...
 #    ]
