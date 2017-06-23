@@ -84,6 +84,8 @@
     "node-sass": "3.8.0",
     "npm-run-all": "4.0.1",
     "protractor": "5.1.1",
+    "request": "2.81.0",
+    "request-promise-native": "1.0.4",
     "sass-loader": "4.1.1",
     "ts-node": "2.1.0",
     "tslint": "4.5.0",
