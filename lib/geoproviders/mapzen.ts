@@ -33,17 +33,17 @@ function geoserviceConfig(prod: boolean): any {
 
 /**
  * Geocode a place
- * @param place      Place to geocode
- * @param delta      Correction parameter to defer geocoding request
- * @param geoservice Geocodind service provider configuration
+ * @param place  Place to geocode
+ * @param delta  Correction parameter to defer geocoding request
+ * @param config Service provider configuration
  */
-function geocodePlace(place: any, delta: number, geoservice: any): Promise<any> {
+function geocodePlace(place: any, delta: number, config: any): Promise<any> {
   const formattedPlace = Formatter.format([{fn: Formatter.geoformat, keys: ['address']}])(place);
 
   const searchTerm = `${formattedPlace.address}, ${formattedPlace.city}`;
-  const query = Object.assign({}, geoservice.searchParams, { 'text': searchTerm });
+  const query = Object.assign({}, config.searchParams, { 'text': searchTerm });
   const opts = {
-    uri: geoservice.searchURL,
+    uri: config.searchURL,
     qs: query,
     json: true
   };

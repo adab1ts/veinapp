@@ -1,2 +1,4 @@
 
-export { geoserviceConfig, geocodePlace } from './geoprovider';
+import * as Mapzen from './mapzen';
+
+export { Mapzen };
