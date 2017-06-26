@@ -1,5 +1,5 @@
 
-import { Utils } from '../../tools';
+import { Utils } from '../../lib';
 
 const DATA_PATH: string = Utils.root('db', 'data');
 

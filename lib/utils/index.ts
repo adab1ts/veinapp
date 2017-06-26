@@ -1,7 +1,7 @@
 
 import * as path from 'path';
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(__dirname, '../..');
 
 /**
  * Returns an absolute path built from path fragments

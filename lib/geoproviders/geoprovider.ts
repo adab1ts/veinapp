@@ -1,7 +1,7 @@
 
 import * as request from 'request-promise-native';
 
-import { Formatter } from '../../tools';
+import { Formatter } from '../../lib';
 
 /**
  * Initialize configuration of geocoding service provider
