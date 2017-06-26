@@ -17,6 +17,7 @@
   ],
   "private": true,
   "scripts": {
+    "postinstall": "npm rebuild node-sass",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
