@@ -1,10 +1,11 @@
 
 import * as yargs from 'yargs';
-import * as GeoFire from 'geofire';
-import { initializeApp, app, database } from 'firebase';
 
-import { initDatastore } from './db-utils';
-import { Parser, Formatter, GeoProvider } from '../tools';
+import {
+  Datastore,
+  Formatter,
+  GeoProvider,
+  Parser } from '../lib';
 
 
 /**
@@ -51,27 +52,6 @@ function parseArgs(): any {
     })
     .help()
     .argv;
-}
-
-/**
- * Remove data from datastore if requested
- * @param datastore Datastore to remove data from
- * @param opts      Options
- */
-function removeData(datastore: database.Database, opts: any): Promise<any> {
-  let removed: Promise<any> = undefined;
-
-  if (opts.reset) {
-    console.log('Removing data from Firebase Database...');
-    const removedPlaces: firebase.Promise<any> = datastore.ref('places').remove();
-    const removedCoords: firebase.Promise<any> = datastore.ref('coords').remove();
-
-    removed = Promise.all([removedCoords, removedPlaces]);
-  } else {
-    removed = Promise.resolve(false);
-  }
-
-  return removed;
 }
 
 /**
@@ -129,41 +109,6 @@ function geocodePlaces(places: any[], opts: any): Promise<any> {
   return geocoded;
 }
 
-/**
- * Load places to datastore
- * @param places    Places to load
- * @param datastore Datastore to load data to
- */
-function loadPlaces(places: any[], datastore: database.Database): Promise<any> {
-  console.log('Loading data to Firebase Database...');
-  const dbPlaces: database.Reference = datastore.ref('places');
-  const dbCoords: GeoFire = new GeoFire(datastore.ref('coords'));
-  const placesLoaded: Promise<any>[] = places.map(place => loadPlace(place, dbPlaces, dbCoords));
-
-  return Promise.all(placesLoaded);
-}
-
-/**
- * Load a place to datastore
- * @param place Place to load
- * @param dbPlaces Datastore places node
- * @param dbCoords Datastore coordinates node
- */
-function loadPlace(place: any, dbPlaces: database.Reference, dbCoords: GeoFire): Promise<any> {
-  const { name, address, zip, city, telephone, email, web, group, type, latitude, longitude } = place;
-
-  // Load place data
-  const placeId = dbPlaces.push({ name, address, zip, city, telephone, email, web, group, type }).key;
-
-  // Load place location
-  return dbCoords.set(placeId, [parseFloat(latitude), parseFloat(longitude)])
-    .then(_ => console.log(`Loaded: '${name}'`))
-    .catch(err => {
-      console.error(`Failed to add location of '${name}'.`);
-      console.error('Error:', err);
-    });
-}
-
 
 // 1- Read args
 const argv = parseArgs();
@@ -173,10 +118,10 @@ console.log('Parsing data files...');
 const places: Parser.ParseResult = new Parser.DataParser().parse(argv.files);
 
 // 3- Establish datastore connection
-const datastore: database.Database = initDatastore(argv.prod);
+const datastore = Datastore.Firebase.initDatastore(argv.prod);
 
 // 4- Remove data from datastore if requested
-removeData(datastore, argv)
+Datastore.Firebase.removePlaces(datastore, argv)
 
 // 5- Apply transformations to places if requested
   .then(_ => formatPlaces(places.data, argv))
@@ -185,14 +130,14 @@ removeData(datastore, argv)
   .then(formattedPlaces => geocodePlaces(formattedPlaces, argv))
 
 // 7- Load data to datastore
-  .then(geoPlaces => loadPlaces(geoPlaces, datastore))
+  .then(geoPlaces => Datastore.Firebase.loadPlaces(geoPlaces, datastore))
 
 // 8- Finnish datastore connection
   .then(_ => {
-    console.log(`${_.length} places have been loaded to Firebase Database!`);
-    datastore.goOffline();
+    console.log(`${_.length} places have been loaded to Database!`);
+    Datastore.Firebase.closeConnection(datastore);
   })
   .catch(_ => {
-    console.error('Something went wrong when loading places to Firebase Database. Check logs');
-    datastore.goOffline();
+    console.error('Something went wrong when loading places to Database. Check logs');
+    Datastore.Firebase.closeConnection(datastore);
   });
