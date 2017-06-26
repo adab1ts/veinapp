@@ -115,9 +115,9 @@ const geoformat: Formatter = (o: any, keys: string[] = ['address'], only: string
   keys.forEach(key => {
     if (typeof o[key] === 'string') {
       formatted[key] = o[key]
-        .replace(/(Carrer|Calle)\s+(de\s+|d\')?/i, 'Cl ')
-        .replace(/(Cl\s+)?([^,]*),\s*(\d+|s\/n).*/i, '$3 $1$2')
-        .replace(/(s\/n)\s+/i, '');
+        .replace(/(Carrer|Calle)\s+(de\s+|d\')?/i, '$1 ')
+        .replace(/([^,]+),\s*(\d+|s\/n).*/i, '$1, $2')
+        .replace(/, s\/n/i, '');
     }
   });
 
