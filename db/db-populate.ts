@@ -114,7 +114,6 @@ function geocodePlaces(places: any[], opts: any): Promise<any> {
 const argv = parseArgs();
 
 // 2- Parse data files
-console.log('Parsing data files...');
 const places: Parser.ParseResult = new Parser.DataParser().parse(argv.files);
 
 // 3- Establish datastore connection

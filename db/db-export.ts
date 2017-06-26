@@ -51,7 +51,6 @@ placesFetched.then(places => {
   Datastore.Firebase.closeConnection(datastore);
 
   // 5- Save data to disk
-  console.log('Saving data to file...');
   new Parser.DataParser().unparse(places, argv.file);
 }).catch(_ => {
   console.error('Something went wrong when fetching places from Database. Check logs');

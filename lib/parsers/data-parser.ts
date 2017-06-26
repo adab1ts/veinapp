@@ -8,6 +8,8 @@ export class DataParser implements Parser {
   constructor() {}
 
   parse(files: string[] = []): ParseResult {
+    console.log('Parsing data files...');
+
     const result: ParseResult = { data: [] };
     let parsed: ParseResult = undefined;
 
@@ -26,6 +28,8 @@ export class DataParser implements Parser {
   }
 
   unparse(data: Object[], file: string = 'places.csv') {
+    console.log('Saving data to file...');
+
     if (/\.json$/i.test(file)) {
       new JSONParser().unparse(data, file);
     }
