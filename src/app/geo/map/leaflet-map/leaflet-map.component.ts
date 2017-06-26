@@ -2,13 +2,23 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output
 import { Map, LatLng, control, Marker, LayerGroup } from 'leaflet';
 
 import { INIT_GEOCODE_DATA } from '../../geodata';
-import { LeafletConfig } from './leaflet-config';
+import { LeafletConfig, PlaceType } from './leaflet-config';
 import { GeoMarker } from './geo-marker';
 
 @Component({
   selector: 'app-leaflet-map',
-  templateUrl: './leaflet-map.component.html',
-  styleUrls: [ './leaflet-map.component.scss' ],
+  template: `
+    <div id="map"></div>
+  `,
+  styles: [`
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+ `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeafletMapComponent implements OnInit {
@@ -34,7 +44,7 @@ export class LeafletMapComponent implements OnInit {
     const oldMarker = this
       .findMarkerByKey(this.placesMarkers, this.currentPlaceKey);
     if (oldMarker) {
-      oldMarker.setIcon(LeafletConfig.PLACE_MARKER);
+      oldMarker.setIcon(LeafletConfig.PRIMARY_MARKER);
     }
     if (key) {
       const newMarker = this.findMarkerByKey(this.placesMarkers, key);
@@ -52,7 +62,9 @@ export class LeafletMapComponent implements OnInit {
           new GeoMarker(place.location, place.$key, {
               title: place.name,
               alt: place.name,
-              icon: LeafletConfig.PLACE_MARKER
+              icon: place.type === LeafletConfig.PLACE_TYPES[PlaceType.Primary]
+                    ? LeafletConfig.PRIMARY_MARKER
+                    : LeafletConfig.SECONDARY_MARKER
             });
         marker.on('click', (e) => this.setSelectedPlace.emit(e.target.$key));
         acc.push(marker);

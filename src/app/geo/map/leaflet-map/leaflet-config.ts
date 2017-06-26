@@ -14,15 +14,19 @@ export class LeafletConfig {
   });
 
   static CENTER_MARKER = new LeafletConfig.PlaceIcon({
-    iconUrl: `${LeafletConfig.MARKERS_PATH}/centre-25x25.png`
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-center-25x25.png`
   });
 
-  static PLACE_MARKER = new LeafletConfig.PlaceIcon({
-    iconUrl: `${LeafletConfig.MARKERS_PATH}/casa-25x25.png`
+  static PRIMARY_MARKER = new LeafletConfig.PlaceIcon({
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-primary-25x25.png`
+  });
+
+  static SECONDARY_MARKER = new LeafletConfig.PlaceIcon({
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-secondary-35x35.png`
   });
 
   static SELECTED_MARKER = new LeafletConfig.PlaceIcon({
-    iconUrl: `${LeafletConfig.MARKERS_PATH}/pointer-35x35.png`,
+    iconUrl: `${LeafletConfig.MARKERS_PATH}/marker-selected-35x35.png`,
     iconSize: [ 35, 35 ],
     iconAnchor: [ 0, 17 ]
   });
@@ -30,4 +34,14 @@ export class LeafletConfig {
   static BASE_MAPS = {
     OpenStreetMap: tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png')
   };
+
+  static PLACE_TYPES = [
+    'Associació',
+    'Federació'
+  ];
 }
+
+export const enum PlaceType {
+  Primary,
+  Secondary
+};
