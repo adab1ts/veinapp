@@ -12,7 +12,7 @@ import { TdSearchInputComponent } from '@covalent/core';
   template: `
     <td-search-input flex
       #searchInput
-      placeholder="Carrer, Número, Municipi"
+      placeholder="ex: Carrer Doctor Aiguader, 18, Barcelona"
       [showUnderline]="true"
       (search)="handleSearch()">
     </td-search-input>
