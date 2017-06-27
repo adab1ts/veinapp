@@ -57,7 +57,10 @@ describe('GeocodeService', () => {
       const mockResponse = {
         features: [ {
           properties: {
-            label: 'Mock Street'
+            street: 'Mock Street',
+            housenumber: '10',
+            localadmin: 'FakeCity',
+            label: 'Mock Street, 10, FakeCity'
           }
         } ]
       };
@@ -69,7 +72,7 @@ describe('GeocodeService', () => {
       });
 
       geocodeService.getAddress(coords).subscribe((searchState) => {
-        expect(searchState.address).toEqual('Mock Street');
+        expect(searchState.address).toEqual('Mock Street, 10, FakeCity');
       });
     })));
 });

@@ -23,49 +23,78 @@ export class MapzenGeocodeService implements Geocode {
   constructor(private http: Http) {}
 
   /**
-   * Returns coords [long, lat]
-   * @param address
+   * Geocode an address and return its coordinates
+   * @param address Address to geocode
    * @returns {Observable<any>}
    */
   getGeocoding(address: string): Observable<any> {
-    const query = Object.assign({}, Mapzen.searchParams, { 'text': address });
-    const params: URLSearchParams = this.setSearchParameters(query);
+    const formattedAddress = this.formatAddress(address);
+    const query = Object.assign({}, Mapzen.searchParams, { 'text': formattedAddress });
+    const params: URLSearchParams = this.buildSearchParameters(query);
 
     return this.getCall(Mapzen.searchURL, params)
       .map(result => {
         if (!result) {
           return false;
         }
-        const coords = result['geometry']['coordinates'];
-        return { address, center: [coords[1], coords[0]] };
+        const [longitude, latitude] = result['geometry']['coordinates']; // [long, lat]
+        return { address: formattedAddress, center: [latitude, longitude] };
       });
   }
 
+  /**
+   * Return an address based on its coordinates
+   * @param coords Coordinates to geocode
+   */
   getReverseGeocoding(coords: number[]): Observable<any> {
     const query = Object.assign({}, Mapzen.searchParams, {
       'point.lat': coords[0].toString(),
       'point.lon': coords[1].toString()
     });
-    const params: URLSearchParams = this.setSearchParameters(query);
+    const params: URLSearchParams = this.buildSearchParameters(query);
 
     return this.getCall(Mapzen.reverseURL, params)
-      .map(result => result ? { address: result['properties']['label'], center: coords } : false);
+      .map(result => {
+        if (!result) {
+          return false;
+        }
+        const { street, housenumber, localadmin } = result['properties'];
+        const address = `${street}, ${housenumber}, ${localadmin}`;
+        const formattedAddress = this.formatAddress(address, false);
+
+        return { address: formattedAddress, center: coords };
+      });
   }
 
   /**
-   * call http get Mapzen
+   * Format an address before geocoding
+   * @param address  Address to format
+   * @param removeSN Whether remove or not S/N numbers from address
+   */
+  private formatAddress(address: string, removeSN: boolean = true): string {
+    let formatted = address.trim().replace(/(Carrer|Calle|Cl)\s+(de\s+|d\')?/i, 'Carrer ');
+
+    if (removeSN) {
+      formatted = formatted.replace(/,?\s+s\/n/i, '');
+    }
+
+    return formatted;
+  }
+
+  /**
+   * Call http get Mapzen
    * @param url
    * @param params
    * @returns {Observable<R>}
    */
   private getCall(url: string, params: URLSearchParams) {
     return this.http.get(url, { search: params })
-      .map(response => response.json().features[ 0 ])
+      .map(response => response.json().features[0])
       .catch(this.handleError);
   }
 
   /**
-   * handle http.get error
+   * Handle http.get error
    * @param error
    * @returns {ErrorObservable<any>}
    */
@@ -75,12 +104,13 @@ export class MapzenGeocodeService implements Geocode {
   }
 
   /**
-   * set default search parameters for geolocation
+   * Build geocoding search parameters
+   * @param query Geocoding search criteria
    * @returns {URLSearchParams}
    */
-  private setSearchParameters(query): URLSearchParams {
+  private buildSearchParameters(query: any): URLSearchParams {
     const params = new URLSearchParams();
-    Object.keys(query).forEach(key => params.set(key, query[ key ]));
+    Object.keys(query).forEach(key => params.set(key, query[key]));
 
     return params;
   }
