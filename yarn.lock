@@ -180,8 +180,8 @@
   resolved "https://registry.yarnpkg.com/@types/babyparse/-/babyparse-0.0.30.tgz#7171a067980b5758809821ea5edffba58428098d"
 
 "@types/geojson@*":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.0.tgz#6af48a0d492c09068e97cb78e6bef940d57fb36d"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.2.tgz#b02d10ab028e2928ac592a051aaa4981a1941d03"
 
 "@types/hammerjs@2.0.34":
   version "2.0.34"
@@ -191,9 +191,9 @@
   version "2.5.42"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.42.tgz#60ed723d08d2ddd277333ebe1e39761b46fdb755"
 
-"@types/leaflet@1.0.55":
-  version "1.0.55"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.0.55.tgz#b30e91ee8df5da173dd92fceec130691a99ed6ac"
+"@types/leaflet@1.0.63":
+  version "1.0.63"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.0.63.tgz#389649103a1dd718ba7ffcc84bb56d9dd1c6dbe6"
   dependencies:
     "@types/geojson" "*"
 
@@ -3189,9 +3189,9 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-leaflet@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.3.tgz#1f401b98b45c8192134c6c8d69686253805007c8"
+leaflet@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.1.0.tgz#63246715cfc783dca6798b843a250e8e6fd84918"
 
 less-loader@^2.2.3:
   version "2.2.3"

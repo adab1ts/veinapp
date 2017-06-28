@@ -8,7 +8,6 @@ import { PlacesComponent } from './places.component';
 import { PlacesListItemComponent } from './places-list-item/places-list-item.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { PlaceItemComponent } from './place-item/place-item.component';
-import { LeafletMapComponent } from '../geo/map/leaflet-map/leaflet-map.component';
 
 describe('PlacesListComponent', () => {
   let component: PlacesComponent;
@@ -27,7 +26,6 @@ describe('PlacesListComponent', () => {
         PlacesComponent,
         PlacesListItemComponent,
         PlaceItemComponent,
-        LeafletMapComponent
       ]
     })
     .compileComponents();
