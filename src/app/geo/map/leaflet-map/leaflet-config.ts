@@ -32,7 +32,7 @@ export class LeafletConfig {
   });
 
   static BASE_MAPS = {
-    OpenStreetMap: tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png')
+    OpenStreetMap: tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png')
   };
 
   static PLACE_TYPES = [
