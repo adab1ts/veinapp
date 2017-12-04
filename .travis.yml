@@ -18,7 +18,6 @@ addons:
       - google-chrome-stable
 
 cache:
-  yarn: true
   directories:
     - node_modules
 
