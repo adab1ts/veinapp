@@ -1,8 +1,0 @@
-// Fill the fields and rename the file
-
-const mapzenConfig = {
-  apiKey: 'MAPZEN-API-KEY',
-  apiURL: 'https://search.mapzen.com/v1'
-};
-
-export { mapzenConfig };

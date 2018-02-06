@@ -98,8 +98,8 @@ function geocodePlaces(places: any[], opts: any): Promise<any> {
 
   if (opts.geocode) {
     console.log('Geocoding places..');
-    const config = GeoProvider.Mapzen.geoserviceConfig(opts.prod);
-    const placesGeocoded: Promise<any>[] = places.map((place, pos) => GeoProvider.Mapzen.geocodePlace(place, pos, config));
+    const config = GeoProvider.Mapbox.geoserviceConfig(opts.prod);
+    const placesGeocoded: Promise<any>[] = places.map((place, pos) => GeoProvider.Mapbox.geocodePlace(place, pos, config));
 
     geocoded = Promise.all(placesGeocoded);
   } else {

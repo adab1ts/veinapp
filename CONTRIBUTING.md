@@ -6,10 +6,18 @@ as well as instructions for coding standards and contributing guidelines.
 You'll notice that when this file is present, GitHub will give you an alert when creating
 a new issue, indicating that you should check out the guidelines *before* contributing.
 
-* [Development Environment](#development-environment)
-* [Coding Standards](#coding-standards)
-* [Contributing Guidelines](#contributing-guidelines)
-* [Resources](#resources)
+- [Contributing](#contributing)
+  - [Development Environment](#development-environment)
+      - [Prerequesites](#prerequesites)
+      - [Set up instructions](#set-up-instructions)
+  - [Coding Standards](#coding-standards)
+      - [Style Guide](#style-guide)
+      - [Commit messages](#commit-messages)
+  - [Contributing Guidelines](#contributing-guidelines)
+      - [Acceptable Submissions](#acceptable-submissions)
+      - [Submmitting an Issue](#submmitting-an-issue)
+      - [Submitting a Pull Request](#submitting-a-pull-request)
+  - [Resources](#resources)
 
 
 ## Development Environment
@@ -31,7 +39,7 @@ npm uninstall -g angular-cli @angular/cli
 npm cache clean
 
 # Install Angular CLI globally
-npm install -g @angular/cli@latest
+npm install -g @angular/cli@1.0.0-rc.2
 ```
 
 See [Resources](#resources) section for more information on Angular CLI.
@@ -40,7 +48,7 @@ See [Resources](#resources) section for more information on Angular CLI.
 
 This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data.
 
-This application also relies on [Mapzen](https://mapzen.com/) as its geocoding service provider. Create a [Mapzen developer account](https://mapzen.com/developers/sign_up) and grab your API key as explained [here](https://mapzen.com/documentation/overview/).
+This application also relies on [Mapbox](https://www.mapbox.com/geocoding/) as its geocoding service provider. Create a [Mapbox account](https://www.mapbox.com/signup/) and grab your Access token as explained [here](https://www.mapbox.com/help/how-access-tokens-work/).
 
 [Fork](https://help.github.com/articles/fork-a-repo/) the main [Veinapp repository](https://github.com/adab1ts/veinapp.git) from GitHub and then...
 
@@ -66,12 +74,12 @@ git branch -vv
 # Install project dependencies:
 npm install
 
-# Edit Mapzen configuration files and update it with your data
-cp src/config/mapzen.{ts.sample,ts}
-vi src/config/mapzen.ts
+# Edit Mapbox configuration files and update it with your data
+cp src/config/mapbox.{ts.sample,ts}
+vi src/config/mapbox.ts
 
-cp src/config/mapzen.{ts.sample,prod.ts}
-vi src/config/mapzen.prod.ts
+cp src/config/mapbox.{ts.sample,prod.ts}
+vi src/config/mapbox.prod.ts
 
 # Edit Firebase configuration files and update it with your data
 cp src/config/firebase.{ts.sample,ts}

@@ -1,0 +1,8 @@
+// Fill the fields and rename the file
+
+const mapboxConfig = {
+  apiToken: 'MAPBOX-ACCESS-TOKEN',
+  apiURL: 'https://api.mapbox.com/geocoding/v5/mapbox.places'
+};
+
+export { mapboxConfig };

@@ -11,22 +11,22 @@ function geoserviceConfig(prod: boolean): any {
   let config = undefined;
 
   if (prod) {
-    config = require('../../src/config/mapzen.prod');
+    config = require('../../src/config/mapbox.prod');
   } else {
-    config = require('../../src/config/mapzen');
+    config = require('../../src/config/mapbox');
   }
 
-  const { mapzenConfig } = config;
+  const { mapboxConfig } = config;
 
   return {
-    searchURL: `${mapzenConfig.apiURL}/search`,
-    reverseURL: `${mapzenConfig.apiURL}/reverse`,
+    apiURL: mapboxConfig.apiURL,
+    apiToken: mapboxConfig.apiToken,
     searchParams: {
-      'api_key': mapzenConfig.apiKey,
-      'boundary.country': 'ES',
-      'sources': 'oa',
-      'layers': 'address',
-      'size': '1'
+      'country': 'ES',
+      'types': 'address',
+      'autocomplete': 'false',
+      'limit': '1',
+      'language': 'ca'
     }
   };
 }
@@ -41,9 +41,9 @@ function geocodePlace(place: any, delta: number, config: any): Promise<any> {
   const formattedPlace = Formatter.format([{fn: Formatter.geoformat, keys: ['address']}])(place);
 
   const searchTerm = `${formattedPlace.address}, ${formattedPlace.city}`;
-  const query = Object.assign({}, config.searchParams, { 'text': searchTerm });
+  const query = Object.assign({}, config.searchParams, { 'access_token': config.apiToken });
   const opts = {
-    uri: config.searchURL,
+    uri: `${config.apiURL}/${encodeURIComponent(searchTerm)}.json`,
     qs: query,
     json: true
   };

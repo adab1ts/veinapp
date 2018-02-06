@@ -11,7 +11,7 @@ import { CurrentSearchEffectService } from './current-search-effect.service';
 import { WindowRefService } from '../../geo/windowRef/window-ref.service';
 import { GeolocationService, GeocodeService, GeosearchingService, FirebaseQueryingService } from '../../geo/geo.module';
 import { ActionTypes } from '../actions/current-search-action';
-import { MapzenGeocodeService } from '../../geo/geocode/mapzen-geocode.service';
+import { MapboxGeocodingService } from '../../geo/geocode/mapbox-geocoding.service';
 import { regExpEscape } from '../../util';
 
 describe('CurrentSearch Effect Service', () => {
@@ -31,7 +31,7 @@ describe('CurrentSearch Effect Service', () => {
         GeocodeService,
         FirebaseQueryingService,
         { provide: GeosearchingService, useValue: { getPlaces: null } },
-        { provide: MapzenGeocodeService, useValue: null },
+        { provide: MapboxGeocodingService, useValue: null },
         { provide: AngularFireDatabase, useValue: null }
       ]
     });

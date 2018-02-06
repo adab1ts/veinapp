@@ -4,14 +4,14 @@ import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, Response, ResponseOptions, Http } from '@angular/http';
 
 import { GeocodeService } from './geocode.service';
-import { MapzenGeocodeService } from './mapzen-geocode.service';
+import { MapboxGeocodingService } from './mapbox-geocoding.service';
 
 describe('GeocodeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         GeocodeService,
-        MapzenGeocodeService,
+        MapboxGeocodingService,
         {
           provide: Http,
           useFactory: (mockBackend, options) => {
@@ -56,12 +56,7 @@ describe('GeocodeService', () => {
       const coords = [41.429682, 2.175945];
       const mockResponse = {
         features: [ {
-          properties: {
-            street: 'Mock Street',
-            housenumber: '10',
-            localadmin: 'FakeCity',
-            label: 'Mock Street, 10, FakeCity'
-          }
+          place_name: 'Mock Street 10, FakeCity'
         } ]
       };
 
@@ -72,7 +67,7 @@ describe('GeocodeService', () => {
       });
 
       geocodeService.getAddress(coords).subscribe((searchState) => {
-        expect(searchState.address).toEqual('Mock Street, 10, FakeCity');
+        expect(searchState.address).toEqual('Mock Street 10, FakeCity');
       });
     })));
 });

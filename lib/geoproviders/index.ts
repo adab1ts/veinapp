@@ -1,4 +1,4 @@
 
-import * as Mapzen from './mapzen';
+import * as Mapbox from './mapbox';
 
-export { Mapzen };
+export { Mapbox };

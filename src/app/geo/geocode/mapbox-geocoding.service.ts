@@ -5,20 +5,24 @@ import { environment } from '../../../environments/environment';
 
 import { Geocode } from './geocode';
 
-const Mapzen = {
-  searchURL: `${environment.mapzen.apiURL}/search`,
-  reverseURL: `${environment.mapzen.apiURL}/reverse`,
+const Mapbox = {
+  apiURL: environment.mapbox.apiURL,
+  apiToken: environment.mapbox.apiToken,
   searchParams: {
-    'api_key': environment.mapzen.apiKey,
-    'boundary.country': 'ES',
-    'sources': 'oa',
-    'layers': 'address',
-    'size': '1'
+    'country': 'ES',
+    'types': 'address',
+    'autocomplete': 'false',
+    'limit': '1',
+    'language': 'ca'
+  },
+  reverseParams: {
+    'types': 'address',
+    'limit': '1'
   }
 };
 
 @Injectable()
-export class MapzenGeocodeService implements Geocode {
+export class MapboxGeocodingService implements Geocode {
 
   constructor(private http: Http) {}
 
@@ -29,10 +33,11 @@ export class MapzenGeocodeService implements Geocode {
    */
   getGeocoding(address: string): Observable<any> {
     const formattedAddress = this.formatAddress(address);
-    const query = Object.assign({}, Mapzen.searchParams, { 'text': formattedAddress });
+    const url = `${Mapbox.apiURL}/${encodeURIComponent(formattedAddress)}.json`;
+    const query = Object.assign({}, Mapbox.searchParams, { 'access_token': Mapbox.apiToken });
     const params: URLSearchParams = this.buildSearchParameters(query);
 
-    return this.getCall(Mapzen.searchURL, params)
+    return this.getCall(url, params)
       .map(result => {
         if (!result) {
           return false;
@@ -47,19 +52,18 @@ export class MapzenGeocodeService implements Geocode {
    * @param coords Coordinates to geocode
    */
   getReverseGeocoding(coords: number[]): Observable<any> {
-    const query = Object.assign({}, Mapzen.searchParams, {
-      'point.lat': coords[0].toString(),
-      'point.lon': coords[1].toString()
-    });
+    const [lat, long] = coords;
+    const url = `${Mapbox.apiURL}/${long}%2C${lat}.json`;
+    const query = Object.assign({}, Mapbox.reverseParams, { 'access_token': Mapbox.apiToken });
     const params: URLSearchParams = this.buildSearchParameters(query);
 
-    return this.getCall(Mapzen.reverseURL, params)
+    return this.getCall(url, params)
       .map(result => {
         if (!result) {
           return false;
         }
-        const { street, housenumber, localadmin } = result['properties'];
-        const address = `${street}, ${housenumber}, ${localadmin}`;
+        const { place_name } = result;
+        const address = place_name.split(/\s*,\s*/, 2).join(', ');
         const formattedAddress = this.formatAddress(address, false);
 
         return { address: formattedAddress, center: coords };
@@ -82,7 +86,7 @@ export class MapzenGeocodeService implements Geocode {
   }
 
   /**
-   * Call http get Mapzen
+   * Call http get Mapbox
    * @param url
    * @param params
    * @returns {Observable<R>}
@@ -99,7 +103,7 @@ export class MapzenGeocodeService implements Geocode {
    * @returns {ErrorObservable<any>}
    */
   private handleError(error: any) {
-    const errMsg = error.message || 'Mapzen search server error';
+    const errMsg = error.message || 'Mapbox search server error';
     return Observable.throw(errMsg);
   }
 

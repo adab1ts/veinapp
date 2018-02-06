@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { GeocodeService } from './geocode/geocode.service';
-import { MapzenGeocodeService } from './geocode/mapzen-geocode.service';
+import { MapboxGeocodingService } from './geocode/mapbox-geocoding.service';
 import { WindowRefService } from './windowRef/window-ref.service';
 import { GeolocationService } from './geolocation/geolocation.service';
 import { GeosearchingService } from './geosearching/geosearching.service';
@@ -11,7 +11,7 @@ import { FirebaseQueryingService } from './firebase-querying/firebase-querying.s
 @NgModule({
   providers: [
     GeocodeService,
-    MapzenGeocodeService,
+    MapboxGeocodingService,
     WindowRefService,
     GeolocationService,
     GeosearchingService,

@@ -11,13 +11,13 @@ Map your vicinity and search for places around.
 
 This application relies on [Firebase Realtime Database](https://firebase.google.com/docs/database/) as its data store. So first sign in to [Firebase](https://firebase.google.com/), head to the console and create your project. Then grab your initialization data. More on this below.
 
-This application also relies on [Mapzen](https://mapzen.com/) as its geocoding service provider. Create a [Mapzen developer account](https://mapzen.com/developers/sign_up) and grab your API key as explained [here](https://mapzen.com/documentation/overview/).
+This application also relies on [Mapbox](https://www.mapbox.com/geocoding/) as its geocoding service provider. Create a [Mapbox account](https://www.mapbox.com/signup/) and grab your Access token as explained [here](https://www.mapbox.com/help/how-access-tokens-work/).
 
 Now, [fork](https://help.github.com/articles/fork-a-repo/) the main [Veinapp repository](https://github.com/adab1ts/veinapp.git) from GitHub and then...
 
 ```shell
 # Install Angular CLI globally
-npm install -g @angular/cli@latest
+npm install -g @angular/cli@1.0.0-rc.2
 
 # Clone your fork (https://help.github.com/articles/cloning-a-repository/):
 git clone git@github.com:<github username>/veinapp.git
@@ -28,12 +28,12 @@ cd veinapp
 # Install project dependencies:
 npm install
 
-# Edit Mapzen configuration files and update it with your data
-cp src/config/mapzen.{ts.sample,ts}
-vi src/config/mapzen.ts
+# Edit Mapbox configuration files and update it with your data
+cp src/config/mapbox.{ts.sample,ts}
+vi src/config/mapbox.ts
 
-cp src/config/mapzen.{ts.sample,prod.ts}
-vi src/config/mapzen.prod.ts
+cp src/config/mapbox.{ts.sample,prod.ts}
+vi src/config/mapbox.prod.ts
 
 # Edit Firebase configuration files and update it with your data
 cp src/config/firebase.{ts.sample,ts}
