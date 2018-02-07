@@ -17,7 +17,7 @@
   ],
   "private": true,
   "scripts": {
-    "postinstall": "npm rebuild node-sass",
+    "postinstall": "npm install enhanced-resolve@3.3.0",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
