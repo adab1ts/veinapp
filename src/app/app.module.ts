@@ -33,7 +33,7 @@ import { environment } from '../environments/environment';
     RouterStoreModule.connectRouter(),
     EffectsModule.run(CurrentSearchEffectService),
     // TODO remove on prod
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    // StoreDevtoolsModule.instrumentOnlyWithExtension(),
     SharedModule,
     GeoModule,
     GeoHeaderModule,
