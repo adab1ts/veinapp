@@ -130,7 +130,7 @@ If everything works, then you're ready to make changes.
 
 #### Style Guide
 
-All code must follow the styles dictated by the official [Angular Style Guide](https://angular.io/styleguide). As long as you use Angular CLI and don't skip the git hooks, you shouldn't need to worry about missing something.
+All code must follow the styles dictated by the official [Angular Style Guide](https://angular.io/guide/styleguide). As long as you use Angular CLI and don't skip the git hooks, you shouldn't need to worry about missing something.
 
 Angular projects created using Angular CLI (like this) include [Codelyzer](https://github.com/mgechev/codelyzer) as a dependency. Codelyzer will check your code against the Angular tslint rules every time you run `ng lint` or commit your changes.
 
